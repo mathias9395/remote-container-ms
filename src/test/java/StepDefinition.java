@@ -4,9 +4,12 @@ import io.cucumber.java.en.When;
 
 public class StepDefinition {
 	
+	Client client = new Client();
+	
+	
 	@Given("^a name \\\"([^\\\"]*)\\\"$")
 	public void a_name(String string) {
-	    
+	    client.setName(string);
 	}
 
 	@Given("a username {string}")
@@ -41,8 +44,7 @@ public class StepDefinition {
 
 	@Then("create client")
 	public void create_client() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		
 	}
 
 	@Then("display new client")

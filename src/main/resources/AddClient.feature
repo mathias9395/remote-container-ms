@@ -21,7 +21,7 @@ Feature: Adding a new client
 
   @tag1
   Scenario: Add client successful
-    Given a name "Mathias"
+    Given a name "Mathias" with "email"
     And a username "mbk"
     And a phone number "45454545"
     And a email "mathias@gmail.com"
@@ -38,3 +38,4 @@ Feature: Adding a new client
     And a password "password"
     When add client
     Then display message that client with username already exists
+   
