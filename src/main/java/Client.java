@@ -50,6 +50,10 @@ public class Client {
 		this.name = name;
 	}
 	
+	public String toString() {
+		return "Name: "+name+". Username: "+username+". Phone Number: "+phoneNumber+". Email: "+email;
+	}
+	
 	
 
 }
