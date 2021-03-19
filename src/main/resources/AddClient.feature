@@ -21,21 +21,21 @@ Feature: Adding a new client
 
   @tag1
   Scenario: Add client successful
-    Given a name "Mathias" with "email"
-    And a username "mbk"
+    Given a username "mbk"
+    And a name "Mathias"
     And a phone number "45454545"
     And a email "mathias@gmail.com"
     And a password "password"
     When add client
-    Then create client
+    Then client list has new client
     And display new client
     
-  Scenario: Client already exists
-    Given a name "Mathias"
-    And a username "mbk"
-    And a phone number "45454545"
-    And a email "mathias@gmail.com"
-    And a password "password"
-    When add client
-    Then display message that client with username already exists
+  #Scenario: Client already exists
+    #Given a name "Mathias"
+    #And a username "mbk"
+    #And a phone number "45454545"
+    #And a email "mathias@gmail.com"
+    #And a password "password"
+    #When add client
+    #Then display message that client with username already exists
    
