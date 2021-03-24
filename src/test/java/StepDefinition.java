@@ -11,34 +11,39 @@ public class StepDefinition {
 	ResponseObject response;
 	Client search;
 	
-	
-	@Given("a username {string}")
-	public void a_username(String username) {
-	    client = new Client(username);
-	}
+	String name;
+	String email;
+	String password;
+	String referencePerson;
+	String address;
 
 	@Given("a name {string}")
 	public void a_name(String name) {
-	    client.setName(name);
-	}
-
-	@Given("a phone number {string}")
-	public void a_phone_number(String phoneNumber) {
-	    client.setPhoneNumber(phoneNumber);
+	    this.name = name;
 	}
 
 	@Given("a email {string}")
 	public void a_email(String email) {
-	    client.setEmail(email);
+	    this.email = email;
 	}
 
 	@Given("a password {string}")
 	public void a_password(String password) {
-	    client.setPassword(password);
+	    this.password = password;
+	}
+	
+	@Given("an address {string}")
+	public void an_address(String address) {
+		this.address = address;
+	}
+	@Given("a reference person {string}")
+	public void a_reference_person(String referencePerson) {
+		this.referencePerson = referencePerson;
 	}
 
 	@When("add client")
 	public void add_client() {
+		client = new Client(name, email, referencePerson, password, address);
 	    response = company.addClient(client);
 	}
 

@@ -2,11 +2,36 @@
 public class Client {
 	
 	private String name;
-	private String username;
-	private String phoneNumber;
+	private String address;
+	private String referencePerson;
 	private String email;
 	private String password;
 	
+	public Client(String name, String email, String referencePerson, String password, String address) {
+		this.name = name;
+		this.email = email;
+		this.referencePerson = referencePerson;
+		this.password = password;
+		this.address = address;
+	}
+	
+	
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getReferencePerson() {
+		return referencePerson;
+	}
+
+	public void setReferencePerson(String referencePerson) {
+		this.referencePerson = referencePerson;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -15,31 +40,12 @@ public class Client {
 		this.password = password;
 	}
 
-	public Client(String username) {
-		this.username = username;
-	}
-	
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	public String getPhoneNumber() {
-		return phoneNumber;
 	}
 	
 	public String getName() {
@@ -51,7 +57,7 @@ public class Client {
 	}
 	
 	public String toString() {
-		return "Name: "+name+". Username: "+username+". Phone Number: "+phoneNumber+". Email: "+email;
+		return "Name: "+ name + ". Email:" + email;
 	}
 	
 	
