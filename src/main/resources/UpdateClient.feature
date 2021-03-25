@@ -35,12 +35,15 @@ Feature: Updating Client
     #
   Scenario: update info for client successful
   	Given an email "mathias@gmail.com" with name "Mathias"
-  	And a name "Mathias"
-    And a phone number "60606060"
-    And a password "password"
-    And a email "new@gmail.com"
+  	And company set containing client
   	When update client information
-  	Then display successfully updated
+  	Then client updated with new information
+  Scenario: client not found
+  	Given an email "mathias@gmail.com" with name "Mathias"
+  	And company set not containing client
+  	When update client information
+  	Then client not in list message
+ 
   #	
  #Scenario: update info for client successful
   #	Given a client "client"
