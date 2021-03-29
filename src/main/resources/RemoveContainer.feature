@@ -17,13 +17,11 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Updating the temperature, humidity, atmospheric pressure of the container over time
+Feature: Removing container ownership
 
   @tag1
-  Scenario: Add container status entry
+  Scenario: Remove container successfully
     Given a container
-    And temperature
-    And humidity
-    And atmospheric pressure
-    When add new status entry to container
-    Then check if container contains new status
+    And: a client
+    When remove container
+    Then client container list does not contain container

@@ -20,11 +20,13 @@
 Feature: Adding a new container
 
   @tag1
-  Scenario: New container added successfuly
-    Given I want to write a step with precondition
-    And some other precondition
-    When I complete action
-    And some other action
-    And yet another action
-    Then I validate the outcomes
-    And check more outcomes
+  Scenario: New container added successfully
+    Given a client
+    When add new container
+    Then client container list contains container
+    
+  Scenario: Existing container added successfully
+  	Given: a client
+  	And: an existing container
+  	When: add existing container
+  	Then: client container list contains container
