@@ -21,28 +21,27 @@ Feature: Updating Client
 #
 #
   @tag1
-  #Scenario: Update refrence person
-    #Given a refrence person "Nick"
-    #When update client refrence person
-    #Then display message that refrence person is updated
-#
-#
-  #Scenario: Update email
-    #Given a email "nick@gmail.com"
-    #When update client email
-    #Then display message that email is updated
-    #
-    #
-  Scenario: update info for client successful
-  	Given an email "mathias@gmail.com" with name "Mathias"
-  	And company set containing client
-  	When update client information
-  	Then client updated with new information
-  Scenario: client not found
-  	Given an email "mathias@gmail.com" with name "Mathias"
-  	And company set not containing client
-  	When update client information
-  	Then client not in list message
+  Scenario: Update reference person
+		Given a client "Client"
+		And a reference person "Mathias"
+		When update reference person
+		Then refrence person is updated
+		
+	Scenario: Update email
+		Given a client 
+		And an email "Mathias@gmail.com"
+		When update email
+		Then email is updated
+  #Scenario: update info for client successful
+  #	Given an email "mathias@gmail.com" with name "Mathias"
+  #	And company set containing client
+  #	When update client information
+  #	Then client updated with new information
+  #Scenario: client not found
+  #	Given an email "mathias@gmail.com" with name "Mathias"
+  #	And company set not containing client
+  #	When update client information
+  #	Then client not in list message
  
   #	
  #Scenario: update info for client successful

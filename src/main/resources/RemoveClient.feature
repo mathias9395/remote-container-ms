@@ -17,21 +17,15 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Adding a new client
+Feature: deleting a client
 
   @tag1
-  Scenario: Client found successfully
+  Scenario: client deleted successfully
     Given a name "Mathias"
+    And company set containing client
     When client is found
-    Then return client
-  Scenario: Client not found
-    Given a name "Test" with an email "Test@gmail.com"
-    When client is not found
-    Then return null
-    
-    
-    
-    
-    
-    
-    
+    And client to be deleted is selected "Client"
+    Then client is deleted
+
+ 
+   

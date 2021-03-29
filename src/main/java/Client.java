@@ -69,6 +69,7 @@ public class Client {
 		return "Name: "+ name + ". Email:" + email;
 	}
 	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Client) {
 			Client compare = (Client) obj;
@@ -77,6 +78,7 @@ public class Client {
 		return false;
 	}
 	
+	@Override
 	public int hashCode() {
 		return new HashCodeBuilder(17,37).append(name).append(email).append(referencePerson).append(password).append(address).append(id).toHashCode();
 	}

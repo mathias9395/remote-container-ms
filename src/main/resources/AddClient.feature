@@ -28,7 +28,6 @@ Feature: Adding a new client
     And an address "123 Street"
     When add client
     Then client list has new client
-    And display message client was created
     
   Scenario: Client already exists
     Given a name "Mathias"
@@ -38,5 +37,4 @@ Feature: Adding a new client
     And an address "123 Street"
     When add client
     Then client list contains client
-    And display message client already exists
    

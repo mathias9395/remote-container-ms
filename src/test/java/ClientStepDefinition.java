@@ -1,14 +1,14 @@
 import static org.junit.Assert.*;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class StepDefinition {
+public class ClientStepDefinition {
 	
 	Client client;
 	LogisticCompany company = new LogisticCompany();
-	ResponseObject response;
 	Client search;
 	
 	String name;
@@ -17,12 +17,14 @@ public class StepDefinition {
 	String referencePerson;
 	String address;
 
+	//add client
+	
 	@Given("a name {string}")
 	public void a_name(String name) {
 	    this.name = name;
 	}
 
-	@Given("a email {string}")
+	@Given("an email {string}")
 	public void a_email(String email) {
 	    this.email = email;
 	}
@@ -44,45 +46,37 @@ public class StepDefinition {
 	@When("add client")
 	public void add_client() {
 		client = new Client(name, email, referencePerson, password, address);
-	    response = company.addClient(client);
+	    company.addClient(client);
 	}
 
 	@Then("client list has new client")
 	public void client_list_has_new_client() {
-	    assertTrue(company.getClients().contains(client));
+	    assertTrue(company.getClients().containsKey(this.name));
+	    Client newClient = company.getClients().get(this.name);
+	    assertTrue(client == newClient);
 	}
 
-	@Then("display message client was created")
-	public void display_message_client_was_created() {
-		assertEquals(response.getErrorMessage(),"Client successfuly created");
-	    
-	}
 	@Then("client list contains client")
 	public void client_list_contains_client() {
-		response = company.addClient(client);
-		assertTrue(company.getClients().contains(client));
+		company.addClient(client);
+		assertTrue(company.getClients().containsKey(client));
 	}
-
-	@Then("display message client already exists")
-	public void display_message_client_already_exists() {
-		assertEquals(response.getErrorMessage(),"Client already exists");
-	}
+// Should probably have some message 
+//	@Then("display message client already exists")
+//	public void display_message_client_already_exists() {
+//		assertEquals(response.getErrorMessage(),"Client already exists");
+//	}
 	
+	// find client
 	
-	
-	
-	
-	
-	
-
-	@Given("a name {string} with an email {string}")
-	public void a_name_with_an_email(String name, String email) {
-	    search = company.findClient(name,email);
+	@Given("a name {string}")
+	public void a_name_with_an_email(String name) {
+	    search = company.findClient(name);
 	}
 
 	@When("client is found")
 	public void client_is_found() {
-	    assertEquals(client,search);
+	    assertEquals(this.name,search.getName());
 	}
 
 	@Then("return client")
@@ -100,8 +94,54 @@ public class StepDefinition {
 	    return null;
 	}
 	
+	// update client
+	@Given("a client {Client}")
+	public void a_client(Client client) {
+		this.client = client;
+	}
+	
+	@When("update reference person")
+	public void update_reference_person() {
+	   client.setReferencePerson(referencePerson);
+	}
+	
+	@When("update email")
+	public void update_email() {
+		client.setEmail(email);
+	   
+	}
 	
 	
+	//remove client
+	
+	@Given("a name {string}")
+	public void a_name1(String name) {
+	    search = company.findClient(name);
+	}
+
+	@When("client is found")
+	public void client_is_found1() {
+	    assertEquals(this.name,search.getName());
+	}
+
+	@And("client to be deleted is selected {Client}")
+	public void client_to_be_deleted_is_selected(Client client) {
+	    this.client = client;
+	}
+
+	@Then("client is deleted")
+	public Client deleteClient(Client client) {
+	    return company.deleteClient(client);
+	}
+	public LogisticCompany return_new() {
+	    return company;
+	}
+	
+	// Should probably have some message 
+//		@Then("display message client is deleted")
+//		public void display_message_client_is_deleted() {
+//			assertEquals(response.getErrorMessage(),"Client is deleted");
+//		}
 	
 	
 //	

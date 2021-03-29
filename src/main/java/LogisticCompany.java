@@ -16,21 +16,25 @@ public class LogisticCompany {
 		clients = new HashMap<String, Client>();;
 	}
 
-	public ResponseObject addClient(Client client) {
-		ResponseObject response;
+	public void addClient(Client client) {
 		if (clients.containsKey(client.getName())) {
-			response = new ResponseObject("Client already exists");
+			return;
 		} else {
 			clients.put(client.getName(), client);
-			response = new ResponseObject("Client successfuly created");
 		}
-		return response;
-		
 	}
 	
 	public Client findClient(String name) {
 		return clients.get(name);
 		
 	}
+	
+	public Client deleteClient(Client client) {
+		
+		//clients.remove(client);
+		return clients.remove(client);
+		
+	}
+
 
 }
