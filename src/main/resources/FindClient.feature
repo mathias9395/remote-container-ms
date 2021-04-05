@@ -17,17 +17,21 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Adding a new client
+Feature: Find an existing client
 
   @tag1
-  Scenario: Client found successfully
-    Given a name "Mathias"
-    When client is found
-    Then return client
-  Scenario: Client not found
-    Given a name "Test" with an email "Test@gmail.com"
-    When client is not found
-    Then return null
+  Scenario: Client search by name
+    Given client with name "Mathias" with "email" with "reference person" with "password" with "address"
+    And a client list with client
+    When search by name "Mathias"
+    Then filtered client list contains client
+    
+  Scenario: Client search by email
+    Given client with name "name" with "mathias@gmail.com" with "reference person" with "password" with "address"
+    And a client list with client
+    When search by email "mathias@gmail.com"
+    Then filtered client list contains client
+    
     
     
     

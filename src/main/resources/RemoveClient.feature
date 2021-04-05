@@ -21,11 +21,9 @@ Feature: deleting a client
 
   @tag1
   Scenario: client deleted successfully
-    Given a name "Mathias"
-    And company set containing client
-    When client is found
-    And client to be deleted is selected "Client"
-    Then client is deleted
+    Given a client
+    When client is deleted
+    Then client list does not contain client
 
  
    

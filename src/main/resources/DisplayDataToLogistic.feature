@@ -17,11 +17,15 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Removing container ownership
+Feature: Displaying a client's data to a manager
 
   @tag1
-  Scenario: Remove container successfully
-    Given a container
-    And: a client
-    When remove container
-    Then client container list does not contain container
+  Scenario: Successfully shown data
+    Given a client 
+    When client exists
+    Then show clients data to manager
+    
+  Scenario: Unsuccessfully shown data
+  	Given a client
+    When client doesnt exist
+    Then do not show clients data to manager

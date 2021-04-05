@@ -21,9 +21,9 @@ Feature: Updating the temperature, humidity, atmospheric pressure of the contain
 
   @tag1
   Scenario: Add container status entry
-    Given a container
-    And temperature
-    And humidity
-    And atmospheric pressure
+    Given a container with client with location "Copenhagen"
+    And temperature 50.0
+    And humidity 80.0
+    And atmospheric pressure 50.0
     When add new status entry to container
     Then check if container contains new status

@@ -17,13 +17,17 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Adding a journey
+Feature: Displaying a client's data to other selected client
 
   @tag1
-  Scenario: Journey added successfully
-    Given an origin "Copenhagen"
-    And a destination "Hamburg"
-    And a content type "Apples"
-    And a company "company"
-    When add journey
-    Then journey list has new journey
+  Scenario: Data successfully shared with another client
+    Given a client 
+    And a client2 that is in logistic company 
+    When client2 exists
+    Then show client2 the information of client1
+    
+  Scenario: Data not shared with another client
+    Given a client 
+    And a client2 that is not in logistic company
+    When client2 does not exist
+    Then do not show client2 the information of client1

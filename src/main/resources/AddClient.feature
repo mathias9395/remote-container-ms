@@ -22,19 +22,20 @@ Feature: Adding a new client
   @tag1
   Scenario: Add client successful
     Given a name "Mathias"
-    And a email "mathias@gmail.com"
+    And an email "mathias@gmail.com"
     And a password "password"
     And a reference person "Nima"
     And an address "123 Street"
+    And a client list
     When add client
     Then client list has new client
     
-  Scenario: Client already exists
+  Scenario: Client with name already exists
     Given a name "Mathias"
-    And a email "mathias@gmail.com"
+    And an email "mathias@gmail.com"
     And a password "password"
     And a reference person "Nima"
     And an address "123 Street"
+    And client list containing client with name "Mathias"
     When add client
-    Then client list contains client
-   
+    Then client list already contains client

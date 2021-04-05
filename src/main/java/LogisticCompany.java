@@ -1,10 +1,11 @@
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LogisticCompany {
 	
-	private HashMap<String, Client> clients;
+	private Map<String, Client> clients;
 	
-	public HashMap<String, Client> getClients() {
+	public Map<String, Client> getClients() {
 		return clients;
 	}
 
@@ -12,7 +13,7 @@ public class LogisticCompany {
 		this.clients = clients;
 	}
 
-	public LogisticCompany () {
+	public LogisticCompany() {
 		clients = new HashMap<String, Client>();;
 	}
 
@@ -28,12 +29,41 @@ public class LogisticCompany {
 		return clients.get(name);
 		
 	}
+
+	public void removeClient(String name) {
+		clients.remove(name);
+		
+	}
+
+	public Map<String,Client> filterClientsName(String name) {
+		Map<String, Client> filteredClients = new HashMap<>();
+		for(Map.Entry<String, Client> entry: clients.entrySet()) {
+			if (entry.getKey().toLowerCase().contains(name.toLowerCase())) {
+				filteredClients.put(entry.getKey(), entry.getValue());
+			}
+		}
+
+		return filteredClients;
+		
+	}
+
+	public Map<String, Client> filterClientsEmail(String email) {
+		Map<String, Client> filteredClients = new HashMap<>();
+		for(Map.Entry<String, Client> entry: clients.entrySet()) {
+			if (entry.getValue().getEmail().toLowerCase().contains(email.toLowerCase())) {
+				filteredClients.put(entry.getKey(), entry.getValue());
+			}
+		}
+
+		return filteredClients;
+	}
 	
-	public Client deleteClient(Client client) {
-		
-		//clients.remove(client);
-		return clients.remove(client);
-		
+	public void shareData(Client client) {
+		for (String temp : client.getShareClient()) {
+	        if(clients.containsKey(temp)) {
+	        	findClient(temp).setSharedData(client.toString());
+	        }
+		}
 	}
 
 

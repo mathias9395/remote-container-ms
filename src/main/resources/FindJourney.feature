@@ -17,32 +17,17 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Title of your feature
-  I want to use this template for my feature file
+Feature: Find an existing journey
 
   @tag1
-  Scenario: Title of your scenario
-    Given I want to write a step with precondition
-    And some other precondition
-    When I complete action
-    And some other action
-    And yet another action
-    Then I validate the outcomes
-    And check more outcomes
-
-	Scenario: Journey not found
-    Given A company
-    And An email
-    When Journey is not found
-    Then Go to church
+  Scenario: Journey search by content
+    Given a journey with content "Bananas"
+    And a client containing journey
+    When search by content "Bananas"
+    Then filtered journey list that contains content "bananas"
     
-  @tag2
-  Scenario Outline: Title of your scenario outline
-    Given I want to write a step with <name>
-    When I check for the <value> in step
-    Then I verify the <status> in step
-
-    Examples: 
-      | name  | value | status  |
-      | name1 |     5 | success |
-      | name2 |     7 | Fail    |
+ Scenario: Journey search by origin
+    Given a journey with origin "Copenhagen"
+    And a client containing journey
+    When search by origin "Copenhagen"
+    Then filtered journey list that contains origin "Copenhagen"
