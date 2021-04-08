@@ -28,6 +28,34 @@ Feature: Updating client information
     And an address "123 Street"
     When client updated
     Then client contains updated information
+    
+  Scenario: Client with email already exists
+  	Given a client
+  	And a name "Mathias"
+  	And an email "Nima@gmail.com"
+    And a reference person "Nima"
+    And an address "123 Street"
+    And client list containing client with email "Nima@gmail.com"
+    When client updated
+    Then client information not updated
+    
+  Scenario: Client with name already exists
+  	Given a client
+  	And a name "Nima"
+  	And an email "mathias@gmail.com"
+    And a reference person "Nima"
+    And an address "123 Street"
+    And client list containing client with name "Nima"
+    When client updated
+    Then client information not updated
+    
+    
+    
+    
+    
+    
+    
+    
   	
   
   #Scenario: Client does not exist

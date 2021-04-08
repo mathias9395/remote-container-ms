@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class ContainerStatusStepDefinition {
+	LogisticCompany company = new LogisticCompany();
 	Client client;
 	String location;
 	Container container;
@@ -16,7 +17,7 @@ public class ContainerStatusStepDefinition {
 	
 	@Given("a client with name {string} with email {string} with reference person {string} with address {string} with password {string}")
 	public void a_client_with_name_with_email_with_reference_person_with_address_with_password(String name, String email, String referencePerson, String address, String password) {
-	    client = new Client(name,email,referencePerson,address,password);
+	    client = new Client(name,email,referencePerson,address,password,company);
 	}
 
 	@Given("a location {string}")
@@ -37,7 +38,7 @@ public class ContainerStatusStepDefinition {
 	
 	@Given("a container with client with location {string}")
 	public void a_container_with_client_with_location(String location) {
-	    client = new Client("client","email","reference person", "address", "password");
+	    client = new Client("client","email","reference person", "address", "password",company);
 	    this.location = location;
 	    container = new Container(client,location);
 	}

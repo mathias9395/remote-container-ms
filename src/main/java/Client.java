@@ -12,24 +12,29 @@ public class Client {
 	private String referencePerson;
 	private String email;
 	private String password;
-	private Set<Container> containerList;
-	private Set<Journey> journeyList;
+	private LogisticCompany company;
+	private Set<Container> containerSet;
+	private Set<Journey> journeySet;
 	public Set<String> shareClients = new HashSet<String>();
 	public Set<String> sharedData = new HashSet<String>();
 	
-	public Client(String name, String email, String referencePerson, String password, String address) {
+	public Client(String name, String email, String referencePerson, String password, String address, LogisticCompany company) {
 		this.name = name;
 		this.email = email;
 		this.referencePerson = referencePerson;
 		this.password = password;
 		this.address = address;
 		this.id = idCount;
-		containerList = new HashSet<Container>();
-		journeyList = new HashSet<Journey>();
+		this.company = company;
+		containerSet = new HashSet<Container>();
+		journeySet = new HashSet<Journey>();
 		idCount++;
 	}
 	
 	public void update(String name, String email, String referencePerson, String address) {
+		if (company.clientWithEmail(email) || company.getClients().containsKey(name)) {
+			return;
+		}
 		this.name = name;
 		this.email = email;
 		this.referencePerson = referencePerson;
@@ -99,20 +104,20 @@ public class Client {
 	}
 
 	public void addContainer(Container container) {
-		containerList.add(container);
+		containerSet.add(container);
 		
 	}
 	
 	public Set<Container> getContainerList() {
-		return containerList;
+		return containerSet;
 	}
 
 	public void registerJourney(Journey journey) {
-		journeyList.add(journey);
+		journeySet.add(journey);
 	}
 	
 	public Set<Journey> getJourneyList() {
-		return journeyList;
+		return journeySet;
 	}
 	
 //	public Journey findJourney(String origin) {
@@ -143,7 +148,7 @@ public class Client {
 	
 	public Set<Journey> filterJourneysContent(String content) {
 		Set<Journey> filteredJourneys = new HashSet<>();
-		for(Journey entry: journeyList) {
+		for(Journey entry: journeySet) {
 			if (entry.getContentType().toLowerCase().contains(content.toLowerCase())) {
 				filteredJourneys.add(entry);
 			}
@@ -155,7 +160,7 @@ public class Client {
 
 	public Set<Journey> filterJourneysOrigin(String origin) {
 		Set<Journey> filteredJourneys = new HashSet<>();
-		for(Journey entry: journeyList) {
+		for(Journey entry: journeySet) {
 			if (entry.getOrigin().toLowerCase().contains(origin.toLowerCase())) {
 				filteredJourneys.add(entry);
 			}

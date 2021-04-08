@@ -12,14 +12,21 @@ public class ClientStepDefinition {
 	Client client;
 	Client client2;
 	LogisticCompany company = new LogisticCompany();
-	Client search;
 	
 	String name;
 	String email;
 	String password;
 	String referencePerson;
 	String address;	
-	Map<String, Client> clientList;
+	
+	String originalName;
+	String originalEmail;
+	String originalPassword;
+	String originalReferencePerson;
+	String originalAddress;
+	
+	
+	Map<String, Client> clientMap;
 	Map<String, Client> filteredClients;
 	
 	@Given("a name {string}")
@@ -49,12 +56,12 @@ public class ClientStepDefinition {
 	
 	@Given("a client list")
 	public void a_client_list() {
-	    clientList = company.getClients();
+	    clientMap = company.getClients();
 	}
 
 	@When("add client")
 	public void add_client() {
-		client = new Client(name,email,referencePerson,password,address);
+		client = new Client(name,email,referencePerson,password,address,company);
 	    company.addClient(client);
 	}
 
@@ -67,18 +74,24 @@ public class ClientStepDefinition {
 	
 	@Given("client list containing client with name {string}")
 	public void client_list_containing_client_with_name(String name) {
-	    clientList = company.getClients();
-	    clientList.put(name, client);
+	    clientMap = company.getClients();
+	    Client newClient = new Client(name,"email","reference","password","address",company);
+	    clientMap.put(name, newClient);
 	}
 
 	@Then("client list already contains client")
 	public void client_list_already_contains_client() {
-	    assertTrue(clientList.containsKey(this.name));
+	    assertTrue(clientMap.containsKey(this.name));
 	}
 	
 	@Given("a client")
 	public void a_client() {
-	    client = new Client("Name", "email", "referencePerson", "password", "address");
+	    client = new Client("Name", "email", "referencePerson", "password", "address",company);
+	    originalName = client.getName();
+	    originalEmail = client.getEmail();
+	    originalReferencePerson = client.getReferencePerson();
+	    originalPassword = client.getPassword();
+	    originalAddress = client.getAddress();
 	}
 
 	@When("client updated")
@@ -104,7 +117,7 @@ public class ClientStepDefinition {
 	
 	@Given("client with name {string} with {string} with {string} with {string} with {string}")
 	public void client_with_name_with_with_with_with(String name, String email, String referencePerson, String password, String address) {
-	    client = new Client(name,email,referencePerson,password,address);
+	    client = new Client(name,email,referencePerson,password,address,company);
 	}
 
 	@Given("a client list with client")
@@ -154,7 +167,7 @@ public class ClientStepDefinition {
 	
 	@Given("a client2 that is in logistic company")
 	public void a_client2_that_is_in_logistic_company() {
-	    client2 = new Client("Name", "email", "referencePerson", "password", "address");
+	    client2 = new Client("Name", "email", "referencePerson", "password", "address",company);
 	    company.addClient(client2);
 	}
 
@@ -172,7 +185,7 @@ public class ClientStepDefinition {
 	
 	@Given("a client2 that is not in logistic company")
 	public void a_client2_that_is_not_in_logistic_company() {
-	    client2 = new Client("Name", "email", "referencePerson", "password", "address");
+	    client2 = new Client("Name", "email", "referencePerson", "password", "address",company);
 	}
 
 	@When("client2 does not exist")
@@ -186,6 +199,32 @@ public class ClientStepDefinition {
 		company.shareData(client);
 		assertTrue("" == client2.getSharedData());
 	}
+	
+	@Given("client list containing client with email {string}")
+	public void client_list_containing_client_with_email(String email) {
+		Client newClient = new Client("name",email,"reference","password","address",company);
+	    company.addClient(newClient);
+	    clientMap = company.getClients();
+	}
+	
+	@Then("client not added")
+	public void client_not_added() {
+		for (Map.Entry<String,Client> entry : company.getClients().entrySet()) {
+			System.out.println(entry.getValue());
+		}
+	    assertFalse(clientMap.containsValue(client));
+	}
+	
+	@Then("client information not updated")
+	public void client_information_not_updated() {
+		assertTrue(client.getName() == originalName);
+		assertTrue(client.getEmail() == originalEmail);
+		assertTrue(client.getAddress() == originalAddress);
+		assertTrue(client.getReferencePerson() == originalReferencePerson);
+		assertTrue(client.getPassword() == originalPassword);
+	}
+
+	
 
 	
 }

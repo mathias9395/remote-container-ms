@@ -31,3 +31,9 @@ Feature: Find an existing journey
     And a client containing journey
     When search by origin "Copenhagen"
     Then filtered journey list that contains origin "Copenhagen"
+
+    
+    
+    
+    
+    

@@ -7,7 +7,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class JourneyStepDefinition {
-	Client client = new Client("name","email","referencePerson","password","address");
+	LogisticCompany logisticCompany = new LogisticCompany();
+	Client client = new Client("name","email","referencePerson","password","address",logisticCompany);
 	String company;
 	String origin;
 	String destination;

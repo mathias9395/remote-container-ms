@@ -18,7 +18,7 @@ public class LogisticCompany {
 	}
 
 	public void addClient(Client client) {
-		if (clients.containsKey(client.getName())) {
+		if (clients.containsKey(client.getName()) || this.clientWithEmail(client.getEmail())) {
 			return;
 		} else {
 			clients.put(client.getName(), client);
@@ -64,6 +64,15 @@ public class LogisticCompany {
 	        	findClient(temp).setSharedData(client.toString());
 	        }
 		}
+	}
+	
+	public boolean clientWithEmail(String email) {
+		for(Map.Entry<String, Client> entry: clients.entrySet()) {
+			if (entry.getValue().getEmail().toLowerCase().equals(email.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 

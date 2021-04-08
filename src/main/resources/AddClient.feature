@@ -38,4 +38,14 @@ Feature: Adding a new client
     And an address "123 Street"
     And client list containing client with name "Mathias"
     When add client
-    Then client list already contains client
+    Then client not added
+    
+ Scenario: Client with email already exists
+   Given a name "Mathias"
+   And an email "mathias@gmail.com"
+   And a password "password"
+   And a reference person "Nima"
+   And an address "123 Street"
+   And client list containing client with email "mathias@gmail.com"
+   When add client
+   Then client not added
