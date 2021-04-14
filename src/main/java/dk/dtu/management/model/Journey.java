@@ -1,34 +1,81 @@
+package dk.dtu.management.model;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import dk.dtu.management.dao.JourneyDao;
 
 
+@Entity
+@Table(name = "journey")
 public class Journey {
-
-	private static int idCount = 1;
+	@Transient
+	private JourneyDao journeyDao = new JourneyDao();
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "journey_id", unique = true)
 	private int id;
+	@Column(name = "origin", nullable = false)
 	private String origin;
+	@Column(name = "destination", nullable = false)
 	private String destination;
+	@Column(name = "content_type", nullable = false)
 	private String contentType;
+	@Column(name = "company", nullable = false)
 	private String company;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_fk", referencedColumnName = "client_id")
+	private Client client;
 	
-	
+	public Journey() {}
 	public Journey(String origin, String destination, String contentType, String company) {
 		this.origin = origin;
 		this.destination = destination;
 		this.contentType =  contentType;
 		this.company = company;
-		this.id = idCount;
-		idCount++;
+		journeyDao.save(this);
 	}
 	
 	
 	
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
+		journeyDao.update(this);
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+		journeyDao.update(this);
+	}
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+		journeyDao.update(this);
+	}
+	public void setCompany(String company) {
+		this.company = company;
+		journeyDao.update(this);
+	}
 	public String getOrigin() {
 		return origin;
 	}
 
 	public void setOrigin(String origin) {
 		this.origin =origin;
+		journeyDao.update(this);
 	}
 
 	public String getDestination() {
@@ -37,6 +84,7 @@ public class Journey {
 
 	public void setDestination(String destination) {
 		this.destination = destination;
+		journeyDao.update(this);
 		
 		
 	}
@@ -72,12 +120,13 @@ public class Journey {
 	}
 
 
-
 	public void update(String origin, String destination, String contentType, String company) {
 		this.origin = origin;
 		this.destination = destination;
 		this.contentType = contentType;
 		this.company = company;
+		
+		journeyDao.update(this);
 	}
 	
 	

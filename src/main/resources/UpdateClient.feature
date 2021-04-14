@@ -21,7 +21,7 @@ Feature: Updating client information
 
   @tag1
   Scenario: Client information updated successfully
-  	Given a client
+  	Given a client in a logistic company client set
   	And a name "Mathias"
   	And an email "mathias@gmail.com"
     And a reference person "Nima"
@@ -30,22 +30,12 @@ Feature: Updating client information
     Then client contains updated information
     
   Scenario: Client with email already exists
-  	Given a client
+  	Given a client in a logistic company client set
   	And a name "Mathias"
   	And an email "Nima@gmail.com"
     And a reference person "Nima"
     And an address "123 Street"
-    And client list containing client with email "Nima@gmail.com"
-    When client updated
-    Then client information not updated
-    
-  Scenario: Client with name already exists
-  	Given a client
-  	And a name "Nima"
-  	And an email "mathias@gmail.com"
-    And a reference person "Nima"
-    And an address "123 Street"
-    And client list containing client with name "Nima"
+    And company set containing client with email "Nima@gmail.com"
     When client updated
     Then client information not updated
     

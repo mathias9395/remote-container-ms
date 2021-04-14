@@ -22,15 +22,15 @@ Feature: Find an existing client
   @tag1
   Scenario: Client search by name
     Given client with name "Mathias" with "email" with "reference person" with "password" with "address"
-    And a client list with client
+    And a logistic company with client set contains client
     When search by name "Mathias"
-    Then filtered client list contains client
+    Then filtered client set contains client
     
   Scenario: Client search by email
     Given client with name "name" with "mathias@gmail.com" with "reference person" with "password" with "address"
-    And a client list with client
+    And a logistic company with client set contains client
     When search by email "mathias@gmail.com"
-    Then filtered client list contains client
+    Then filtered client set contains client
     
     
     

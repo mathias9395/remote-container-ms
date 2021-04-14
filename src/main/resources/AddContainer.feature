@@ -24,4 +24,4 @@ Feature: Adding a new container
     Given a client with name "Mathias" with email "mathias@gmail.com" with reference person "Nima" with address "123 street" with password "password"
     And a location "Copenhagen"
     When add new container
-    Then client container list contains container
+    Then client container set contains container

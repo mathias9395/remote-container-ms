@@ -21,11 +21,13 @@ Feature: Displaying a client's data to a manager
 
   @tag1
   Scenario: Successfully shown data
-    Given a client 
+    Given a client to share
+    And a logistic company
     When client exists
     Then show clients data to manager
     
   Scenario: Unsuccessfully shown data
-  	Given a client
+  	Given a client to share
+  	And a logistic company
     When client doesnt exist
     Then do not show clients data to manager

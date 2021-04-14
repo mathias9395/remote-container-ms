@@ -21,9 +21,10 @@ Feature: Adding a journey
 
   @tag1
   Scenario: Journey added successfully
-    Given an origin "Copenhagen"
+  	Given a client
+    And an origin "Copenhagen"
     And a destination "Hamburg"
     And a content type "Apples"
     And a company "company"
-    When add journey
+    When add journey to client journey set
     Then journey list has new journey

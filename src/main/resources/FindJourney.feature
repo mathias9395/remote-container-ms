@@ -22,13 +22,13 @@ Feature: Find an existing journey
   @tag1
   Scenario: Journey search by content
     Given a journey with content "Bananas"
-    And a client containing journey
+    And a client with journey set containing journey
     When search by content "Bananas"
-    Then filtered journey list that contains content "bananas"
+    Then filtered journey set that contains content "bananas"
     
  Scenario: Journey search by origin
     Given a journey with origin "Copenhagen"
-    And a client containing journey
+    And a client with journey set containing journey
     When search by origin "Copenhagen"
     Then filtered journey list that contains origin "Copenhagen"
 

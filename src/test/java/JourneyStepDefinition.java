@@ -1,21 +1,28 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
+import dk.dtu.management.model.Client;
+import dk.dtu.management.model.Journey;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class JourneyStepDefinition {
-	LogisticCompany logisticCompany = new LogisticCompany();
-	Client client = new Client("name","email","referencePerson","password","address",logisticCompany);
-	String company;
+	
 	String origin;
 	String destination;
-	String content;
+	String contentType;
+	String company;
 	Journey journey;
-	Set<Journey>journeyList;
-	Set<Journey> searchedJourneyList;
+	Client client;
+	Set<Journey> filteredJourneys;
+	
+	
+	@Given("a client")
+	public void a_client() {
+	    client = new Client("name","email","referencePerson","password","address");
+	}
 	
 	@Given("an origin {string}")
 	public void an_origin(String origin) {
@@ -28,8 +35,8 @@ public class JourneyStepDefinition {
 	}
 
 	@Given("a content type {string}")
-	public void a_content_type(String content) {
-	    this.content = content;
+	public void a_content_type(String contentType) {
+	    this.contentType = contentType;
 	}
 
 	@Given("a company {string}")
@@ -37,72 +44,72 @@ public class JourneyStepDefinition {
 	    this.company = company;
 	}
 
-	@When("add journey")
-	public void add_journey() {
-	    journey = new Journey(origin,destination,content,company);
-	    client.registerJourney(journey);
+	@When("add journey to client journey set")
+	public void add_journey_to_client_journey_set() {
+	    journey = new Journey(origin,destination,contentType,company);
+	    client.addJourney(journey);
 	}
 
 	@Then("journey list has new journey")
 	public void journey_list_has_new_journey() {
-	    assertTrue(client.getJourneyList().contains(journey));
+	    assertTrue(client.getJourneySet().contains(journey));
 	}
 	
 	@Given("a journey")
 	public void a_journey() {
-	    journey = new Journey("origin","destination","content type","company");
+	    journey = new Journey("origin","destination","contentType","company");
 	}
 
 	@When("update journey")
-	public void update_jourconney() {
-	    journey.update(origin,destination,content,company);
+	public void update_journey() {
+	    journey.update(origin, destination, contentType, company);
 	}
 
 	@Then("journey contains updated information")
 	public void journey_contains_updated_information() {
 	    assertTrue(journey.getOrigin() == this.origin);
 	    assertTrue(journey.getDestination() == this.destination);
-	    assertTrue(journey.getContentType() == this.content);
+	    assertTrue(journey.getContentType() == this.contentType);
 	    assertTrue(journey.getCompany() == this.company);
 	}
 	
 	@Given("a journey with content {string}")
-	public void a_client_that_has_journey_with_content(String content) {
-	    journey = new Journey("origin","destination",content,"company");
+	public void a_journey_with_content(String contentType) {
+	    journey = new Journey("origin","destination",contentType,"company");
 	}
 
-	@Given("a client containing journey")
-	public void a_journey_list_with_journey() {
-		client.registerJourney(journey);
+	@Given("a client with journey set containing journey")
+	public void a_client_with_journey_set_containing_journey() {
+	    client = new Client("name","email","referencePerson","password","address");
+	    client.addJourney(journey);
 	}
 
 	@When("search by content {string}")
-	public void search_by_content(String content) {
-	    searchedJourneyList = client.filterJourneysContent(content);
+	public void search_by_content(String contentType) {
+	    filteredJourneys = client.filterJourneysContent(contentType);
 	}
 
-	@Then("filtered journey list that contains content {string}")
-	public void filtered_journey_list_that_contains_content(String content) {
-	    for (Journey entry : searchedJourneyList) {
-	    	assertTrue(entry.getContentType().toLowerCase().contains(content.toLowerCase()));
+	@Then("filtered journey set that contains content {string}")
+	public void filtered_journey_set_that_contains_content(String contentType) {
+	    for (Journey j : filteredJourneys) {
+	    	assertTrue(j.getContentType().toLowerCase().contains(contentType.toLowerCase()));
 	    }
 	}
 	
 	@Given("a journey with origin {string}")
 	public void a_journey_with_origin(String origin) {
-		journey = new Journey(origin,"destination","content","company");
+	    journey = new Journey(origin,"destination","contentType","company");
 	}
 
 	@When("search by origin {string}")
 	public void search_by_origin(String origin) {
-		searchedJourneyList = client.filterJourneysOrigin(origin);
-	}
-	
-	@Then("filtered journey list that contains origin {string}")
-	public void filtered_journey_list_that_contains_origin(String origin) {
-	    for (Journey entry : searchedJourneyList) {
-	    	assertTrue(entry.getOrigin().toLowerCase().contains(origin.toLowerCase()));
-	    }
+	    filteredJourneys = client.filterJourneysOrigin(origin);
 	}
 
+	@Then("filtered journey list that contains origin {string}")
+	public void filtered_journey_list_that_contains_origin(String origin) {
+		for (Journey j : filteredJourneys) {
+	    	assertTrue(j.getOrigin().toLowerCase().contains(origin.toLowerCase()));
+	    }
+	}
 }

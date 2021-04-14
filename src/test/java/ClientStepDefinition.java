@@ -1,33 +1,30 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import java.util.*;
+import java.util.Set;
 
-import io.cucumber.java.en.And;
+import dk.dtu.management.model.Client;
+import dk.dtu.management.model.LogisticCompany;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class ClientStepDefinition {
-	
-	Client client;
-	Client client2;
-	LogisticCompany company = new LogisticCompany();
-	
 	String name;
 	String email;
 	String password;
 	String referencePerson;
-	String address;	
+	String address;
+	LogisticCompany company;
+	Client client;
+	Boolean success;
 	
-	String originalName;
-	String originalEmail;
-	String originalPassword;
-	String originalReferencePerson;
-	String originalAddress;
+	Set<Client> filteredClients;
+	
+	//SHARED CLIENT STUFF
+	Client client2;
 	
 	
-	Map<String, Client> clientMap;
-	Map<String, Client> filteredClients;
 	
 	@Given("a name {string}")
 	public void a_name(String name) {
@@ -35,7 +32,7 @@ public class ClientStepDefinition {
 	}
 
 	@Given("an email {string}")
-	public void a_email(String email) {
+	public void an_email(String email) {
 	    this.email = email;
 	}
 
@@ -53,75 +50,83 @@ public class ClientStepDefinition {
 	public void an_address(String address) {
 	    this.address = address;
 	}
-	
-	@Given("a client list")
-	public void a_client_list() {
-	    clientMap = company.getClients();
+
+	@Given("a logistic company")
+	public void a_logistic_company() {
+	    company = new LogisticCompany("email","password");
 	}
 
 	@When("add client")
 	public void add_client() {
-		client = new Client(name,email,referencePerson,password,address,company);
-	    company.addClient(client);
+	    client = new Client(name,email,referencePerson,password,address);
+	    success = company.addClient(client);
 	}
 
 	@Then("client list has new client")
 	public void client_list_has_new_client() {
-		assertTrue(company.getClients().containsKey(this.name));
-	    Client newClient = company.getClients().get(this.name);
-	    assertTrue(client == newClient);
+		assertTrue(success);
+	    assertTrue(company.getClients().contains(client));
 	}
 	
-	@Given("client list containing client with name {string}")
-	public void client_list_containing_client_with_name(String name) {
-	    clientMap = company.getClients();
-	    Client newClient = new Client(name,"email","reference","password","address",company);
-	    clientMap.put(name, newClient);
+	@Given("a logistic company containing client with email {string}")
+	public void a_logistic_company_containing_client_with_email(String email) {
+	    Client c = new Client("name", email,"referencePerson","password", "address");
+	    company = new LogisticCompany("email","password");
+	    success = company.addClient(c);
 	}
 
-	@Then("client list already contains client")
-	public void client_list_already_contains_client() {
-	    assertTrue(clientMap.containsKey(this.name));
+	@Then("client not added")
+	public void client_not_added() {
+		assertFalse(company.getClients().contains(client));
+	    assertFalse(success);
 	}
 	
-	@Given("a client")
-	public void a_client() {
-	    client = new Client("Name", "email", "referencePerson", "password", "address",company);
-	    originalName = client.getName();
-	    originalEmail = client.getEmail();
-	    originalReferencePerson = client.getReferencePerson();
-	    originalPassword = client.getPassword();
-	    originalAddress = client.getAddress();
+	@Given("a client in a logistic company client set")
+	public void a_client_in_a_logistic_company_client_set() {
+	    client = new Client("name","email","referencePerson","password","address");
+	    company = new LogisticCompany("email","password");
+	    company.addClient(client);
 	}
 
 	@When("client updated")
 	public void client_updated() {
-	    client.update(this.name,this.email,this.referencePerson,this.address);
+	    success = client.update(name, email, referencePerson, address);
 	}
 
 	@Then("client contains updated information")
 	public void client_contains_updated_information() {
-	    assertTrue(client.getName() == this.name);
-	    assertTrue(client.getEmail() == this.email);
-	    assertTrue(client.getReferencePerson() == this.referencePerson);
-	    assertTrue(client.getAddress() == this.address);
+	    assertTrue(success);
 	}
+	
+	@Given("company set containing client with email {string}")
+	public void company_set_containing_client_with_email(String email) {
+	    Client c = new Client("name",email,"referencePerson","password","address");
+	    company.addClient(c);
+	}
+
+	@Then("client information not updated")
+	public void client_information_not_updated() {
+	    assertFalse(success);
+	}
+	
 	@When("client is deleted")
 	public void client_is_deleted() {
-		company.removeClient(this.name);
+		company.removeClient(client);
 	}
+
 	@Then("client list does not contain client")
 	public void client_list_does_not_contain_client() {
-		assertFalse(company.getClients().containsKey(name));
+	    assertTrue(!company.getClients().contains(client));
 	}
 	
 	@Given("client with name {string} with {string} with {string} with {string} with {string}")
 	public void client_with_name_with_with_with_with(String name, String email, String referencePerson, String password, String address) {
-	    client = new Client(name,email,referencePerson,password,address,company);
+	    client = new Client(name,email,referencePerson,password,address);
 	}
 
-	@Given("a client list with client")
-	public void a_client_list_with_client() {
+	@Given("a logistic company with client set contains client")
+	public void a_logistic_company_with_client_set_contains_client() {
+	    company = new LogisticCompany("email","password");
 	    company.addClient(client);
 	}
 
@@ -130,9 +135,9 @@ public class ClientStepDefinition {
 	    filteredClients = company.filterClientsName(name);
 	}
 
-	@Then("filtered client list contains client")
-	public void filtered_client_list_contains() {
-	    assertTrue(filteredClients.containsValue(client));
+	@Then("filtered client set contains client")
+	public void filtered_client_set_contains_client() {
+	    assertTrue(filteredClients.contains(client));
 	}
 	
 	@When("search by email {string}")
@@ -140,91 +145,76 @@ public class ClientStepDefinition {
 	    filteredClients = company.filterClientsEmail(email);
 	}
 	
-	//Display data
 	
-	@When("client exists")
-	public void client_exists() {
-		company.addClient(client);
-	    assertTrue(client.equals(company.findClient(client.getName())));
-	}
-
-	@Then("show clients data to manager")
-	public void show_clients_data_to_manager() {
-		assertTrue(company.findClient(client.getName()).toString().equals("Name: "+ client.getName() + ". Email:" + client.getEmail()));
-	}
 	
-	@When("client doesnt exist")
-	public void client_doesnt_exist() {
-		assertFalse(client.equals(company.findClient(client.getName())));
-	}
-
-	@Then("do not show clients data to manager")
-	public void do_not_show_clients_data_to_manager() {
-		assertFalse(client.toString().equals(""));
-	}
 	
-	//Sharing Data between Clients
 	
+	//SHARE DATA
+	
+	@Given("a client to share")
+	public void a_client_to_share() {
+		client = new Client("name","email","referencePerson","password","address");
+	}
 	@Given("a client2 that is in logistic company")
 	public void a_client2_that_is_in_logistic_company() {
-	    client2 = new Client("Name", "email", "referencePerson", "password", "address",company);
+	    client2 = new Client("Name", "email", "referencePerson", "password", "address");
+	    company = new LogisticCompany("email","password");
 	    company.addClient(client2);
 	}
 
 	@When("client2 exists")
 	public void client2_exists() {
-		assertTrue(client2.equals(company.findClient(client2.getName())));
+		assertTrue(company.getClients().contains(client2));
 	}
 
 	@Then("show client2 the information of client1")
 	public void show_client2_the_information_of_client1() {
-		client.addShareClients(client2.getName());
+		client.addShareClients(client2);
 		company.shareData(client);
 		assertTrue((client.toString()+"\n").equals(client2.getSharedData()));
 	}
 	
 	@Given("a client2 that is not in logistic company")
 	public void a_client2_that_is_not_in_logistic_company() {
-	    client2 = new Client("Name", "email", "referencePerson", "password", "address",company);
+	    client2 = new Client("Name", "email", "referencePerson", "password", "address");
+	    company = new LogisticCompany("email","password");
 	}
 
 	@When("client2 does not exist")
 	public void client2_does_not_exist() {
-		assertFalse(client2.equals(company.findClient(client2.getName())));
+		assertFalse(company.getClients().contains(client2));
 	}
 
 	@Then("do not show client2 the information of client1")
 	public void do_not_show_client2_the_information_of_client1() {
-		client.addShareClients(client2.getName());
+		client.addShareClients(client2);
 		company.shareData(client);
 		assertTrue("" == client2.getSharedData());
 	}
 	
-	@Given("client list containing client with email {string}")
-	public void client_list_containing_client_with_email(String email) {
-		Client newClient = new Client("name",email,"reference","password","address",company);
-	    company.addClient(newClient);
-	    clientMap = company.getClients();
+	@When("client exists")
+	public void client_exists() {
+		company.addClient(client);
+	    assertTrue(company.getClients().contains(client));
 	}
 	
-	@Then("client not added")
-	public void client_not_added() {
-		for (Map.Entry<String,Client> entry : company.getClients().entrySet()) {
-			System.out.println(entry.getValue());
-		}
-	    assertFalse(clientMap.containsValue(client));
+	@Then("show clients data to manager")
+	public void show_clients_data_to_manager() {
+		assertTrue(company.getClients().contains(client));
 	}
 	
-	@Then("client information not updated")
-	public void client_information_not_updated() {
-		assertTrue(client.getName() == originalName);
-		assertTrue(client.getEmail() == originalEmail);
-		assertTrue(client.getAddress() == originalAddress);
-		assertTrue(client.getReferencePerson() == originalReferencePerson);
-		assertTrue(client.getPassword() == originalPassword);
+	@When("client doesnt exist")
+	public void client_doesnt_exist() {
+		assertFalse(company.getClients().contains(client));
 	}
-
+	
+	@Then("do not show clients data to manager")
+	public void do_not_show_clients_data_to_manager() {
+		assertFalse(client.toString().equals(""));
+	}
+	
 	
 
+	
 	
 }
