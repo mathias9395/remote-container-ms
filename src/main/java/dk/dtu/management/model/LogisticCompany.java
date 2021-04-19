@@ -19,7 +19,7 @@ import dk.dtu.management.dao.LogisticCompanyDao;
 
 @Entity
 @Table(name = "company")
-public class LogisticCompany {
+public class LogisticCompany extends User {
 	@Transient
 	private LogisticCompanyDao companyDao = new LogisticCompanyDao();
 	@Id
@@ -94,7 +94,10 @@ public class LogisticCompany {
 	
 	public Boolean removeClient(Client client) {
 		if (clients.contains(client)) {
+			client.delete();
 			clients.remove(client);
+			System.out.println(clients.contains(client));
+			companyDao.update(this);
 			return true;
 		}
 		return false;

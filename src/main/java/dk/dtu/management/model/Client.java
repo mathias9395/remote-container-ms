@@ -22,22 +22,22 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "client")
-public class Client {
+public class Client extends User {
 	@Transient
 	private ClientDao clientDao = new ClientDao();
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "client_id", unique = true)
 	private int id;
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", nullable = true)
 	private String name;
-	@Column(name = "address", nullable = false)
+	@Column(name = "address", nullable = true)
 	private String address;
-	@Column(name = "referencePerson", nullable = false)
+	@Column(name = "referencePerson", nullable = true)
 	private String referencePerson;
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = true)
 	private String email;
-	@Column(name = "password", nullable = false)
+	@Column(name = "password", nullable = true)
 	private String password;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -55,7 +55,14 @@ public class Client {
 	@Transient
 	public Set<String> sharedData = new HashSet<>(); //NOT SAVED IN DATABASE
 	
-	public Client() {};
+	public Client() {
+		super();
+	};
+	
+	public Client(int id, String email) {
+		this.id = id;
+		this.email = email;
+	}
 	
 	public Client(String name, String email, String referencePerson, String password, String address) {
 		this.name = name;
@@ -173,14 +180,14 @@ public class Client {
 	public boolean equals(Object obj) {
 		if (obj instanceof Client) {
 			Client compare = (Client) obj;
-			return name.equals(compare.name) && email.equals(compare.email);
+			return (id == compare.id) && email.equals(compare.email);
 		}
 		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder(17,37).append(name).append(email).append(referencePerson).append(password).append(address).append(id).toHashCode();
+		return new HashCodeBuilder(17,37).append(id).append(email).toHashCode();
 	}
 
 	
@@ -212,6 +219,10 @@ public class Client {
 		}
 
 		return filteredJourneys;
+	}
+	
+	public void delete() {
+		clientDao.delete(id);
 	}
 	
 	

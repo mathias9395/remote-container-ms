@@ -22,6 +22,7 @@ Feature: deleting a client
   @tag1
   Scenario: client deleted successfully
     Given a client in a logistic company client set
+    #And the client id
     When client is deleted
     Then client list does not contain client
 

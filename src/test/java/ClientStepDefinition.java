@@ -3,8 +3,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
+import dk.dtu.management.model.Accounts;
 import dk.dtu.management.model.Client;
 import dk.dtu.management.model.LogisticCompany;
+import dk.dtu.management.model.User;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -15,11 +17,14 @@ public class ClientStepDefinition {
 	String password;
 	String referencePerson;
 	String address;
+	int id;
 	LogisticCompany company;
 	Client client;
 	Boolean success;
 	
+	
 	Set<Client> filteredClients;
+	Accounts users = new Accounts();
 	
 	//SHARED CLIENT STUFF
 	Client client2;
@@ -54,6 +59,27 @@ public class ClientStepDefinition {
 	@Given("a logistic company")
 	public void a_logistic_company() {
 	    company = new LogisticCompany("email","password");
+	}
+	
+	@Given("all user profiles containg a user with email {string} and password {string}")
+	public void all_user_profiles(String email, String password) {
+		client = new Client("name",email,"referencePerson",password,"Address");
+		users.addUser(client);
+	}
+
+	@When("I login")
+	public void i_login() {
+	    success = users.login(email, password);
+	}
+
+	@Then("login was successful")
+	public void login_was_successful() {
+	    assertTrue(success);
+	}
+	
+	@Then("login was unsuccessful")
+	public void login_was_unsuccessful() {
+	    assertFalse(success);
 	}
 
 	@When("add client")
@@ -107,6 +133,11 @@ public class ClientStepDefinition {
 	@Then("client information not updated")
 	public void client_information_not_updated() {
 	    assertFalse(success);
+	}
+	
+	@Given("the client id")
+	public void the_client_id() {
+	    id = client.getId();
 	}
 	
 	@When("client is deleted")
@@ -211,6 +242,33 @@ public class ClientStepDefinition {
 	@Then("do not show clients data to manager")
 	public void do_not_show_clients_data_to_manager() {
 		assertFalse(client.toString().equals(""));
+	}
+	
+	@Given("a client with the email {string} and the ID {int}")
+	public void a_client_with_the_email_and_the_ID(String email, Integer id) {
+	    client = new Client("name",email,"reference person","password","address");
+	    client.setId(id);
+	}
+
+	@Given("another client with the email {string} and the ID {int}")
+	public void another_client_with_the_email_and_the_ID(String email, Integer id) {
+	    client2 = new Client("name",email,"reference person","password","address");
+	    client2.setId(id);
+	}
+
+	@When("I check if they are equal")
+	public void i_check_if_they_are_equal() {
+	    success = client.equals(client2);
+	}
+
+	@Then("the equality is true")
+	public void the_equality_is_true() {
+	    assertTrue(success);
+	}
+	
+	@Then("the equality is not true")
+	public void the_equality_is_not_true() {
+	    assertFalse(success);
 	}
 	
 	
