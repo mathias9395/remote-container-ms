@@ -91,7 +91,7 @@ public class Client extends User {
 	}
 
 	public Boolean update(String name, String email, String referencePerson, String address) {
-		if (company != null && company.clientWithEmail(email)) {
+		if (company != null && company.clientWithEmail(this,email)) {
 			return false;
 		}
 		this.name = name;
@@ -221,6 +221,17 @@ public class Client extends User {
 		return filteredJourneys;
 	}
 	
+	public Set<Journey> filterJourneyDestination(String destination) {
+		Set<Journey> filteredJourneys = new HashSet<>();
+		for(Journey entry: journeySet) {
+			if (entry.getDestination().toLowerCase().contains(destination.toLowerCase())) {
+				filteredJourneys.add(entry);
+			}
+		}
+
+		return filteredJourneys;
+	}
+	
 	public void delete() {
 		clientDao.delete(id);
 	}
@@ -248,5 +259,16 @@ public class Client extends User {
 	}
 	return data;
 	}
+
+	public void removeJourney(Journey journey) {
+		if (journeySet.contains(journey)) {
+			journey.delete();
+			journeySet.remove(journey);
+			clientDao.update(this);
+		}
+		
+	}
+
+	
 
 }

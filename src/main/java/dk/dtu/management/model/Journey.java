@@ -24,19 +24,26 @@ public class Journey {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "journey_id", unique = true)
 	private int id;
-	@Column(name = "origin", nullable = false)
+	@Column(name = "origin", nullable = true)
 	private String origin;
-	@Column(name = "destination", nullable = false)
+	@Column(name = "destination", nullable = true)
 	private String destination;
-	@Column(name = "content_type", nullable = false)
+	@Column(name = "content_type", nullable = true)
 	private String contentType;
-	@Column(name = "company", nullable = false)
+	@Column(name = "company", nullable = true)
 	private String company;
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_fk", referencedColumnName = "client_id")
 	private Client client;
 	
-	public Journey() {}
+	
+	public Journey () {
+		
+	}
+	public Journey(int id) {
+		this.id = id;
+	}
+	
 	public Journey(String origin, String destination, String contentType, String company) {
 		this.origin = origin;
 		this.destination = destination;
@@ -109,14 +116,14 @@ public class Journey {
 	public boolean equals(Object obj) {
 		if (obj instanceof Journey) {
 			Journey compare = (Journey) obj;
-			return origin.equals(compare.origin) && destination.equals(compare.destination)&& contentType.equals(compare.contentType);
+			return id == compare.id;
 		}
 		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder(17,37).append(origin).append(destination).append(contentType).append(id).toHashCode();
+		return new HashCodeBuilder(17,37).append(id).toHashCode();
 	}
 
 
@@ -127,6 +134,10 @@ public class Journey {
 		this.company = company;
 		
 		journeyDao.update(this);
+	}
+	public void delete() {
+		journeyDao.delete(id);
+		
 	}
 	
 	

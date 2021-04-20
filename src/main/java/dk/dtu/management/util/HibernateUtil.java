@@ -23,11 +23,25 @@ public class HibernateUtil {
 
 				// Hibernate settings equivalent to hibernate.cfg.xml's properties
 				Properties settings = new Properties();
-				settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-				settings.put(Environment.URL, "jdbc:mysql://localhost:3306/container_management");
-				settings.put(Environment.USER, "admin");
-				settings.put(Environment.PASS, "admin");
-				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+//				settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
+//				settings.put(Environment.URL, "jdbc:mysql://localhost:3306/container_management");
+//				settings.put(Environment.USER, "admin");
+//				settings.put(Environment.PASS, "admin");
+//				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+//				
+				
+				
+				
+				settings.put(Environment.DRIVER, "org.h2.Driver");
+				settings.put(Environment.URL, "jdbc:h2:~/management_system_db");
+				settings.put(Environment.USER, "sa");
+				settings.put(Environment.PASS, "");
+				settings.put(Environment.DIALECT, "org.hibernate.dialect.H2Dialect");
+				settings.put(Environment.POOL_SIZE, "1");
+				
+				
+				
+				
 
 				settings.put(Environment.SHOW_SQL, "true");
 
@@ -53,5 +67,6 @@ public class HibernateUtil {
 			}
 		}
 		return sessionFactory;
+		
 	}
 }

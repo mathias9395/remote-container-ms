@@ -21,7 +21,9 @@ import dk.dtu.management.dao.LogisticCompanyDao;
 @Table(name = "company")
 public class LogisticCompany extends User {
 	@Transient
-	private LogisticCompanyDao companyDao = new LogisticCompanyDao();
+	private static LogisticCompanyDao companyDao = new LogisticCompanyDao();
+	@Transient
+	private static LogisticCompany instance;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "company_id", unique = true)
@@ -83,7 +85,7 @@ public class LogisticCompany extends User {
 	
 	public Boolean addClient(Client client) { 
 		
-		if (clientWithEmail(client.getEmail())) {
+		if (clientWithEmail(client,client.getEmail())) {
 			return false;
 		}
 		client.setCompany(this);
@@ -96,7 +98,6 @@ public class LogisticCompany extends User {
 		if (clients.contains(client)) {
 			client.delete();
 			clients.remove(client);
-			System.out.println(clients.contains(client));
 			companyDao.update(this);
 			return true;
 		}
@@ -131,9 +132,9 @@ public class LogisticCompany extends User {
 		return filteredClients;
 	}
 
-	public boolean clientWithEmail(String email) {
+	public boolean clientWithEmail(Client client, String email) {
 		for(Client c: clients) {
-			if (c.getEmail().toLowerCase().equals(email.toLowerCase())) {
+			if (!c.equals(client) && c.getEmail().toLowerCase().equals(email.toLowerCase())) {
 				return true;
 			}
 		}
@@ -152,6 +153,16 @@ public class LogisticCompany extends User {
 	        	temp.setSharedData(client.toString());
 	        }
 		}
+	}
+
+	public static LogisticCompany getInstance() {
+		if (companyDao.getById(1) == null) {
+			instance = new LogisticCompany("admin","admin");
+			
+		} else {
+			instance = companyDao.getById(1);
+		}
+		return instance;
 	}
 
 	

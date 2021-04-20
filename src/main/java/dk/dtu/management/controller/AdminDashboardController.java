@@ -12,7 +12,7 @@ public class AdminDashboardController {
 	
 	private LogisticCompany company;
 	private AdminDashboardView view;
-	private AddClientController addClientController;
+	//private AddClientController addClientController;
 	private ApplicationController application;
 	
 	public AdminDashboardController(ApplicationController application, LogisticCompany company) {

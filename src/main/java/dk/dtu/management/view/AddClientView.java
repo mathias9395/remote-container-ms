@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.AddClientController;
@@ -44,7 +45,7 @@ public class AddClientView extends JFrame {
 		nameField = new JTextField(10);
 		emailField = new JTextField(10);
 		referencePersonField = new JTextField(10);
-		passwordField = new JTextField(10);
+		passwordField = new JPasswordField(15);
 		addressField = new JTextField(10);
 		
 		// buttons
