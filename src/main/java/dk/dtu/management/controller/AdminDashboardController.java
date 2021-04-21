@@ -39,8 +39,9 @@ public class AdminDashboardController {
 	
 	public void selectClient(int row) {
 		Object[] data = view.getTableRow(row);
-		Client c = new Client((Integer) data[0], data[1].toString());
+		Client c = company.getClientById((int) data[0]);
 		view.setVisible(false);
+		application.adminClientDashboard(c);
 	}
 	
 	public void clientSearch() {
@@ -53,15 +54,17 @@ public class AdminDashboardController {
 	public void displayTable(Set<Client> clients) {
 		view.resetTable();
 		for (Client c : clients) {
-			view.addTableRow(new Object[] {c.getId(),c.getName(),c.getEmail(),c.getReferencePerson(),c.getAddress()});
+			view.addTableRow(new Object[] {c.getId(),c.getName(),c.getEmail(),c.getReferencePerson(),c.getAddress(),false});
+			//view.addTableRow(new Object[] {c.getId(),c.getName(),c.getEmail(),c.getReferencePerson(),c.getAddress()});
 		}
 	}
 	
-	public void deleteClient(int row) {
-		Object[] data = view.getTableRow(row);
-		Client c = new Client((Integer) data[0], data[1].toString());
+	public void deleteClient(int id,String email) {
+		
+		
+//		Object[] data = view.getTableRow(row);
+		Client c = new Client(id, email);
 		company.removeClient(c);
- 		clientSearch();
 	}
 	
 	public void display() {

@@ -41,8 +41,30 @@ public class ClientDashboardView extends JFrame{
 	private DefaultTableModel model = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
-			return false;
+			if(column<4){
+				return false;
+			}else {
+				return true;
+			}
 		}
+		 public Class<?> getColumnClass(int column){
+	            switch(column){
+	            case 0:
+	              return String.class;
+	            case 1:
+	              return String.class;
+	            case 2:
+	              return String.class;
+	            case 3:
+	              return String.class;
+	            case 4:
+	              return Boolean.class;
+
+	            default:
+	              return String.class;
+	        }
+	    }
+		
 	};
 	private static JTable table;
 	private static JButton AddSelected;
@@ -153,7 +175,16 @@ public class ClientDashboardView extends JFrame{
 		RemoveSelected.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.removeJourney(table.getSelectedRow());
+				
+				for(int i = 0; i<table.getRowCount(); i++) {
+					
+					boolean selected = Boolean.valueOf(table.getValueAt(i, 4).toString());
+					
+					if(selected) {
+						controller.removeJourney(table.getSelectedRow());
+					}
+				
+				}
 			}
 		});
 		panel.add(RemoveSelected);
@@ -195,6 +226,7 @@ public class ClientDashboardView extends JFrame{
 		panel.add(scrollable);
 		
 		pack();
+		setResizable(false);
 		setLocationRelativeTo(null);
 	}
 	

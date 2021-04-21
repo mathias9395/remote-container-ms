@@ -22,8 +22,32 @@ public class AdminDashboardView extends JFrame {
 	private DefaultTableModel clientModel = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
-			return false;
+			if(column<5){
+				return false;
+			}else {
+				return true;
+			}
 		}
+		public Class<?> getColumnClass(int column){
+            switch(column){
+            case 0:
+              return String.class;
+            case 1:
+              return String.class;
+            case 2:
+              return String.class;
+            case 3:
+              return String.class;
+            case 4:
+                return String.class;
+            case 5:
+              return Boolean.class;
+
+            default:
+              return String.class;
+        }
+    }
+				
 	};
 	private JTextField txtNameSearch;
 	private JTextField txtEmailSearch;
@@ -70,9 +94,18 @@ public class AdminDashboardView extends JFrame {
 		btnDeleteClient.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.deleteClient(tblClients.getSelectedRow());
-			}
-		});
+				
+				for(int i = 0; i<tblClients.getRowCount(); i++) {
+					System.out.println(tblClients.getRowCount());
+					boolean selected = Boolean.valueOf(tblClients.getValueAt(i, 5).toString());
+				
+					if(selected) {
+						controller.deleteClient(Integer.parseInt(tblClients.getValueAt(i, 0).toString()),tblClients.getValueAt(i, 2).toString());
+					}
+					
+				}
+				controller.clientSearch();
+		}});
 		
 		JButton btnSelectClient = new JButton("Select");
 		btnSelectClient.setEnabled(false);
@@ -100,9 +133,12 @@ public class AdminDashboardView extends JFrame {
 		clientModel.addColumn("Email");
 		clientModel.addColumn("Reference Person");
 		clientModel.addColumn("Address");
+		clientModel.addColumn("Mark");
 		
 		tblClients = new JTable(clientModel);
+		
 		tblClients.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		tblClients.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -110,7 +146,6 @@ public class AdminDashboardView extends JFrame {
 				btnSelectClient.setEnabled((tblClients.getSelectedRow() >= 0));
 			}
 		});
-		
 		
 		
 		
@@ -128,6 +163,7 @@ public class AdminDashboardView extends JFrame {
 		add(btnSelectClient);
 		
 		pack();
+		setResizable(false);
 		setLocationRelativeTo(null);
 		
 		

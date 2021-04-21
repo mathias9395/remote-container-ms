@@ -32,6 +32,7 @@ public class LogisticCompany extends User {
 	private String email;
 	@Column(name = "password", nullable = false)
 	private String password;
+
 	
 	@OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
@@ -163,6 +164,16 @@ public class LogisticCompany extends User {
 			instance = companyDao.getById(1);
 		}
 		return instance;
+	}
+
+	public Client getClientById(int id) {
+		for (Client c : clients) {
+			if (c.getId() == id) {
+				return c;
+			}
+		}
+		return null;
+		
 	}
 
 	

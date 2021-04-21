@@ -61,6 +61,7 @@ public class AddStatus {
 		f.setLayout(null);    
 		f.setVisible(true);    
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   
+		f.setResizable(false);
 		
 							//action listener
 		b.addActionListener(new ActionListener() {

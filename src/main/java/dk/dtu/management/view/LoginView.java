@@ -51,6 +51,7 @@ public class LoginView extends JFrame {
 		add(btnLogin, GridBagLayoutUtils.constraint(1, 2, 5));
 		
 		pack();
+		setResizable(false);
 		setLocationRelativeTo(null);
 	}
 	

@@ -135,10 +135,6 @@ public class ClientStepDefinition {
 	    assertFalse(success);
 	}
 	
-	@Given("the client id")
-	public void the_client_id() {
-	    id = client.getId();
-	}
 	
 	@When("client is deleted")
 	public void client_is_deleted() {

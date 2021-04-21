@@ -103,6 +103,7 @@ public class AddJourneyView extends JFrame {
         add(button);
         add(btnCancel);
         pack();
+        setResizable(false);
         setLocationRelativeTo(null);
 	}
 	

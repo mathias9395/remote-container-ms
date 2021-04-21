@@ -72,6 +72,7 @@ public class ClientSettingsView extends JFrame {
 		add(btnCancel);
 		
 		pack();
+		setResizable(false);
 		setLocationRelativeTo(null);
 		
 		

@@ -24,7 +24,7 @@ public class ClientDashboardController {
 		application.login();
 	}
 	
-	
+
 	public void journeySearch() {
 		Set<Journey> filteredContent = client.filterJourneysContent(view.getEnterContent());
 		Set<Journey> filteredOrigin = client.filterJourneysOrigin(view.getEnterOrigin());
