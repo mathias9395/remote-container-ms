@@ -17,6 +17,8 @@ public class ApplicationController {
 	private AddJourneyController addJourneyController;
 	private ClientSettingsController clientSettingsController;
 	private AdminClientDashboardController adminClientDashboardController;
+	private ClientMessageController clientMessageController;
+
 	
 	public void adminDashboard() {
 		adminDashboardController = new AdminDashboardController(this,company);
@@ -51,6 +53,11 @@ public class ApplicationController {
 	public void adminClientDashboard(Client client) {
 		adminClientDashboardController = new AdminClientDashboardController(this, client);
 		adminClientDashboardController.display();
+	}
+	public void clientMessage(Client client) {
+		clientMessageController = new ClientMessageController(this,client);
+		clientMessageController.display();
+		
 	}
 	
 	// NEW

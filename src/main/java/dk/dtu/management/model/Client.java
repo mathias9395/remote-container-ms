@@ -50,6 +50,12 @@ public class Client extends User {
     @Fetch(value = FetchMode.SUBSELECT)
 	private Set<Journey> journeySet = new HashSet<Journey>();
 	
+	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+	private List<Message> messages = new ArrayList<Message>();
+	
+	
+	
 	@Transient
 	public Set<Client> shareClients = new HashSet<>(); //NOT SAVED IN DATABASE
 	@Transient
@@ -268,6 +274,24 @@ public class Client extends User {
 		}
 		
 	}
+
+	public void addMessage(Message message) {
+		System.out.println(message.getSender());
+		System.out.println(message.getContent());
+		messages.add(message);
+		message.setClient(this);
+		clientDao.update(this);
+	}
+
+	public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+		clientDao.update(this);
+	}
+	
 
 	
 

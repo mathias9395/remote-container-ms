@@ -67,4 +67,10 @@ public class ClientDashboardController {
 		application.clientSettings(client);
 		
 	}
+
+	public void sendMessage() {
+		view.setVisible(false);
+		application.clientMessage(client);
+		
+	}
 }

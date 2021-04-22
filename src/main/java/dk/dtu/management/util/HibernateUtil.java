@@ -13,6 +13,7 @@ import dk.dtu.management.model.Container;
 import dk.dtu.management.model.ContainerStatus;
 import dk.dtu.management.model.Journey;
 import dk.dtu.management.model.LogisticCompany;
+import dk.dtu.management.model.Message;
 
 public class HibernateUtil {
 	private static SessionFactory sessionFactory;
@@ -57,6 +58,7 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(Journey.class);
 				configuration.addAnnotatedClass(Container.class);
 				configuration.addAnnotatedClass(ContainerStatus.class);
+				configuration.addAnnotatedClass(Message.class);
 
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 						.applySettings(configuration.getProperties()).build();
