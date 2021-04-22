@@ -36,7 +36,6 @@ public class LogisticCompany extends User {
 	@OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private Set<Client> clients = new HashSet<Client>();
-	
 
 	public LogisticCompany() {
 	}

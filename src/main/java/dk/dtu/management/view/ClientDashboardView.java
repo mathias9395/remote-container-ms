@@ -145,6 +145,16 @@ public class ClientDashboardView extends JFrame{
 		panel.add(AddSelected);
 		//frame.add(AddSelected);
 		
+		JButton btnMessage = new JButton("Send message");
+		btnMessage.setBounds(210, 240, 110, 30);
+		btnMessage.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.sendMessage();
+			}
+		});
+		panel.add(btnMessage);
+		
 		
 		// REMOVE SELECTED
 		RemoveSelected =new JButton("Remove");
