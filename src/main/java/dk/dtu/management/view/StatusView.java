@@ -63,7 +63,7 @@ public class StatusView extends JFrame{
 			setLocationRelativeTo(null);
 		}
 	}
-	
+
 	public String gettempField() {
 		return temp.getText();
 	}
@@ -81,4 +81,3 @@ public class StatusView extends JFrame{
 	}
 	
 }
-

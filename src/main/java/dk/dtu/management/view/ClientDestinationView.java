@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
 import javax.swing.JOptionPane;
 
 
@@ -30,7 +32,6 @@ public class ClientDestinationView extends JFrame{
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Client Destination");
-		setPreferredSize(new Dimension(350,350));
 		
 		//labels
 		JLabel idLabel = new JLabel("ID:");
@@ -62,7 +63,9 @@ public class ClientDestinationView extends JFrame{
 				}
 			});
 			
-			setLayout(new FlowLayout());
+	        setPreferredSize(new Dimension(300, 200));
+			setLayout(new GridLayout(4,2));
+			
 			add(idLabel);
 			add(id);
 			add(originLabel);
@@ -73,6 +76,7 @@ public class ClientDestinationView extends JFrame{
 			add(content);
 			
 			pack();
+			setResizable(false);
 			setLocationRelativeTo(null);
 		}
 	}

@@ -1,6 +1,8 @@
 package dk.dtu.management.view;
 
+import java.awt.Color;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,11 +34,11 @@ public class LoginView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setTitle("Login");
-		setLayout(new GridBagLayout());
+		setLayout(new GridLayout(3,2,0,5));
 		
 		txtLogin = new JTextField(15);
 		txtPass = new JPasswordField(15);
-		btnLogin = new JButton("Login");
+		btnLogin = new JButton(" Login");
 		btnLogin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -44,12 +46,16 @@ public class LoginView extends JFrame {
 			}
 		});
 		
-		add(new JLabel("Email:"), GridBagLayoutUtils.constraint(0, 0, 5));
-		add(txtLogin, GridBagLayoutUtils.constraint(1, 0, 5));
-		add(new JLabel("Password:"), GridBagLayoutUtils.constraint(0, 1, 5));
-		add(txtPass, GridBagLayoutUtils.constraint(1, 1, 5));
-		add(btnLogin, GridBagLayoutUtils.constraint(1, 2, 5));
 		
+		
+		add(new JLabel(" Email:"));
+		add(txtLogin);
+		add(new JLabel(" Password:"));
+		add(txtPass);
+		add(new JLabel(" Welcome back!"));
+		add(btnLogin);
+		
+		getContentPane().setBackground(Color.white);
 		pack();
 		setResizable(false);
 		setLocationRelativeTo(null);

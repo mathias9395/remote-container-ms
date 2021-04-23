@@ -2,6 +2,7 @@ package dk.dtu.management.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,7 +17,6 @@ import dk.dtu.management.controller.AddJourneyController;
 public class AddJourneyView extends JFrame {
 	private AddJourneyController controller;
 	JButton button;
-    JLabel label;
     JLabel l1;
     JTextField origin;
     JLabel l2;
@@ -34,29 +34,14 @@ public class AddJourneyView extends JFrame {
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Add Journey");
-		setPreferredSize(new Dimension(350, 400));
-		setLayout(new FlowLayout());
-		label = new JLabel("Add a journey");
-        label.setBounds(20, 10, 300, 30);
-        
-        
+         
         l1 = new JLabel("Origin:");
-        l1.setBounds(20, 70, 300, 30);
-        
-        
         l2 = new JLabel("Destination:");
-        l2.setBounds(20, 120, 300, 30);
-        
-        
         l3 = new JLabel("Content:");
-        l3.setBounds(20, 170, 300, 30);
-        
         l4 = new JLabel("Company:");
-        l4.setBounds(20, 170, 300, 30);
         
 
         button = new JButton("Create");
-        button.setBounds(20,300,180,40);
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -74,24 +59,14 @@ public class AddJourneyView extends JFrame {
         
         
         origin = new JTextField(20);
-        origin.setBounds(20, 100, 110, 25);
-       
-        
         destination = new JTextField(20);
-        destination.setBounds(20, 150, 110, 25);
-        
-        
         content = new JTextField(20);
-        content.setBounds(20, 200, 110, 25);
-        
         company = new JTextField(20);
-        company.setBounds(20, 200, 110, 25);
-        
 
+        setPreferredSize(new Dimension(300, 200));
+		setLayout(new GridLayout(5,2));
         
         
-        
-        add(label);
         add(l1);
         add(origin);
         add(l2);
@@ -127,15 +102,4 @@ public class AddJourneyView extends JFrame {
 		JOptionPane.showMessageDialog(this, "Not all fields were filled out", "Add journey error", JOptionPane.ERROR_MESSAGE);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
 

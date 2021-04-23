@@ -2,6 +2,7 @@ package dk.dtu.management.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,8 +26,6 @@ public class ClientSettingsView extends JFrame {
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Settings");
-		setPreferredSize(new Dimension(350, 400));
-		setLayout(new FlowLayout());
 		
 		// labels
 		JLabel lblName = new JLabel("Name:");
@@ -52,6 +51,7 @@ public class ClientSettingsView extends JFrame {
 				controller.updateClient(txtName.getText(),txtEmail.getText(),txtReferencePerson.getText(),txtAddress.getText());
 			}
 		});
+		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			@Override
@@ -59,6 +59,10 @@ public class ClientSettingsView extends JFrame {
 				controller.returnDashboard();
 			}
 		});
+		
+		
+        setPreferredSize(new Dimension(300, 200));
+		setLayout(new GridLayout(5,2));
 		
 		add(lblName);
 		add(txtName);

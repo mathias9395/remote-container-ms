@@ -39,4 +39,9 @@ public class AdminMessageController {
 		}
 		return messages;
 	}
+	
+	public void returnDashboard() {
+		view.setVisible(false);
+		application.adminClientDashboard(client);
+	}
 }

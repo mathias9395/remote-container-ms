@@ -28,7 +28,6 @@ public class ClientDashboardView extends JFrame{
 	
 	private static JFrame frame; // frame for the entire thing
 	private static JPanel panel;
-	private static JLabel title; // title for the client interface 
 	private static JLabel origin;
 	private static JTextField enterOrigin;
 	private static JLabel content;
@@ -36,8 +35,11 @@ public class ClientDashboardView extends JFrame{
 	private static JLabel destination;
 	private static JTextField enterDestination;
 	private static JButton search;
+	private static JButton btnChat;
 	private static JButton update;
 	private static JButton logout;
+	private static JButton sharedata;
+	
 	private DefaultTableModel model = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -80,71 +82,47 @@ public class ClientDashboardView extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Client Dashboard");
+		
+		// color modification for a more distinguishable look
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Admin view");
 		setPreferredSize(new Dimension(600, 340));
 		
 		panel = new JPanel();
 		add(panel);
 		panel.setLayout(null);
 		
-		title = new JLabel("Client's Dashboard");
-		title.setBounds(20,5,110,50);
-		panel.add(title);
+		panel.setBackground(Color.decode("#E2ECF6"));
 		
 		origin = new JLabel("Origin");
-		origin.setBounds(20,35,110,50);
-		panel.add(origin);
-		
 		enterOrigin = new JTextField(20);
-		enterOrigin.setBounds(20, 70, 110, 30);
-		panel.add(enterOrigin);
-		
 		content = new JLabel("Content");
-		content.setBounds(20,95,110,50);
-		panel.add(content);
-		
 		enterContent = new JTextField(20);
-		enterContent.setBounds(20, 130, 110, 30);
-		panel.add(enterContent);
-		
 		destination = new JLabel("Destination");
-		destination.setBounds(20,155,110,50);
-		panel.add(destination);
-		
 		enterDestination = new JTextField(20);
-		enterDestination.setBounds(20, 190, 110, 30);
-		panel.add(enterDestination);
-		
 		search = new JButton("Search");
-		search.setBounds(20, 240, 110, 30);
 		search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.journeySearch();
 			}
-		});
-			
-		// implement click of a button search here
-		
-		panel.add(search);
-		
-		
+		});	
 		// other buttons
-		
 		// UPDATE
 		update = new JButton("Settings");
-		update.setBounds(330, 20, 110, 30);
+		
 		update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.clientSettings();
 			}
 		});
-		panel.add(update);
+		
 		
 		
 		// LOGOUT
 		logout = new JButton("Log out");
-		logout.setBounds(450,20,110,30);
 		logout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -152,35 +130,47 @@ public class ClientDashboardView extends JFrame{
 			}
 		});
 		
-		panel.add(logout);
+		
+		
+		// CHAT
+		btnChat = new JButton("Chat");
+		btnChat.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.sendMessage();
+			}
+		});
+		
+		
+		// SHARE DATA WITH ANOTHER CLIENT
+		
+		sharedata = new JButton("Share data");
+		
+		sharedata.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//controller.sendMessage();
+			}
+		});
+		
 		
 		
 		// ADD NEW JOURNEY
 		AddSelected = new JButton("Add");
-		AddSelected.setBounds(330, 240, 110, 30);
+		
 		AddSelected.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.addJourney();
 			}
 		});
-		panel.add(AddSelected);
-		//frame.add(AddSelected);
 		
-		JButton btnMessage = new JButton("Send message");
-		btnMessage.setBounds(210, 240, 110, 30);
-		btnMessage.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.sendMessage();
-			}
-		});
-		panel.add(btnMessage);
+		//frame.add(AddSelected);
 		
 		
 		// REMOVE SELECTED
-		RemoveSelected =new JButton("Remove");
-		RemoveSelected.setBounds(450,240,110,30);
+		RemoveSelected = new JButton("Remove");
+		
 		RemoveSelected.setEnabled(false);
 		RemoveSelected.addActionListener(new ActionListener() {
 			@Override
@@ -197,7 +187,7 @@ public class ClientDashboardView extends JFrame{
 				}
 			}
 		});
-		panel.add(RemoveSelected);
+		
 		
 		// TABLE
 		// data must come from the database!!
@@ -231,9 +221,43 @@ public class ClientDashboardView extends JFrame{
 		// scrollable form 
 		
 		JScrollPane scrollable = new JScrollPane(table);
-		scrollable.setBounds(200, 70, 360, 150);
+		
 	    scrollable.setVisible(true);
+		
+		
+		// bounds
+	    
+		logout.setBounds(450,20,110,30);
+		enterOrigin.setBounds(20, 70, 110, 30);
+		sharedata.setBounds(190, 240, 110, 30);
+		RemoveSelected.setBounds(450,240,110,30);
+		scrollable.setBounds(180, 70, 380, 150);
+		origin.setBounds(20,35,110,50);
+		AddSelected.setBounds(320, 240, 110, 30);
+		enterContent.setBounds(20, 130, 110, 30);
+		content.setBounds(20,95,110,50);
+		destination.setBounds(20,155,110,50);
+		enterDestination.setBounds(20, 190, 110, 30);
+		search.setBounds(20, 240, 110, 30);
+		update.setBounds(320, 20, 110, 30);
+		btnChat.setBounds(190, 20, 110, 30);
+		
+		// panel adds
+		
+		panel.add(AddSelected);
+		panel.add(RemoveSelected);
+	    panel.add(enterOrigin);
+		panel.add(origin);
 		panel.add(scrollable);
+		panel.add(content);
+		panel.add(enterContent);
+		panel.add(destination);
+		panel.add(enterDestination);
+		panel.add(search);
+		panel.add(update);
+		panel.add(logout);
+		panel.add(btnChat);
+		panel.add(sharedata);
 		
 		pack();
 		setResizable(false);

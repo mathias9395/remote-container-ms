@@ -70,4 +70,6 @@ public class AdminDashboardController {
 	public void display() {
 		view.setVisible(true);
 	}
+	
+	
 }

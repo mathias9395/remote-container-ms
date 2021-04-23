@@ -13,6 +13,7 @@ public class AdminClientDashboardController {
 	private AdminClientDashboardView view;
 	private ApplicationController application;
 	private Client client;
+	private Journey journey;
 	
 	public AdminClientDashboardController(ApplicationController application, Client client) {
 		this.application = application;
@@ -66,17 +67,24 @@ public class AdminClientDashboardController {
 		journeySearch();
 		
 	}
+	
+	public void message() {
+		view.setVisible(false);
+		application.adminMessage(client);
+	}
 
 	public void clientSettings() {
 		view.setVisible(false);
 		application.clientSettings(client);
 		
 	}
-
-	public void sendMessage() {
+	public void newStatus() {
 		view.setVisible(false);
-		application.adminMessage(client);
-		
+		application.addStatus(journey);
+	}
+
+	public String getName() {
+		return client.getName();
 	}
 	
 }

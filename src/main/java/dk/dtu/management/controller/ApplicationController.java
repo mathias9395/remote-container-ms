@@ -4,6 +4,7 @@ import java.util.Set;
 
 import dk.dtu.management.dao.LogisticCompanyDao;
 import dk.dtu.management.model.Client;
+import dk.dtu.management.model.Journey;
 import dk.dtu.management.model.LogisticCompany;
 import dk.dtu.management.view.*;
 
@@ -19,6 +20,7 @@ public class ApplicationController {
 	private AdminClientDashboardController adminClientDashboardController;
 	private ClientMessageController clientMessageController;
 	private AdminMessageController adminMessageController;
+	private AddStatusController addStatusController;
 
 	
 	public void adminDashboard() {
@@ -64,6 +66,10 @@ public class ApplicationController {
 		adminMessageController = new AdminMessageController(this,client);
 		adminMessageController.display();
 		
+	}
+	public void addStatus(Journey journey) {
+		addStatusController = new AddStatusController(this,journey);
+		addStatusController.display();
 	}
 	
 	// NEW

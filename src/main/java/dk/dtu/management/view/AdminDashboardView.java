@@ -1,11 +1,15 @@
 package dk.dtu.management.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -61,7 +65,7 @@ public class AdminDashboardView extends JFrame {
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Admin Dashboard");
-		setPreferredSize(new Dimension(800, 600));
+		setPreferredSize(new Dimension(600, 485));
 		
 		// buttons
 		
@@ -89,8 +93,8 @@ public class AdminDashboardView extends JFrame {
 			}
 		});
 		
-		JButton btnDeleteClient = new JButton("Delete client");
-		btnDeleteClient.setEnabled(false);
+
+		JButton btnDeleteClient = new JButton("Delete Marked");
 		btnDeleteClient.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -107,25 +111,14 @@ public class AdminDashboardView extends JFrame {
 				controller.clientSearch();
 		}});
 		
-		JButton btnSelectClient = new JButton("Select");
-		btnSelectClient.setEnabled(false);
-		btnSelectClient.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.selectClient(tblClients.getSelectedRow());
-			}
-		});
 		
 		// labels
 		JLabel lblNameSearch = new JLabel("Name:");
-		JLabel lblEmailSearch = new JLabel("Email");
+		JLabel lblEmailSearch = new JLabel("Email:");
 		
 		// text fields
 		txtNameSearch = new JTextField(10);
 		txtEmailSearch = new JTextField(10);
-		
-		
-		
 		
 		// table
 		clientModel.addColumn("ID");
@@ -139,18 +132,35 @@ public class AdminDashboardView extends JFrame {
 		
 		tblClients.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		tblClients.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				btnDeleteClient.setEnabled((tblClients.getSelectedRow() >= 0));
-				btnSelectClient.setEnabled((tblClients.getSelectedRow() >= 0));
-			}
+		tblClients.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable table =(JTable) mouseEvent.getSource();
+		        Point point = mouseEvent.getPoint();
+		        int row = table.rowAtPoint(point);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		        	controller.selectClient(tblClients.getSelectedRow());
+		        }
+		    }
 		});
 		
 		
 		
 		
-		setLayout(new FlowLayout());
+		
+		
+		setLayout(null);
+		
+		// distribution for a more distint looking page:
+		logoutButton.setBounds(450, 20, 120, 40);
+		lblNameSearch.setBounds(20, 70, 120, 40);
+		txtNameSearch.setBounds(20,100,120,40);
+		lblEmailSearch.setBounds(150, 70, 120, 40);
+		txtEmailSearch.setBounds(150, 100, 120, 40);
+		btnClientSearch.setBounds(320, 100, 120, 40);
+		btnNewClient.setBounds(20, 20, 120, 40);
+		btnDeleteClient.setBounds(450, 100, 120, 40);
+		
+		// adding buttons and text fields
 		add(logoutButton);
 		add(lblNameSearch);
 		add(txtNameSearch);
@@ -159,9 +169,23 @@ public class AdminDashboardView extends JFrame {
 		add(btnClientSearch);
 		add(btnNewClient);
 		add(btnDeleteClient);
-		add(new JScrollPane(tblClients));
-		add(btnSelectClient);
 		
+		// color modification
+		getContentPane().setBackground(Color.decode("#E2ECF6"));
+		
+		JScrollPane pane = new JScrollPane(tblClients);
+		
+		// Visual modification to change the column width
+		tblClients.setRowHeight(30);
+		tblClients.getColumnModel().getColumn(0).setPreferredWidth(20);
+		tblClients.getColumnModel().getColumn(5).setMaxWidth(35);;
+		
+		// scrollable pane
+		pane.setBounds(20, 150, 550, 280);
+		setResizable(false);
+		add(pane);
+		
+		// practical display details
 		pack();
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -188,8 +212,6 @@ public class AdminDashboardView extends JFrame {
 		data[0] = clientModel.getValueAt(n, 0);
 		data[1] = clientModel.getValueAt(n, 2);
 		
-		
-		
 		return data;
 	}
 	
@@ -200,8 +222,5 @@ public class AdminDashboardView extends JFrame {
 	public String getTxtEmailSearch() {
 		return txtEmailSearch.getText();
 	}
-	
-	
-	
 	
 }

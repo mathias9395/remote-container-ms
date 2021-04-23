@@ -57,9 +57,9 @@ public class Client extends User {
 	
 	
 	@Transient
-	public Set<Client> shareClients = new HashSet<>(); //NOT SAVED IN DATABASE
+	public Set<Client> sharedWithClients = new HashSet<>(); //NOT SAVED IN DATABASE
 	@Transient
-	public Set<String> sharedData = new HashSet<>(); //NOT SAVED IN DATABASE
+	public Set<Client> sharedData = new HashSet<>(); //NOT SAVED IN DATABASE
 	
 	public Client() {
 		super();
@@ -246,25 +246,28 @@ public class Client extends User {
 	
 	
 	//SHARED DATA METHODS
-	public void addShareClients(Client client) {
-		shareClients.add(client);
+	public void removeSharedWithClients(Client c) {
+		sharedWithClients.remove(c);
 	}
-	
-	public Set<Client> getShareClient() {
-		return shareClients;
-	}
-	
-	public void setSharedData(String data) {//to be used by Logistic Company
-		sharedData.add(data);
-	}
-	
-	public String getSharedData() {
-	String data = "";
-	for (String temp : sharedData) {
-        data = data+temp+"\n";
-	}
-	return data;
-	}
+//	public void addShareClients(Client client) {
+//		shareClients.add(client);
+//	}
+//	
+//	public Set<Client> getShareClient() {
+//		return shareClients;
+//	}
+//	
+//	public void setSharedData(String data) {//to be used by Logistic Company
+//		sharedData.add(data);
+//	}
+//	
+//	public String getSharedData() {
+//	String data = "";
+//	for (String temp : sharedData) {
+//        data = data+temp+"\n";
+//	}
+//	return data;
+//	}
 
 	public void removeJourney(Journey journey) {
 		if (journeySet.contains(journey)) {

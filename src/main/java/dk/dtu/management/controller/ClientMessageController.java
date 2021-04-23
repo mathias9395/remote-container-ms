@@ -41,5 +41,10 @@ public class ClientMessageController {
 		}
 		return messages;
 	}
+	
+	public void returnDashboard() {
+		view.setVisible(false);
+		application.clientDashboard(client);
+	}
 
 }

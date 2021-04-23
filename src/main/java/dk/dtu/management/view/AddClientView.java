@@ -2,6 +2,7 @@ package dk.dtu.management.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,16 +31,16 @@ public class AddClientView extends JFrame {
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Add Client");
-		setPreferredSize(new Dimension(800, 600));
+		
 		
 		
 		
 		// labels
-		JLabel nameLabel = new JLabel("Name:");
-		JLabel emailLabel = new JLabel("Email:");
-		JLabel referencePersonLabel = new JLabel("Reference Person:");
-		JLabel passwordLabel = new JLabel("Password:");
-		JLabel addressLabel = new JLabel("Address:");
+		JLabel nameLabel = new JLabel(" Name:");
+		JLabel emailLabel = new JLabel(" Email:");
+		JLabel referencePersonLabel = new JLabel(" Reference Person:");
+		JLabel passwordLabel = new JLabel(" Password:");
+		JLabel addressLabel = new JLabel(" Address:");
 		
 		// fields
 		nameField = new JTextField(10);
@@ -65,7 +66,10 @@ public class AddClientView extends JFrame {
 		});
 		
 		
-		setLayout(new FlowLayout());
+		// layout settings
+		setPreferredSize(new Dimension(300, 200));
+		setLayout(new GridLayout(6,2));
+		
 		add(nameLabel);
 		add(nameField);
 		add(emailLabel);
@@ -82,6 +86,7 @@ public class AddClientView extends JFrame {
 		
 		
 		pack();
+		setResizable(false);
 		setLocationRelativeTo(null);
 	}
 	

@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -21,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import dk.dtu.management.controller.AdminClientDashboardController;
+
 
 	
 public class AdminClientDashboardView extends JFrame{
@@ -40,6 +42,7 @@ public class AdminClientDashboardView extends JFrame{
 	private static JButton update;
 	private static JButton logout;
 	private static BasicArrowButton back;
+	private static JButton btnChat;
 	private DefaultTableModel model = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -76,14 +79,14 @@ public class AdminClientDashboardView extends JFrame{
 	private void initGUI() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Client Dashboard");
+		setTitle("Admin view");
 		setPreferredSize(new Dimension(600, 340));
 		
 		panel = new JPanel();
 		add(panel);
 		panel.setLayout(null);
 		
-		title = new JLabel("ClientName");
+		title = new JLabel(controller.getName() + "'s information");
 		title.setBounds(20,5,110,50);
 		panel.add(title);
 		
@@ -119,7 +122,17 @@ public class AdminClientDashboardView extends JFrame{
 				controller.journeySearch();
 			}
 		});
-			
+		
+		btnChat = new JButton("Chat");
+		btnChat.setBounds(320,20,110,30);
+		btnChat.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.message();
+			}
+		});
+		panel.add(btnChat);
+		
 		// implement click of a button search here
 		
 		panel.add(search);
@@ -161,33 +174,23 @@ public class AdminClientDashboardView extends JFrame{
 			}
 		});
 		
-		JButton sendMessage = new JButton("Send message");
-		sendMessage.setBounds(350,20,110,30);
-		sendMessage.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.sendMessage();
-			}
-		});
-		panel.add(sendMessage);
-		
 		panel.add(logout);
 		
 		// BACK BUTTON
 				back = new BasicArrowButton(BasicArrowButton.WEST);
 				back.setBounds(0,0,20,20);
-				logout.addActionListener(e -> { // logout puts us back into the login page
+				back.addActionListener(e -> { // logout puts us back into the login page
 				    controller.back();
 				});
 				panel.add(back);
 		
-		// ADD NEW JOURNEY
+		// ADD NEW STATUS ENTRY
 		AddSelected = new JButton("Add status entry");
-		AddSelected.setBounds(330, 240, 110, 30);
+		AddSelected.setBounds(320, 240, 110, 30);
 		AddSelected.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.newStatus();
 			}
 		});
 		panel.add(AddSelected);
@@ -195,10 +198,12 @@ public class AdminClientDashboardView extends JFrame{
 		
 		
 		// REMOVE SELECTED
+		final JLabel label = new JLabel();
 		RemoveSelected = new JButton("Remove");
 		RemoveSelected.setBounds(450,240,110,30);
 		RemoveSelected.setEnabled(false);
 		RemoveSelected.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -207,7 +212,18 @@ public class AdminClientDashboardView extends JFrame{
 				boolean selected = Boolean.valueOf(table.getValueAt(i, 4).toString());
 					
 				if(selected) {
-					controller.removeJourney(table.getSelectedRow());
+
+		            int result = JOptionPane.showConfirmDialog(frame,"Sure? You want to exit?", "Swing Tester",
+		               JOptionPane.YES_NO_OPTION,
+		               JOptionPane.QUESTION_MESSAGE);
+		            if(result == JOptionPane.YES_OPTION){
+		            	controller.removeJourney(table.getSelectedRow());
+		            }else if (result == JOptionPane.NO_OPTION){
+		               
+		            }else {
+		               label.setText("None selected");
+		            }
+					
 				}
 				
 			}
@@ -223,8 +239,7 @@ public class AdminClientDashboardView extends JFrame{
 	        String[] columnHeaders={"ID","Origin","Destination","Content","Mark"};
 	    
 	    // modeling the table
-	    
-	    
+	        
 	    model.addColumn("ID");
 	    model.addColumn("Origin");
 	    model.addColumn("Destination");
@@ -232,12 +247,7 @@ public class AdminClientDashboardView extends JFrame{
 	    model.addColumn("Mark");
 	    table = new JTable(model);
 	    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				RemoveSelected.setEnabled((table.getSelectedRow() >= 0));
-			}
-		});
+
 	    
 
 		table.getColumnModel().getColumn(0).setPreferredWidth(5);
