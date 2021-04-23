@@ -161,6 +161,16 @@ public class AdminClientDashboardView extends JFrame{
 			}
 		});
 		
+		JButton sendMessage = new JButton("Send message");
+		sendMessage.setBounds(350,20,110,30);
+		sendMessage.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.sendMessage();
+			}
+		});
+		panel.add(sendMessage);
+		
 		panel.add(logout);
 		
 		// BACK BUTTON

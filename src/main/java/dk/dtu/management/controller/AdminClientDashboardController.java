@@ -72,5 +72,11 @@ public class AdminClientDashboardController {
 		application.clientSettings(client);
 		
 	}
+
+	public void sendMessage() {
+		view.setVisible(false);
+		application.adminMessage(client);
+		
+	}
 	
 }

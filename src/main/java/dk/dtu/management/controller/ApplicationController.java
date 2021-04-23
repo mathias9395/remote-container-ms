@@ -18,6 +18,7 @@ public class ApplicationController {
 	private ClientSettingsController clientSettingsController;
 	private AdminClientDashboardController adminClientDashboardController;
 	private ClientMessageController clientMessageController;
+	private AdminMessageController adminMessageController;
 
 	
 	public void adminDashboard() {
@@ -57,6 +58,11 @@ public class ApplicationController {
 	public void clientMessage(Client client) {
 		clientMessageController = new ClientMessageController(this,client);
 		clientMessageController.display();
+		
+	}
+	public void adminMessage(Client client) {
+		adminMessageController = new AdminMessageController(this,client);
+		adminMessageController.display();
 		
 	}
 	

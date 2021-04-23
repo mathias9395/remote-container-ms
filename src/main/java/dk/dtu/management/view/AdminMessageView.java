@@ -11,19 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
-import dk.dtu.management.controller.ClientMessageController;
+import dk.dtu.management.controller.AdminMessageController;
 
-public class ClientMessageView extends JFrame {
-
-	private ClientMessageController controller;
+public class AdminMessageView extends JFrame {
+	private AdminMessageController controller;
 	private JTextArea textArea;
 	private JTextArea txtNewMessage;
-	
-	
-	public ClientMessageView(ClientMessageController controller) {
+
+	public AdminMessageView(AdminMessageController controller) {
 		this.controller = controller;
 		initGUI();
 	}
@@ -73,4 +69,5 @@ public class ClientMessageView extends JFrame {
 		textArea.setText(controller.displayMessages());
 		txtNewMessage.setText(null);
 	}
+
 }
