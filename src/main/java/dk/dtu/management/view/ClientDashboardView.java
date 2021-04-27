@@ -87,7 +87,6 @@ public class ClientDashboardView extends JFrame{
 		// color modification for a more distinguishable look
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Admin view");
 		setPreferredSize(new Dimension(600, 340));
 		
 		panel = new JPanel();

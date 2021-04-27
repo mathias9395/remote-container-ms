@@ -38,7 +38,8 @@ public class LogisticCompany extends User {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private Set<Client> clients = new HashSet<Client>();
 	
-	@Transient
+	@OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	private Set<Container> containers = new HashSet<Container>(); //NOT STORED IN DB
 
 	public LogisticCompany() {
@@ -60,7 +61,9 @@ public class LogisticCompany extends User {
 	}
 	
 	public void addContainer(Container container) {
+		container.setCompany(this);
 		containers.add(container);
+		companyDao.update(this);
 	}
 	
 	

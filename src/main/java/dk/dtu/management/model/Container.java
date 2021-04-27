@@ -40,7 +40,7 @@ public class Container {
 	
 	@OneToMany(mappedBy = "container", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
-	private Set<ContainerStatus> statusSet = new HashSet<ContainerStatus>();
+	private List<ContainerStatus> statusSet = new ArrayList<ContainerStatus>();
 	
 	@Column(name = "available", nullable = true)
 	private boolean available;
@@ -48,6 +48,10 @@ public class Container {
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "journey_fk", referencedColumnName = "journey_id")
 	private Journey journey;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_fk", referencedColumnName = "company_id")
+	private LogisticCompany company;
 	
 	
 	public Container() {}
@@ -59,6 +63,13 @@ public class Container {
 	
 	
 	
+	public LogisticCompany getCompany() {
+		return company;
+	}
+	public void setCompany(LogisticCompany company) {
+		this.company = company;
+		containerDao.update(this);
+	}
 	public Journey getJourney() {
 		return journey;
 	}
@@ -77,10 +88,10 @@ public class Container {
 		return id;
 	}
 
-	public Set<ContainerStatus> getStatusSet() {
+	public List<ContainerStatus> getStatusSet() {
 		return statusSet;
 	}
-	public void setStatusSet(Set<ContainerStatus> statusSet) {
+	public void setStatusSet(List<ContainerStatus> statusSet) {
 		this.statusSet = statusSet;
 		containerDao.update(this);
 	}
@@ -115,9 +126,10 @@ public class Container {
 	
 	public void reset() {
 		client = null;
-		statusSet = new HashSet<ContainerStatus>();
+		statusSet = new ArrayList<ContainerStatus>();
 		available = true;
 		containerDao.update(this);
 		journey = null;
+		containerDao.update(this);
 	}
 }

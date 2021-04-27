@@ -3,6 +3,7 @@ import java.util.*;
 
 import dk.dtu.management.dao.ClientDao;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -56,11 +59,18 @@ public class Client extends User {
 	
 	
 	
-	
-	@Transient
-	public Set<Client> sharedWithClients = new HashSet<>(); //NOT SAVED IN DATABASE
-	@Transient
+	@ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "shared_data", 
+        joinColumns = { @JoinColumn(name = "shared") }, 
+        inverseJoinColumns = { @JoinColumn(name = "received") }
+    )
 	public Set<Client> sharedData = new HashSet<>(); //NOT SAVED IN DATABASE
+	
+	@ManyToMany(mappedBy = "sharedData",fetch = FetchType.EAGER)
+	public Set<Client> sharedWithClients = new HashSet<>(); //NOT SAVED IN DATABASE
+	
+	
 	
 	public Client() {
 		super();
@@ -95,6 +105,7 @@ public class Client extends User {
 
 	public void setJourneySet(Set<Journey> journeySet) {
 		this.journeySet = journeySet;
+		clientDao.update(this);
 	}
 
 	public Boolean update(String name, String email, String referencePerson, String address) {
@@ -233,10 +244,12 @@ public class Client extends User {
 	//SHARED DATA METHODS
 	public void addSharedWithClients(Client c) {
 		sharedWithClients.add(c);
+		clientDao.update(this);
 	}
 	
 	public void removeSharedWithClients(Client c) {
 		sharedWithClients.remove(c);
+		clientDao.update(this);
 	}
 
 	public Set<Client> getSharedWithClients() {
@@ -245,10 +258,12 @@ public class Client extends User {
 	
 	public void addSharedData(Client c) {
 		sharedData.add(c);
+		clientDao.update(this);
 	}
 	
 	public void removeSharedData(Client c) {
 		sharedData.remove(c);
+		clientDao.update(this);
 	}
 	
 	public Set<Client> getSharedData(){

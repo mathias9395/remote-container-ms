@@ -70,6 +70,7 @@ public class Journey {
 	}
 	public void setOnJourney(boolean onJourney) {
 		this.onJourney = onJourney;
+		journeyDao.update(this);
 	}
 	public void setContainer(Container container) {
 		this.container = container;
