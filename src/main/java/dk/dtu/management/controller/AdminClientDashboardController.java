@@ -47,6 +47,18 @@ public class AdminClientDashboardController {
 	public String getUser() {
 		return client.getName();
 	}
+	public String getEmail() {
+		return client.getEmail();
+	}
+	public int getId() {
+		return client.getId();
+	}
+	public String getReferencePerson() {
+		return client.getReferencePerson();
+	}
+	public String getAddress() {
+		return client.getAddress();
+	}
 	
 	public void displayTable(Set<Journey> journeys) {
 		view.resetTable();
@@ -78,13 +90,21 @@ public class AdminClientDashboardController {
 		application.clientSettings(client);
 		
 	}
-	public void newStatus() {
-		view.setVisible(false);
-		application.addStatus(journey);
-	}
 
 	public String getName() {
 		return client.getName();
+	}
+
+	public void selectJourney(int row) {
+		int id = view.getTableRow(row);
+		Journey j = client.getJourneyById(id);
+		view.setVisible(false);
+		if (j.isOnJourney()) {
+			application.addStatus(j);
+		} else {
+			application.assignContainer(j);
+		}
+		
 	}
 	
 }

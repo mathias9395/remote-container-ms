@@ -3,7 +3,8 @@ package dk.dtu.management.view;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import dk.dtu.management.controller.ContainerController;
+import dk.dtu.management.controller.ClientViewStatusController;
+
 
 import java.awt.Dimension;
 import javax.swing.JLabel;
@@ -16,13 +17,13 @@ import javax.swing.JOptionPane;
 
 public class StatusView extends JFrame{
 	
-	private ContainerController controller;
-	private JLabel temp;
-	private JLabel humidity;
-	private JLabel pressure;
+	private ClientViewStatusController controller;
+	private JLabel tempField;
+	private JLabel humidityField;
+	private JLabel pressureField;
 
-	public StatusView(ContainerController controller) {
-		this.controller = controller;
+	public StatusView( ClientViewStatusController controller) {
+		this.controller =controller;
 		initGUI();
 	}
 	
@@ -37,47 +38,38 @@ public class StatusView extends JFrame{
 		JLabel pressureLabel = new JLabel("Pressure:");
 		
 		{
-			//labelData
-			temp = new JLabel(gettempField());
-			humidity = new JLabel(gethumidityField());
-			pressure = new JLabel(getpressureField());
+			
+			 
+			
+			JTextField txtTemp = new JTextField(10);
+			txtTemp.setText(String.valueOf(controller.getTemperature()));
+			JTextField txtHumidity = new JTextField(10);
+			txtHumidity.setText(String.valueOf(controller.getHumidity()));
+			JTextField txtPressure = new JTextField(10);
+			txtPressure.setText(String.valueOf(controller.getPressure()));
+			
+	
 			
 			//buttons
-			JButton btnGotoEdit = new JButton("Back");
-			btnGotoEdit.addActionListener(new ActionListener() {
+			JButton btnCancel = new JButton("Cancel");
+			btnCancel.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					controller.gotoBack(); //Close this and go to ClientDestinationView.java
+					controller.returnDashboard(); //Close this and go to ClientDestinationView.java
 				}
 			});
 			
 			setLayout(new FlowLayout());
 			add(tempLabel);
-			add(temp);
+			add(tempField);
 			add(humidityLabel);
-			add(humidity);
+			add(humidityField);
 			add(pressureLabel);
-			add(pressure);
+			add(pressureField);
 			
 			pack();
 			setLocationRelativeTo(null);
 		}
 	}
-
-	public String gettempField() {
-		return temp.getText();
-	}
-	
-	public String gethumidityField() {
-		return humidity.getText();
-	}
-	
-	public String getpressureField() {
-		return pressure.getText();
-	}
-	
-	public void showError() {
-		JOptionPane.showMessageDialog(this, "ayo the pizza here", "how", JOptionPane.ERROR_MESSAGE);
-	}
-	
 }
+	

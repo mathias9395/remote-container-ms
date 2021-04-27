@@ -45,14 +45,15 @@ public class Client extends User {
 	private LogisticCompany company;
 	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
-	private Set<Container> containerSet = new HashSet<Container>();
-	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
 	private Set<Journey> journeySet = new HashSet<Journey>();
 	
 	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
 	private List<Message> messages = new ArrayList<Message>();
+	
+	
+	
+	
 	
 	
 	
@@ -113,14 +114,6 @@ public class Client extends User {
 		return address;
 	}
 
-	public Set<Container> getContainerSet() {
-		return containerSet;
-	}
-	
-
-	public void setContainerSet(Set<Container> containerSet) {
-		this.containerSet = containerSet;
-	}
 
 	public LogisticCompany getCompany() {
 		return company;
@@ -196,14 +189,6 @@ public class Client extends User {
 		return new HashCodeBuilder(17,37).append(id).append(email).toHashCode();
 	}
 
-	
-	public void addContainer(Container container) {
-		container.setClient(this);
-		containerSet.add(container);
-		clientDao.update(this);
-		
-	}
-	
 	public Set<Journey> filterJourneysContent(String content) {
 		Set<Journey> filteredJourneys = new HashSet<>();
 		for(Journey entry: journeySet) {
@@ -246,28 +231,29 @@ public class Client extends User {
 	
 	
 	//SHARED DATA METHODS
+	public void addSharedWithClients(Client c) {
+		sharedWithClients.add(c);
+	}
+	
 	public void removeSharedWithClients(Client c) {
 		sharedWithClients.remove(c);
 	}
-//	public void addShareClients(Client client) {
-//		shareClients.add(client);
-//	}
-//	
-//	public Set<Client> getShareClient() {
-//		return shareClients;
-//	}
-//	
-//	public void setSharedData(String data) {//to be used by Logistic Company
-//		sharedData.add(data);
-//	}
-//	
-//	public String getSharedData() {
-//	String data = "";
-//	for (String temp : sharedData) {
-//        data = data+temp+"\n";
-//	}
-//	return data;
-//	}
+
+	public Set<Client> getSharedWithClients() {
+		return sharedWithClients;
+	}
+	
+	public void addSharedData(Client c) {
+		sharedData.add(c);
+	}
+	
+	public void removeSharedData(Client c) {
+		sharedData.remove(c);
+	}
+	
+	public Set<Client> getSharedData(){
+		return sharedData;
+	}
 
 	public void removeJourney(Journey journey) {
 		if (journeySet.contains(journey)) {
@@ -293,6 +279,26 @@ public class Client extends User {
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 		clientDao.update(this);
+	}
+	
+	public Set<Journey> filterOnJourney() {
+		Set<Journey> filteredJourneys = new HashSet<>();
+		for(Journey j : journeySet) {
+			if (!j.isOnJourney()) {
+				filteredJourneys.add(j);
+			}
+		}
+
+		return filteredJourneys;
+	}
+
+	public Journey getJourneyById(int id) {
+		for (Journey j : journeySet) {
+			if (j.getId() == id) {
+				return j;
+			}
+		}
+		return null;
 	}
 	
 

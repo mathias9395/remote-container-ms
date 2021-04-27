@@ -37,6 +37,9 @@ public class LogisticCompany extends User {
 	@OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private Set<Client> clients = new HashSet<Client>();
+	
+	@Transient
+	private Set<Container> containers = new HashSet<Container>(); //NOT STORED IN DB
 
 	public LogisticCompany() {
 	}
@@ -53,6 +56,21 @@ public class LogisticCompany extends User {
 
 	public void setId(int id) {
 		this.id = id;
+		companyDao.update(this);
+	}
+	
+	public void addContainer(Container container) {
+		containers.add(container);
+	}
+	
+	
+
+	public Set<Container> getContainers() {
+		return containers;
+	}
+
+	public void setContainers(Set<Container> containers) {
+		this.containers = containers;
 		companyDao.update(this);
 	}
 
@@ -147,13 +165,13 @@ public class LogisticCompany extends User {
 	
 	
 	//SHARED DATA METHODS
-	public void shareData(Client client) {
-		for (Client temp : client.getShareClient()) {
-	        if(clients.contains(temp)) {
-	        	temp.setSharedData(client.toString());
-	        }
-		}
-	}
+//	public void shareData(Client client) {
+//		for (Client temp : client.getShareClient()) {
+//	        if(clients.contains(temp)) {
+//	        	temp.setSharedData(client.toString());
+//	        }
+//		}
+//	}
 
 	public static LogisticCompany getInstance() {
 		if (companyDao.getById(1) == null) {
@@ -173,6 +191,15 @@ public class LogisticCompany extends User {
 		}
 		return null;
 		
+	}
+
+	public Container getContainerById(int id) {
+		for (Container c : containers) {
+			if (c.getId() == id) {
+				return c;
+			}
+		}
+		return null;
 	}
 
 	

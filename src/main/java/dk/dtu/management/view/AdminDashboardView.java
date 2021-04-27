@@ -92,6 +92,13 @@ public class AdminDashboardView extends JFrame {
 				controller.addClient();
 			}
 		});
+		JButton btnNewContainer = new JButton("Add container");
+		btnNewContainer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.addContainer();
+			}
+		});
 		
 
 		JButton btnDeleteClient = new JButton("Delete Marked");
@@ -158,6 +165,7 @@ public class AdminDashboardView extends JFrame {
 		txtEmailSearch.setBounds(150, 100, 120, 40);
 		btnClientSearch.setBounds(320, 100, 120, 40);
 		btnNewClient.setBounds(20, 20, 120, 40);
+		btnNewContainer.setBounds(140, 20, 120, 40);
 		btnDeleteClient.setBounds(450, 100, 120, 40);
 		
 		// adding buttons and text fields
@@ -168,6 +176,7 @@ public class AdminDashboardView extends JFrame {
 		add(txtEmailSearch);
 		add(btnClientSearch);
 		add(btnNewClient);
+		add(btnNewContainer);
 		add(btnDeleteClient);
 		
 		// color modification

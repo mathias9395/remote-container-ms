@@ -194,12 +194,12 @@ public class ClientStepDefinition {
 		assertTrue(company.getClients().contains(client2));
 	}
 
-	@Then("show client2 the information of client1")
-	public void show_client2_the_information_of_client1() {
-		client.addShareClients(client2);
-		company.shareData(client);
-		assertTrue((client.toString()+"\n").equals(client2.getSharedData()));
-	}
+//	@Then("show client2 the information of client1")
+//	public void show_client2_the_information_of_client1() {
+//		client.addShareClients(client2);
+//		company.shareData(client);
+//		assertTrue((client.toString()+"\n").equals(client2.getSharedData()));
+//	}
 	
 	@Given("a client2 that is not in logistic company")
 	public void a_client2_that_is_not_in_logistic_company() {
@@ -212,12 +212,12 @@ public class ClientStepDefinition {
 		assertFalse(company.getClients().contains(client2));
 	}
 
-	@Then("do not show client2 the information of client1")
-	public void do_not_show_client2_the_information_of_client1() {
-		client.addShareClients(client2);
-		company.shareData(client);
-		assertTrue("" == client2.getSharedData());
-	}
+//	@Then("do not show client2 the information of client1")
+//	public void do_not_show_client2_the_information_of_client1() {
+//		client.addShareClients(client2);
+//		company.shareData(client);
+//		assertTrue("" == client2.getSharedData());
+//	}
 	
 	@When("client exists")
 	public void client_exists() {

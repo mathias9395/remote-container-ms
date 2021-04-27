@@ -21,6 +21,12 @@ public class ApplicationController {
 	private ClientMessageController clientMessageController;
 	private AdminMessageController adminMessageController;
 	private AddStatusController addStatusController;
+	
+	private ClientShareDataController clientShareDataController;
+	private ClientViewSharedDataController clientViewSharedDataController;
+	private ClientClientsDataController clientClientsDataController;
+	private AddContainerController addContainerController;
+	private AssignContainerController assignContainerController;
 
 	
 	public void adminDashboard() {
@@ -72,6 +78,33 @@ public class ApplicationController {
 		addStatusController.display();
 	}
 	
+	public void clientShareData(Client client) {
+		clientShareDataController = new ClientShareDataController(this,client);
+		clientShareDataController.display();
+	}
+	
+	public void clientViewSharedData(Client client) {
+		clientViewSharedDataController = new ClientViewSharedDataController(this,client);
+		clientViewSharedDataController.display();
+	}
+	
+	public void clientClientsData(Client clientData, Client clientOG) {
+		clientClientsDataController = new ClientClientsDataController(this, clientData, clientOG);
+		clientClientsDataController.display();
+	}
+	
+	public void addContainer() {
+		addContainerController = new AddContainerController(this,company);
+		addContainerController.display();
+		
+	}
+	
+	public void assignContainer(Journey journey) {
+		assignContainerController = new AssignContainerController(this,company,journey);
+		assignContainerController.display();
+		
+	}
+	
 	// NEW
 //	public void addStatus() {
 //		AddStatus addStatus = new AddStatus();
@@ -118,6 +151,7 @@ public class ApplicationController {
 		
 		
 		app.login();
+		
 		
 		//NEW
 		//app.addStatus();

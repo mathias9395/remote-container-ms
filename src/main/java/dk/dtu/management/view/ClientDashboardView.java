@@ -39,6 +39,7 @@ public class ClientDashboardView extends JFrame{
 	private static JButton update;
 	private static JButton logout;
 	private static JButton sharedata;
+	private static JButton viewSharedData;
 	
 	private DefaultTableModel model = new DefaultTableModel() {
 		@Override
@@ -149,7 +150,16 @@ public class ClientDashboardView extends JFrame{
 		sharedata.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//controller.sendMessage();
+				controller.clientShareData();
+			}
+		});
+		
+		viewSharedData = new JButton("View shared data");
+		
+		viewSharedData.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.clientShareData();
 			}
 		});
 		
@@ -230,6 +240,7 @@ public class ClientDashboardView extends JFrame{
 		logout.setBounds(450,20,110,30);
 		enterOrigin.setBounds(20, 70, 110, 30);
 		sharedata.setBounds(190, 240, 110, 30);
+		viewSharedData.setBounds(10, 10, 10, 10);
 		RemoveSelected.setBounds(450,240,110,30);
 		scrollable.setBounds(180, 70, 380, 150);
 		origin.setBounds(20,35,110,50);

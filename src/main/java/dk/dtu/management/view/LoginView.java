@@ -14,7 +14,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.LoginController;
-import dk.dtu.management.util.GridBagLayoutUtils;
 
 public class LoginView extends JFrame {
 

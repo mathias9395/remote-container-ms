@@ -71,5 +71,10 @@ public class AdminDashboardController {
 		view.setVisible(true);
 	}
 	
+	public void addContainer() {
+		view.setVisible(false);
+		application.addContainer();
+	}
+	
 	
 }

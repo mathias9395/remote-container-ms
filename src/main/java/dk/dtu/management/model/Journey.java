@@ -1,4 +1,5 @@
 package dk.dtu.management.model;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -36,6 +38,13 @@ public class Journey {
     @JoinColumn(name = "client_fk", referencedColumnName = "client_id")
 	private Client client;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "container_fk", referencedColumnName = "container_id")
+	private Container container;//NOT STORED IN DB
+	
+	@Column(name = "on_journey", nullable = true)
+	private boolean onJourney;
+	
 	
 	public Journey () {
 		
@@ -49,10 +58,30 @@ public class Journey {
 		this.destination = destination;
 		this.contentType =  contentType;
 		this.company = company;
+		this.onJourney = false;
+		this.container = null;
 		journeyDao.save(this);
 	}
 	
 	
+	
+	public boolean isOnJourney() {
+		return onJourney;
+	}
+	public void setOnJourney(boolean onJourney) {
+		this.onJourney = onJourney;
+	}
+	public void setContainer(Container container) {
+		this.container = container;
+		onJourney = true;
+		container.setAvailable(false);
+		container.setJourney(this);
+		journeyDao.update(this);
+	}
+	
+	public Container getContainer() {
+		return container;
+	}
 	
 	public Client getClient() {
 		return client;

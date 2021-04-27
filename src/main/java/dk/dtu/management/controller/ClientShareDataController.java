@@ -11,7 +11,6 @@ public class ClientShareDataController {
 	private LogisticCompany company;
 	private Client client;
 	private ClientShareDataView view;
-	//private AddClientController addClientController;
 	private ApplicationController application;
 	
 	public ClientShareDataController(ApplicationController application, Client client) {
@@ -20,18 +19,18 @@ public class ClientShareDataController {
 		this.company = client.getCompany();
 		this.view = new ClientShareDataView(this);
 		displayTableAll(company.getClients());
+		displayTableShared(client.getSharedWithClients());
 	}
 	
 	public void setView(ClientShareDataView view) {
 		this.view = view;
 	}
 	
-	// Should add to sharedWith table
 	public void selectClient(int row) {
-		Object[] data = view.getTableRow(row);
-		Client c = company.getClientById((int) data[0]);
-		view.setVisible(false);
-		application.adminClientDashboard(c);
+		Object[] data = view.getAllTableRow(row);
+		client.addSharedWithClients(company.getClientById((int) data[0]));
+		company.getClientById((int) data[0]).addSharedData(client);
+		displayTableShared(client.getSharedWithClients());
 	}
 	
 	public void clientSearch() {
@@ -42,22 +41,37 @@ public class ClientShareDataController {
 	}
 	
 	public void displayTableAll(Set<Client> clients) {
-		view.resetTable();
+		view.resetAllTable();
 		for (Client c : clients) {
-			view.addTableRow(new Object[] {c.getId(),c.getName(),c.getEmail(),c.getReferencePerson(),c.getAddress(),false});
-			//view.addTableRow(new Object[] {c.getId(),c.getName(),c.getEmail(),c.getReferencePerson(),c.getAddress()});
+			if(!c.equals(client)) {
+			view.addAllTableRow(new Object[] {c.getId(),c.getName(),c.getEmail(),c.getReferencePerson(),c.getAddress(),false});
+			}
 		}
 	}
 	
-
+// Shared With table
+	
 	public void removeSharedClient(int id,String email) {
-//		Object[] data = view.getTableRow(row);
 		Client c = new Client(id, email);
 		client.removeSharedWithClients(c);
+		company.getClientById(id).removeSharedData(client);
+		displayTableShared(client.getSharedWithClients());
+	}
+	
+	public void displayTableShared(Set<Client> clients) {
+		view.resetSharedTable();
+		for (Client c : clients) {
+			view.addSharedTableRow(new Object[] {c.getId(),c.getName(),c.getEmail(),c.getReferencePerson(),c.getAddress(),false});
+		}
 	}
 	
 	public void display() {
 		view.setVisible(true);
+	}
+	
+	public void back() {
+		view.setVisible(false);
+		application.clientDashboard(client);
 	}
 }
 

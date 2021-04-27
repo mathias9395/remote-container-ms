@@ -16,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import dk.dtu.management.controller.AdminMessageController;
-import dk.dtu.management.util.GridBagLayoutUtils;
 
 public class AdminMessageView extends JFrame {
 	private AdminMessageController controller;

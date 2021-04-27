@@ -16,7 +16,6 @@ import java.awt.GridLayout;
 import javax.swing.JOptionPane;
 
 public class AddStatusView extends JFrame{
-
 	private AddStatusController controller;
 	private JTextField tempField;
 	private JTextField humidityField;
@@ -32,7 +31,8 @@ public class AddStatusView extends JFrame{
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Add Status");
-		setPreferredSize(new Dimension(800, 600));
+		setPreferredSize(new Dimension(250, 150));
+		
 		
 		
 		
@@ -47,7 +47,7 @@ public class AddStatusView extends JFrame{
 		pressureField = new JTextField(10);
 		
 		// buttons
-		JButton btnAddStatus = new JButton("Add client");
+		JButton btnAddStatus = new JButton("Add status");
 		btnAddStatus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -76,6 +76,7 @@ public class AddStatusView extends JFrame{
 		
 		
 		pack();
+		setResizable(false);
 		setLocationRelativeTo(null);
 	}
 	
@@ -90,4 +91,8 @@ public class AddStatusView extends JFrame{
 	public String getpressureField() {
 		return pressureField.getText();
 	}
-}
+		
+		public void showError() {
+			JOptionPane.showMessageDialog(this, "Not all fields were filled out", "Create status error", JOptionPane.ERROR_MESSAGE);
+		}
+	}

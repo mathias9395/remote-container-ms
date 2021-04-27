@@ -73,4 +73,14 @@ public class ClientDashboardController {
 		application.clientMessage(client);
 		
 	}
+	
+	public void viewSharedData() {
+		view.setVisible(false);
+		application.clientViewSharedData(client);
+	}
+	
+	public void clientShareData() {
+		view.setVisible(false);
+		application.clientShareData(client);
+	}
 }

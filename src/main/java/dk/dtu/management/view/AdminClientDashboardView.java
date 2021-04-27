@@ -2,8 +2,11 @@ package dk.dtu.management.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,10 +42,23 @@ public class AdminClientDashboardView extends JFrame{
 	private static JLabel destination;
 	private static JTextField enterDestination;
 	private static JButton search;
-	private static JButton update;
 	private static JButton logout;
 	private static BasicArrowButton back;
+	private static JPanel info;
 	private static JButton btnChat;
+	private static JTable table;
+	private static JButton AddSelected;
+	private static JButton RemoveSelected;
+	
+	// for the info display
+	
+	private static JLabel ID;
+	private static JLabel name;
+	private static JLabel email;
+	private static JLabel Ref;
+	private static JLabel Address;
+	
+	
 	private DefaultTableModel model = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -66,9 +82,7 @@ public class AdminClientDashboardView extends JFrame{
         }
     }
 	};
-	private static JTable table;
-	private static JButton AddSelected;
-	private static JButton RemoveSelected;
+
 	
 	public AdminClientDashboardView(AdminClientDashboardController controller) {
 		this.controller = controller;
@@ -78,53 +92,97 @@ public class AdminClientDashboardView extends JFrame{
 	
 	private void initGUI() {
 		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Admin view");
-		setPreferredSize(new Dimension(600, 340));
+		setPreferredSize(new Dimension(600, 400));
+		
 		
 		panel = new JPanel();
-		add(panel);
 		panel.setLayout(null);
+		add(panel);
 		
+		info = new JPanel();
+		info.setBackground(Color.white);
+		info.setLayout(null);
+		info.setBounds(0,0, 600, 80);
+		
+		// ADDING CLIENT INFORMATION ON DISPLAY
+		
+		ID = new JLabel("ID is : " + controller.getId());
+		name = new JLabel( controller.getName() +"'s information: ");
+		email = new JLabel("Email is: "+ controller.getEmail());
+		Ref = new JLabel("Reference person is : "+ controller.getReferencePerson());
+		Address = new JLabel("Address is: "+ controller.getAddress());
+		
+		
+		
+		ID.setOpaque(true);
+		ID.setBackground(Color.lightGray);
+		email.setOpaque(true);
+		email.setBackground(Color.LIGHT_GRAY);
+		Ref.setOpaque(true);
+		Ref.setBackground(Color.LIGHT_GRAY);
+		Address.setOpaque(true);
+		Address.setBackground(Color.LIGHT_GRAY);
+		
+		name.setBounds(20,10,250,15);
+		ID.setBounds(20,30,250,15);
+		email.setBounds(20,55,250,15);
+		Ref.setBounds(315,30,250,15);
+		Address.setBounds(315,55,250,15);
+		
+		info.add(name);
+		info.add(ID);
+		info.add(email);
+		info.add(Ref);
+		info.add(Address);
+		
+
+		// BACK BUTTON
+		back = new BasicArrowButton(BasicArrowButton.WEST);
+		back.addActionListener(e -> { // logout puts us back into the login page
+			controller.back();
+		});
+		info.add(back);
+		
+		
+		panel.add(info);
+		
+		
+		// OTHER DISPLAYABLES
+			
 		title = new JLabel(controller.getName() + "'s information");
-		title.setBounds(20,5,110,50);
 		panel.add(title);
 		
 		origin = new JLabel("Origin");
-		origin.setBounds(20,35,110,50);
 		panel.add(origin);
 		
 		enterOrigin = new JTextField(20);
-		enterOrigin.setBounds(20, 70, 110, 30);
 		panel.add(enterOrigin);
 		
 		content = new JLabel("Content");
-		content.setBounds(20,95,110,50);
 		panel.add(content);
 		
 		enterContent = new JTextField(20);
-		enterContent.setBounds(20, 130, 110, 30);
 		panel.add(enterContent);
 		
 		destination = new JLabel("Destination");
-		destination.setBounds(20,155,110,50);
 		panel.add(destination);
 		
 		enterDestination = new JTextField(20);
-		enterDestination.setBounds(20, 190, 110, 30);
 		panel.add(enterDestination);
 		
 		search = new JButton("Search");
-		search.setBounds(20, 240, 110, 30);
 		search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.journeySearch();
 			}
-		});
+		});	
+		panel.add(search);
 		
 		btnChat = new JButton("Chat");
-		btnChat.setBounds(320,20,110,30);
 		btnChat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -133,37 +191,7 @@ public class AdminClientDashboardView extends JFrame{
 		});
 		panel.add(btnChat);
 		
-		// implement click of a button search here
-		
-		panel.add(search);
-		
-		
-		// other buttons
-		
-		// UPDATE
-		
-		/*
-		update = new JButton("Add status");
-		update.addActionListener(new ActionListener() {
-		@Override	
-		public void actionPerformed(ActionEvent e) {
-			int track = 0;
-			
-			while(track<1) {
-			for(int i = 0; i<table.getRowCount(); i++) {
-			
-			boolean selected = Boolean.valueOf(table.getValueAt(i, 4).toString());
-			
-			if(selected) {
-				track++;
-				controller.clientSettings();
-				}}
-			}}
-		});
-	
-		panel.add(update);
-		*/
-		
+
 		// LOGOUT
 		logout = new JButton("Log out");
 		logout.setBounds(450,20,110,30);
@@ -176,31 +204,22 @@ public class AdminClientDashboardView extends JFrame{
 		
 		panel.add(logout);
 		
-		// BACK BUTTON
-				back = new BasicArrowButton(BasicArrowButton.WEST);
-				back.setBounds(0,0,20,20);
-				back.addActionListener(e -> { // logout puts us back into the login page
-				    controller.back();
-				});
-				panel.add(back);
 		
 		// ADD NEW STATUS ENTRY
-		AddSelected = new JButton("Add status entry");
-		AddSelected.setBounds(320, 240, 110, 30);
-		AddSelected.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.newStatus();
-			}
-		});
-		panel.add(AddSelected);
+		//AddSelected = new JButton("Add status");
+//		AddSelected.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				controller.newStatus();
+//			}
+//		});
+		//panel.add(AddSelected);
 		//frame.add(AddSelected);
 		
 		
 		// REMOVE SELECTED
 		final JLabel label = new JLabel();
 		RemoveSelected = new JButton("Remove");
-		RemoveSelected.setBounds(450,240,110,30);
 		RemoveSelected.setEnabled(false);
 		RemoveSelected.addActionListener(new ActionListener() {
 			
@@ -247,6 +266,16 @@ public class AdminClientDashboardView extends JFrame{
 	    model.addColumn("Mark");
 	    table = new JTable(model);
 	    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable table =(JTable) mouseEvent.getSource();
+		        Point point = mouseEvent.getPoint();
+		        int row = table.rowAtPoint(point);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		        	controller.selectJourney(table.getSelectedRow());
+		        }
+		    }
+		});
 
 	    
 
@@ -261,7 +290,26 @@ public class AdminClientDashboardView extends JFrame{
 	    scrollable.setVisible(true);
 		panel.add(scrollable);
 		
+		// PANEL ADDS
+		
+		logout.setBounds(450,100,110,30);
+		enterOrigin.setBounds(20, 150, 110, 30);
+		RemoveSelected.setBounds(450,320,110,30);
+		scrollable.setBounds(180, 150, 380, 150);
+		origin.setBounds(20,115,110,50);
+		//AddSelected.setBounds(320, 320, 110, 30);
+		enterContent.setBounds(20, 210, 110, 30);
+		content.setBounds(20,175,110,50);
+		destination.setBounds(20,235,110,50);
+		enterDestination.setBounds(20, 270, 110, 30);
+		back.setBounds(0,0,20,20);
+		search.setBounds(20, 320, 110, 30);
+		btnChat.setBounds(320, 100, 110, 30);
+		
+		
+		
 		pack();
+		setResizable(false);
 		setLocationRelativeTo(null);
 	}
 	
