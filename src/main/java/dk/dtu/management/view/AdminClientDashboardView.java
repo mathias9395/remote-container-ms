@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,7 +28,7 @@ import javax.swing.table.TableModel;
 import dk.dtu.management.controller.AdminClientDashboardController;
 
 
-	
+@SuppressWarnings("serial")	
 public class AdminClientDashboardView extends JFrame{
 	
 	private AdminClientDashboardController controller;
@@ -48,7 +49,7 @@ public class AdminClientDashboardView extends JFrame{
 	private static JButton btnChat;
 	private static JTable table;
 	private static JButton AddSelected;
-	private static JButton RemoveSelected;
+	//private static JButton RemoveSelected;
 	
 	// for the info display
 	
@@ -62,7 +63,11 @@ public class AdminClientDashboardView extends JFrame{
 	private DefaultTableModel model = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
-			return false;
+			if(column<4){
+				return false;
+			}else {
+				return true;
+			}
 		}
 		public Class<?> getColumnClass(int column){
             switch(column){
@@ -75,7 +80,7 @@ public class AdminClientDashboardView extends JFrame{
             case 3:
               return String.class;
             case 4:
-              return Boolean.class;
+            	return String.class;
 
             default:
               return String.class;
@@ -100,6 +105,7 @@ public class AdminClientDashboardView extends JFrame{
 		
 		panel = new JPanel();
 		panel.setLayout(null);
+		panel.setBackground(Color.decode("#E2ECF6"));
 		add(panel);
 		
 		info = new JPanel();
@@ -125,11 +131,20 @@ public class AdminClientDashboardView extends JFrame{
 		Ref.setBackground(Color.LIGHT_GRAY);
 		Address.setOpaque(true);
 		Address.setBackground(Color.LIGHT_GRAY);
+		JCheckBox cbContainer = new JCheckBox("New journeys"); 
+		cbContainer.setBackground(Color.decode("#E2ECF6"));
 		
-		name.setBounds(20,10,250,15);
+		name.setBounds(250,10,250,15);
 		ID.setBounds(20,30,250,15);
 		email.setBounds(20,55,250,15);
 		Ref.setBounds(315,30,250,15);
+		cbContainer.setBounds(20, 100, 200, 30);
+		cbContainer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.newContiners(cbContainer.isSelected());
+			}
+		});
 		Address.setBounds(315,55,250,15);
 		
 		info.add(name);
@@ -141,7 +156,7 @@ public class AdminClientDashboardView extends JFrame{
 
 		// BACK BUTTON
 		back = new BasicArrowButton(BasicArrowButton.WEST);
-		back.addActionListener(e -> { // logout puts us back into the login page
+		back.addActionListener(e -> {
 			controller.back();
 		});
 		info.add(back);
@@ -172,6 +187,8 @@ public class AdminClientDashboardView extends JFrame{
 		
 		enterDestination = new JTextField(20);
 		panel.add(enterDestination);
+		
+		panel.add(cbContainer);
 		
 		search = new JButton("Search");
 		search.addActionListener(new ActionListener() {
@@ -218,44 +235,44 @@ public class AdminClientDashboardView extends JFrame{
 		
 		
 		// REMOVE SELECTED
-		final JLabel label = new JLabel();
-		RemoveSelected = new JButton("Remove");
-		RemoveSelected.setEnabled(false);
-		RemoveSelected.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				for(int i = 0; i<table.getRowCount(); i++) {
-					
-				boolean selected = Boolean.valueOf(table.getValueAt(i, 4).toString());
-					
-				if(selected) {
-
-		            int result = JOptionPane.showConfirmDialog(frame,"Sure? You want to exit?", "Swing Tester",
-		               JOptionPane.YES_NO_OPTION,
-		               JOptionPane.QUESTION_MESSAGE);
-		            if(result == JOptionPane.YES_OPTION){
-		            	controller.removeJourney(table.getSelectedRow());
-		            }else if (result == JOptionPane.NO_OPTION){
-		               
-		            }else {
-		               label.setText("None selected");
-		            }
-					
-				}
-				
-			}
-		}
-	});
-		panel.add(RemoveSelected);
+//		final JLabel label = new JLabel();
+//		RemoveSelected = new JButton("Remove");
+//		RemoveSelected.setEnabled(false);
+//		RemoveSelected.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//
+//				for(int i = 0; i<table.getRowCount(); i++) {
+//					
+//				boolean selected = Boolean.valueOf(table.getValueAt(i, 4).toString());
+//					
+//				if(selected) {
+//
+//		            int result = JOptionPane.showConfirmDialog(frame,"Sure? Are you sure you want to remove this Journey ?", "Swing Tester",
+//		               JOptionPane.YES_NO_OPTION,
+//		               JOptionPane.QUESTION_MESSAGE);
+//		            if(result == JOptionPane.YES_OPTION){
+//		            	controller.removeJourney(table.getSelectedRow());
+//		            }else if (result == JOptionPane.NO_OPTION){
+//		               
+//		            }else {
+//		               label.setText("None selected");
+//		            }
+//					
+//				}
+//				
+//			}
+//		}
+//	});
+//		//panel.add(RemoveSelected);
 		
 		// TABLE
 		// data must come from the database!!
 
 		
 	      //COLUMN HEADERS
-	        String[] columnHeaders={"ID","Origin","Destination","Content","Mark"};
+	        String[] columnHeaders={"ID","Origin","Destination","Content","Company"};
 	    
 	    // modeling the table
 	        
@@ -263,7 +280,7 @@ public class AdminClientDashboardView extends JFrame{
 	    model.addColumn("Origin");
 	    model.addColumn("Destination");
 	    model.addColumn("Content");
-	    model.addColumn("Mark");
+	    model.addColumn("Company");
 	    table = new JTable(model);
 	    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    table.addMouseListener(new MouseAdapter() {
@@ -280,13 +297,12 @@ public class AdminClientDashboardView extends JFrame{
 	    
 
 		table.getColumnModel().getColumn(0).setPreferredWidth(5);
-		table.getColumnModel().getColumn(4).setPreferredWidth(5);
 		table.setRowHeight(30);
 		
 		// scrollable form 
 		
 		JScrollPane scrollable = new JScrollPane(table);
-		scrollable.setBounds(200, 70, 360, 150);
+		scrollable.setBounds(200, 70, 360, 220);
 	    scrollable.setVisible(true);
 		panel.add(scrollable);
 		
@@ -294,7 +310,7 @@ public class AdminClientDashboardView extends JFrame{
 		
 		logout.setBounds(450,100,110,30);
 		enterOrigin.setBounds(20, 150, 110, 30);
-		RemoveSelected.setBounds(450,320,110,30);
+		//RemoveSelected.setBounds(450,320,110,30);
 		scrollable.setBounds(180, 150, 380, 150);
 		origin.setBounds(20,115,110,50);
 		//AddSelected.setBounds(320, 320, 110, 30);

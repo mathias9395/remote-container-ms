@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import dk.dtu.management.controller.ClientMessageController;
-
+@SuppressWarnings("serial")
 public class ClientMessageView extends JFrame {
 
 	private ClientMessageController controller;

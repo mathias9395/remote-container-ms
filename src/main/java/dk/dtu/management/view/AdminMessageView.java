@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import dk.dtu.management.controller.AdminMessageController;
-
+@SuppressWarnings("serial")
 public class AdminMessageView extends JFrame {
 	private AdminMessageController controller;
 	private JTextArea textArea;

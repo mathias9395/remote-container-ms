@@ -1,5 +1,6 @@
 package dk.dtu.management.controller;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import dk.dtu.management.model.Client;
@@ -63,7 +64,7 @@ public class AdminClientDashboardController {
 	public void displayTable(Set<Journey> journeys) {
 		view.resetTable();
 		for (Journey j : journeys) {
-			view.addTableRow(new Object[] {j.getId(),j.getOrigin(),j.getDestination(),j.getContentType()});
+			view.addTableRow(new Object[] {j.getId(),j.getOrigin(),j.getDestination(),j.getContentType(),j.getCompany()});
 		}
 	}
 	
@@ -72,13 +73,15 @@ public class AdminClientDashboardController {
 		application.addJourney(client);
 	}
 
-	public void removeJourney(int row) {
-		int id = view.getTableRow(row);
-		Journey j = new Journey(id);
-		client.removeJourney(j);
-		journeySearch();
-		
-	}
+//	public void removeJourney(int row) {
+//		int id = view.getTableRow(row);
+//		Journey j = new Journey(id);
+//		client.removeJourney(j);
+//		journeySearch();
+//		
+//	
+//		
+//	}
 	
 	public void message() {
 		view.setVisible(false);
@@ -106,5 +109,22 @@ public class AdminClientDashboardController {
 		}
 		
 	}
+
+	public void newContiners(boolean selected) {
+		Set<Journey> journeys = new HashSet<Journey>();
+		if (selected) {
+			journeys = client.getNewJourneys();
+		} else {
+			journeys = client.getJourneySet();
+		}
+		displayTable(journeys);
+		
+	}
 	
 }
+
+
+
+
+
+

@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.AddContainerController;
-
+@SuppressWarnings("serial")
 public class AddContainerView extends JFrame {
 	private AddContainerController controller;
 	private JTextField txtLocation;
@@ -55,7 +55,7 @@ public class AddContainerView extends JFrame {
 		
 		
 		// layout settings
-		setPreferredSize(new Dimension(300, 200));
+		setPreferredSize(new Dimension(300, 250));
 		setLayout(new GridLayout(6,2));
 		
 		add(lblLocation);

@@ -31,6 +31,14 @@ public class ClientViewSharedDataController {
 		application.clientClientsData(c,client);
 	}
 	
+	public void clientSearch() {
+		Set<Client> filteredName = company.filterClientsName(view.getTxtNameSearch());
+		Set<Client> filteredEmail = company.filterClientsEmail(view.getTxtEmailSearch());
+		filteredName.retainAll(filteredEmail);
+		filteredName.retainAll(client.sharedData);
+		displayTable(filteredName);
+	}
+	
 	public void displayTable(Set<Client> clients) {
 		view.resetTable();
 		for (Client c : clients) {
@@ -41,7 +49,6 @@ public class ClientViewSharedDataController {
 	public void deleteClient(int id,String email) {
 		Client c = new Client(id, email);
 		client.removeSharedData(c);
-		displayTable(client.getSharedData());
 	}
 	
 	public void display() {

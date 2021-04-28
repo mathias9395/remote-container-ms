@@ -45,7 +45,7 @@ public class ClientDashboardController {
 	public void displayTable(Set<Journey> journeys) {
 		view.resetTable();
 		for (Journey j : journeys) {
-			view.addTableRow(new Object[] {j.getId(),j.getOrigin(),j.getDestination(),j.getContentType()});
+			view.addTableRow(new Object[] {j.getId(),j.getOrigin(),j.getDestination(),j.getContentType(), false});
 		}
 	}
 	
@@ -54,11 +54,16 @@ public class ClientDashboardController {
 		application.addJourney(client);
 	}
 
-	public void removeJourney(int row) {
-		int id = view.getTableRow(row);
+	public void removeJourney(int id) {
 		Journey j = new Journey(id);
 		client.removeJourney(j);
-		journeySearch();
+	}
+	
+	public void selectJourney(int row) {
+		int id = view.getTableRow(row);
+		Journey j = client.getJourneyById(id);
+		view.setVisible(false);
+		application.viewStatus(j);
 		
 	}
 

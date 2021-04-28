@@ -8,18 +8,23 @@ import dk.dtu.management.controller.AddStatusController;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JOptionPane;
-
+@SuppressWarnings("serial")
 public class AddStatusView extends JFrame{
 	private AddStatusController controller;
-	private JTextField tempField;
-	private JTextField humidityField;
-	private JTextField pressureField;
+	private JFormattedTextField tempField;
+	private JFormattedTextField humidityField;
+	private JFormattedTextField pressureField;
+	private JTextField locationField;
 
 	
 	
@@ -31,20 +36,30 @@ public class AddStatusView extends JFrame{
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Add Status");
-		setPreferredSize(new Dimension(250, 150));
+		setPreferredSize(new Dimension(350, 200));
 		
 		
 		
 		
 		// labels
-		JLabel tempLabel = new JLabel("Temperature:");
-		JLabel humidityLabel= new JLabel("Humidity:");
-		JLabel pressureLabel = new JLabel("Pressure:");
+		JLabel tempLabel = new JLabel("Temperature:*");
+		JLabel humidityLabel= new JLabel("Humidity:*");
+		JLabel pressureLabel = new JLabel("Pressure:*");
+		JLabel locationLabel = new JLabel("Location:");
 		
 		// fields
-		tempField = new JTextField(10);
-		humidityField = new JTextField(10);
-		pressureField = new JTextField(10);
+		NumberFormat format = NumberFormat.getNumberInstance();
+		format.setGroupingUsed(false);
+		//format.setGroupingUsed(true);
+		format.setMaximumIntegerDigits(10);
+		format.setMinimumIntegerDigits(0);
+		format.setMaximumFractionDigits(3);
+		format.setMinimumFractionDigits(0);
+		format.setRoundingMode(RoundingMode.HALF_UP);
+		tempField = new JFormattedTextField(format);
+		humidityField = new JFormattedTextField(format);
+		pressureField = new JFormattedTextField(format);
+		locationField = new JTextField(10);
 		
 		// buttons
 		JButton btnAddStatus = new JButton("Add status");
@@ -63,13 +78,15 @@ public class AddStatusView extends JFrame{
 		});
 		
 		
-		setLayout(new FlowLayout());
+		setLayout(new GridLayout(5,2));
 		add(tempLabel);
-		add(humidityField);
-		add(pressureLabel);
 		add(tempField);
+		add(pressureLabel);
+		add(humidityField);
 		add(humidityLabel);
 		add(pressureField);
+		add(locationLabel);
+		add(locationField);
 		add(btnAddStatus);
 		add(btnCancel);
 		
@@ -82,11 +99,19 @@ public class AddStatusView extends JFrame{
 	
 	public String getTempField() {
 		return tempField.getText();
+		//Might have to get changed to this 
+		//setText(String.valueOf(controller.getTemperature()));
 	}
 	
 	public String getHumidityField() {
 		return humidityField.getText();
 	}
+	
+	public String getLocationField() {
+		return locationField.getText();
+	}
+	
+	
 	
 	public String getpressureField() {
 		return pressureField.getText();

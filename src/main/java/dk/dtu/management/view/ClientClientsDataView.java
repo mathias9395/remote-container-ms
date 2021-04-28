@@ -1,14 +1,13 @@
 package dk.dtu.management.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,14 +18,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import dk.dtu.management.controller.ClientClientsDataController;
-import dk.dtu.management.controller.ApplicationController;
-import dk.dtu.management.model.Client;
-import dk.dtu.management.model.Journey;
 
+@SuppressWarnings("serial")
 public class ClientClientsDataView extends JFrame {
 private ClientClientsDataController controller;
 	
-	private static JFrame frame; // frame for the entire thing
 	private static JPanel panel;
 	private static JLabel title; // title for the client interface 
 	private static JLabel origin;
@@ -36,9 +32,17 @@ private ClientClientsDataController controller;
 	private static JLabel destination;
 	private static JTextField enterDestination;
 	private static JButton search;
-	private static JButton update;
 	private static BasicArrowButton back;
-	private static JButton btnChat;
+	private static JPanel info;
+	
+	// For info display
+	
+	private static JLabel ID;
+	private static JLabel name;
+	private static JLabel email;
+	private static JLabel Ref;
+	private static JLabel Address;
+	
 	private DefaultTableModel model = new DefaultTableModel() {
 		@Override
 		public boolean isCellEditable(int row, int column) {
@@ -71,42 +75,77 @@ private ClientClientsDataController controller;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Shared Data view");
-		setPreferredSize(new Dimension(600, 340));
+		setPreferredSize(new Dimension(600, 360));
 		
 		panel = new JPanel();
 		add(panel);
 		panel.setLayout(null);
 		
+		info = new JPanel();
+		info.setBackground(Color.decode("#E2ECF6"));
+		info.setLayout(null);
+		info.setBounds(0,0, 600, 80);
+		
+		// ADDING CLIENT INFORMATION ON DISPLAY
+		
+		ID = new JLabel("ID is : " + controller.getId());
+		name = new JLabel( controller.getName() +"'s information: ");
+		email = new JLabel("Email is: "+ controller.getEmail());
+		Ref = new JLabel("Reference person is : "+ controller.getReferencePerson());
+		Address = new JLabel("Address is: "+ controller.getAddress());
+		
+		ID.setOpaque(true);
+		ID.setBackground(Color.lightGray);
+		email.setOpaque(true);
+		email.setBackground(Color.LIGHT_GRAY);
+		Ref.setOpaque(true);
+		Ref.setBackground(Color.LIGHT_GRAY);
+		Address.setOpaque(true);
+		Address.setBackground(Color.LIGHT_GRAY);
+		
+		name.setBounds(250,10,250,15);
+		ID.setBounds(20,30,250,15);
+		email.setBounds(20,55,250,15);
+		Ref.setBounds(315,30,250,15);
+		Address.setBounds(315,55,250,15);
+		
+		info.add(name);
+		info.add(ID);
+		info.add(email);
+		info.add(Ref);
+		info.add(Address);
+		
+		// BACK BUTTON
+				back = new BasicArrowButton(BasicArrowButton.WEST);
+				back.addActionListener(e -> { 
+					controller.back();
+				});
+				info.add(back);
+		
+		panel.add(info);
+		
 		title = new JLabel(controller.getName() + "'s information");
-		title.setBounds(20,5,110,50);
 		panel.add(title);
 		
 		origin = new JLabel("Origin");
-		origin.setBounds(20,35,110,50);
 		panel.add(origin);
 		
 		enterOrigin = new JTextField(20);
-		enterOrigin.setBounds(20, 70, 110, 30);
 		panel.add(enterOrigin);
 		
 		content = new JLabel("Content");
-		content.setBounds(20,95,110,50);
 		panel.add(content);
 		
 		enterContent = new JTextField(20);
-		enterContent.setBounds(20, 130, 110, 30);
 		panel.add(enterContent);
 		
 		destination = new JLabel("Destination");
-		destination.setBounds(20,155,110,50);
 		panel.add(destination);
 		
 		enterDestination = new JTextField(20);
-		enterDestination.setBounds(20, 190, 110, 30);
 		panel.add(enterDestination);
 		
 		search = new JButton("Search");
-		search.setBounds(20, 240, 110, 30);
 		search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -116,21 +155,6 @@ private ClientClientsDataController controller;
 		
 		panel.add(search);
 		
-		// BACK BUTTON
-		back = new BasicArrowButton(BasicArrowButton.WEST);
-		back.setBounds(0,0,20,20);
-		back.addActionListener(e -> { 
-				controller.back();
-				});
-		panel.add(back);
-		
-		// TABLE
-		// data must come from the database!!
-
-		
-	      //COLUMN HEADERS
-	   String[] columnHeaders={"ID","Origin","Destination","Content","Mark"};
-	    
 	    // modeling the table
 	        
 	    model.addColumn("ID");
@@ -149,11 +173,22 @@ private ClientClientsDataController controller;
 		// scrollable form 
 		
 		JScrollPane scrollable = new JScrollPane(table);
-		scrollable.setBounds(200, 70, 360, 150);
+		scrollable.setBounds(200, 30, 360, 150);
 	    scrollable.setVisible(true);
 		panel.add(scrollable);
 		
+		enterOrigin.setBounds(20, 110, 110, 30);
+		scrollable.setBounds(180, 110, 380, 150);
+		origin.setBounds(20,75,110,50);
+		enterContent.setBounds(20, 170, 110, 30);
+		content.setBounds(20,135,110,50);
+		destination.setBounds(20,195,110,50);
+		enterDestination.setBounds(20, 230, 110, 30);
+		back.setBounds(0,0,20,20);
+		search.setBounds(20, 280, 110, 30);
+	
 		pack();
+		setResizable(false);
 		setLocationRelativeTo(null);
 	}
 	

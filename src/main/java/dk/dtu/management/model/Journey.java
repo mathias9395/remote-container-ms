@@ -1,4 +1,6 @@
 package dk.dtu.management.model;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import dk.dtu.management.dao.JourneyDao;
 
@@ -38,12 +43,19 @@ public class Journey {
     @JoinColumn(name = "client_fk", referencedColumnName = "client_id")
 	private Client client;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "container_fk", referencedColumnName = "container_id")
+	@Column(name = "completed", nullable = true)
+	private Boolean completed;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "container_fk", referencedColumnName = "container_id", nullable=true)
 	private Container container;//NOT STORED IN DB
 	
 	@Column(name = "on_journey", nullable = true)
 	private boolean onJourney;
+	
+	@OneToMany(mappedBy = "journey", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+	private List<ContainerStatus> journeyData;
 	
 	
 	public Journey () {
@@ -59,6 +71,7 @@ public class Journey {
 		this.contentType =  contentType;
 		this.company = company;
 		this.onJourney = false;
+		this.completed = false;
 		this.container = null;
 		journeyDao.save(this);
 	}
@@ -169,6 +182,25 @@ public class Journey {
 		journeyDao.delete(id);
 		
 	}
+	
+	public void complete() {
+		this.completed = true;
+		journeyData = container.getStatusSet();
+		container.reset();
+		this.container = null;
+		journeyDao.save(this);
+	}
+	
+	public boolean isCompleted() {
+		return completed;
+	}
+	public List<ContainerStatus> getJourneyData() {
+		return journeyData;
+	}
+	public void setJourneyData(List<ContainerStatus> journeyData) {
+		this.journeyData = journeyData;
+	}
+	
 	
 	
 	

@@ -29,13 +29,19 @@ public class AddStatusController {
 		String temperature = view.getTempField();
 		String humidity = view.getHumidityField();
 		String pressure = view.getpressureField();
+		String location = view.getLocationField();
 		
 		if (temperature.isEmpty() || humidity.isEmpty() || pressure.isEmpty()) {
 			view.showError();
 		} else {
-			
 			Container c = journey.getContainer();
 			c.addStatus(new ContainerStatus(Double.parseDouble(temperature),Double.parseDouble(humidity),Double.parseDouble(pressure)));
+			if (!location.isEmpty()) {
+				journey.getContainer().setLocation(location);
+				if (location.toLowerCase().equals(journey.getDestination().toLowerCase())) {
+					journey.complete();
+				}	
+			}
 			returnDashboard();
 			
 		}

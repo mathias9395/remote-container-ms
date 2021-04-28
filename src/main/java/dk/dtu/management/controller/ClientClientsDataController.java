@@ -48,4 +48,17 @@ public class ClientClientsDataController {
 		return clientData.getName();
 	}
 	
+	public String getEmail() {
+		return clientData.getEmail();
+	}
+	public int getId() {
+		return clientData.getId();
+	}
+	public String getReferencePerson() {
+		return clientData.getReferencePerson();
+	}
+	public String getAddress() {
+		return clientData.getAddress();
+	}
+	
 }

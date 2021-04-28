@@ -2,7 +2,6 @@ package dk.dtu.management.controller;
 
 import java.util.Set;
 
-import dk.dtu.management.controller.ApplicationController;
 import dk.dtu.management.model.Client;
 import dk.dtu.management.model.LogisticCompany;
 import dk.dtu.management.view.ClientShareDataView;
@@ -25,6 +24,7 @@ public class ClientShareDataController {
 	public void setView(ClientShareDataView view) {
 		this.view = view;
 	}
+	
 	
 	public void selectClient(int row) {
 		Object[] data = view.getAllTableRow(row);
@@ -55,7 +55,6 @@ public class ClientShareDataController {
 		Client c = new Client(id, email);
 		client.removeSharedWithClients(c);
 		company.getClientById(id).removeSharedData(client);
-		displayTableShared(client.getSharedWithClients());
 	}
 	
 	public void displayTableShared(Set<Client> clients) {
@@ -72,6 +71,11 @@ public class ClientShareDataController {
 	public void back() {
 		view.setVisible(false);
 		application.clientDashboard(client);
+	}
+
+	public void sharedTable() {
+		displayTableShared(client.getSharedWithClients());
+		
 	}
 }
 

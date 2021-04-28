@@ -2,8 +2,11 @@ package dk.dtu.management.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,7 +24,7 @@ import javax.swing.table.TableModel;
 
 import dk.dtu.management.controller.ClientDashboardController;
 
-	
+@SuppressWarnings("serial")	
 public class ClientDashboardView extends JFrame{
 	
 	private ClientDashboardController controller;
@@ -87,7 +90,7 @@ public class ClientDashboardView extends JFrame{
 		// color modification for a more distinguishable look
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setPreferredSize(new Dimension(600, 340));
+		setPreferredSize(new Dimension(600, 330));
 		
 		panel = new JPanel();
 		add(panel);
@@ -131,7 +134,6 @@ public class ClientDashboardView extends JFrame{
 		});
 		
 		
-		
 		// CHAT
 		btnChat = new JButton("Chat");
 		btnChat.addActionListener(new ActionListener() {
@@ -140,6 +142,11 @@ public class ClientDashboardView extends JFrame{
 				controller.sendMessage();
 			}
 		});
+		
+		// MOUSE LISTENER for graph DISPLAY
+		
+		
+		
 		
 		
 		// SHARE DATA WITH ANOTHER CLIENT
@@ -153,19 +160,19 @@ public class ClientDashboardView extends JFrame{
 			}
 		});
 		
-		viewSharedData = new JButton("View shared data");
+		viewSharedData = new JButton("View shared");
 		
 		viewSharedData.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.clientShareData();
+				controller.viewSharedData();
 			}
 		});
 		
 		
 		
 		// ADD NEW JOURNEY
-		AddSelected = new JButton("Add");
+		AddSelected = new JButton("Add journey");
 		
 		AddSelected.addActionListener(new ActionListener() {
 			@Override
@@ -174,28 +181,13 @@ public class ClientDashboardView extends JFrame{
 			}
 		});
 		
+		RemoveSelected = new JButton("Remove");
+		
 		//frame.add(AddSelected);
 		
 		
-		// REMOVE SELECTED
-		RemoveSelected = new JButton("Remove");
 		
-		RemoveSelected.setEnabled(false);
-		RemoveSelected.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				for(int i = 0; i<table.getRowCount(); i++) {
-					
-					boolean selected = Boolean.valueOf(table.getValueAt(i, 4).toString());
-					
-					if(selected) {
-						controller.removeJourney(table.getSelectedRow());
-					}
-				
-				}
-			}
-		});
+		
 		
 		
 		// TABLE
@@ -215,13 +207,35 @@ public class ClientDashboardView extends JFrame{
 	    model.addColumn("Mark");
 	    table = new JTable(model) ;
 	    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	    table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				RemoveSelected.setEnabled((table.getSelectedRow() >= 0));
-			}
+
+	    
+	    table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable table =(JTable) mouseEvent.getSource();
+		        Point point = mouseEvent.getPoint();
+		        int row = table.rowAtPoint(point);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		        	controller.selectJourney(table.getSelectedRow());
+		        }
+		    }
 		});
 	    
+	    RemoveSelected.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				for(int i = 0; i<table.getRowCount(); i++) {
+					boolean selected = Boolean.valueOf(table.getValueAt(i, 4).toString());
+				
+					if(selected) {
+						controller.removeJourney(Integer.parseInt(table.getValueAt(i, 0).toString()));
+					}
+					
+				}
+				controller.journeySearch();
+		}});
+		
+
 
 		table.getColumnModel().getColumn(0).setPreferredWidth(5);
 		table.getColumnModel().getColumn(4).setPreferredWidth(5);
@@ -233,13 +247,13 @@ public class ClientDashboardView extends JFrame{
 		
 	    scrollable.setVisible(true);
 		
-		
+
 		// bounds
 	    
 		logout.setBounds(450,20,110,30);
 		enterOrigin.setBounds(20, 70, 110, 30);
 		sharedata.setBounds(190, 240, 110, 30);
-		viewSharedData.setBounds(10, 10, 10, 10);
+		viewSharedData.setBounds(20, 20, 110, 30);
 		RemoveSelected.setBounds(450,240,110,30);
 		scrollable.setBounds(180, 70, 380, 150);
 		origin.setBounds(20,35,110,50);
@@ -251,7 +265,6 @@ public class ClientDashboardView extends JFrame{
 		search.setBounds(20, 240, 110, 30);
 		update.setBounds(320, 20, 110, 30);
 		btnChat.setBounds(190, 20, 110, 30);
-		
 		// panel adds
 		
 		panel.add(AddSelected);
@@ -267,7 +280,9 @@ public class ClientDashboardView extends JFrame{
 		panel.add(update);
 		panel.add(logout);
 		panel.add(btnChat);
+		panel.add(viewSharedData);
 		panel.add(sharedata);
+		
 		
 		pack();
 		setResizable(false);
@@ -288,7 +303,7 @@ public class ClientDashboardView extends JFrame{
 	}
 	
 	public int getTableRow(int n) {
-		int id = (int) model.getValueAt(n,0);
+		int id =  (int) model.getValueAt(n,0);
 		return id;
 	}
 	

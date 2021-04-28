@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.ClientSettingsController;
-
+@SuppressWarnings("serial")
 public class ClientSettingsView extends JFrame {
 
 	private ClientSettingsController controller;

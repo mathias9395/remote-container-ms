@@ -2,6 +2,7 @@ package dk.dtu.management.model;
 
 import java.util.Date;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,6 +36,9 @@ public class ContainerStatus {
 	private double pressure;
 	@Column(name = "time", nullable = false)
 	private int time;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "journey_fk", referencedColumnName = "journey_id", nullable = true)
+	private Journey journey;
 	
 	public ContainerStatus() {}
 	public ContainerStatus(double temperature, double humidity, double pressure) {

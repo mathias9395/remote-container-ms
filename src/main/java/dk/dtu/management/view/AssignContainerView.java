@@ -1,6 +1,8 @@
 package dk.dtu.management.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +11,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import dk.dtu.management.controller.AssignContainerController;
-
+@SuppressWarnings("serial")
 public class AssignContainerView extends JFrame {
 	private AssignContainerController controller;
 	private JTable tblContainers;
@@ -40,7 +43,11 @@ public class AssignContainerView extends JFrame {
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Assign container");
-		setPreferredSize(new Dimension(600, 400));
+		setPreferredSize(new Dimension(600, 300));
+		
+		JLabel lblAvailable = new JLabel("Available Containers:");
+		lblAvailable.setBounds(20, 20, 140, 20);
+		add(lblAvailable);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -49,6 +56,8 @@ public class AssignContainerView extends JFrame {
 				controller.back();
 			}
 		});
+		btnCancel.setBounds(500, 20, 80, 30);
+		add(btnCancel);
 		
 		containerModel.addColumn("ID");
 		containerModel.addColumn("Location");
@@ -68,12 +77,20 @@ public class AssignContainerView extends JFrame {
 		});
 		
 		JScrollPane pane = new JScrollPane(tblContainers);
+		pane.setBounds(0, 50, 600, 200);
 		add(pane);
+		
 		//add(btnCancel);
+		
+		getContentPane().setBackground(Color.decode("#E2ECF6"));
+		
+		setLayout(null);
 		pack();
 		setResizable(false);
 		setLocationRelativeTo(null);
 	}
+	
+	
 
 	public void setTableModel(TableModel model) {
 		tblContainers.setModel(model);

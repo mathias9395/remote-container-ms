@@ -2,12 +2,10 @@ package dk.dtu.management.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,12 +18,9 @@ import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import dk.dtu.management.controller.AdminDashboardController;
-import dk.dtu.management.controller.ApplicationController;
 import dk.dtu.management.controller.ClientViewSharedDataController;
-import dk.dtu.management.model.Client;
-import dk.dtu.management.model.LogisticCompany;
 
+@SuppressWarnings("serial")
 public class ClientViewSharedDataView extends JFrame {
 	private ClientViewSharedDataController controller;
 	private JTable tblClients;
@@ -72,9 +67,18 @@ public class ClientViewSharedDataView extends JFrame {
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("View Shared Data");
-		setPreferredSize(new Dimension(600, 485));
+		getContentPane().setBackground(Color.decode("#E2ECF6"));
+		setPreferredSize(new Dimension(600, 425));
 		
 		// buttons
+		
+		JButton btnClientSearch = new JButton("Search");
+		btnClientSearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.clientSearch();
+			}
+		});
 		
 		JButton btnDeleteClient = new JButton("Delete Marked");
 		btnDeleteClient.addActionListener(new ActionListener() {
@@ -90,6 +94,7 @@ public class ClientViewSharedDataView extends JFrame {
 					}
 					
 				}
+				controller.clientSearch();
 		}});
 		back = new BasicArrowButton(BasicArrowButton.WEST);
 		back.setBounds(0,0,20,20);
@@ -118,11 +123,10 @@ public class ClientViewSharedDataView extends JFrame {
 		
 		tblClients.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
+		// For viewing a clients data
 		tblClients.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
 		        JTable table =(JTable) mouseEvent.getSource();
-		        Point point = mouseEvent.getPoint();
-		        int row = table.rowAtPoint(point);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
 		        	controller.selectClient(tblClients.getSelectedRow());
 		        }
@@ -136,12 +140,13 @@ public class ClientViewSharedDataView extends JFrame {
 		
 		setLayout(null);
 		
-		// distribution for a more distint looking page:
-		lblNameSearch.setBounds(20, 70, 120, 40);
-		txtNameSearch.setBounds(20,100,120,40);
-		lblEmailSearch.setBounds(150, 70, 120, 40);
-		txtEmailSearch.setBounds(150, 100, 120, 40);
-		btnDeleteClient.setBounds(450, 100, 120, 40);
+		// distribution for a more distinct looking page:
+		lblNameSearch.setBounds(20, 10, 120, 40);
+		txtNameSearch.setBounds(20,40,120,40);
+		lblEmailSearch.setBounds(150, 10, 120, 40);
+		txtEmailSearch.setBounds(150, 40, 120, 40);
+		btnDeleteClient.setBounds(450, 40, 120, 40);
+		btnClientSearch.setBounds(320, 40, 120, 40);
 		
 		// adding buttons and text fields
 		add(lblNameSearch);
@@ -149,6 +154,7 @@ public class ClientViewSharedDataView extends JFrame {
 		add(lblEmailSearch);
 		add(txtEmailSearch);
 		add(btnDeleteClient);
+		add(btnClientSearch);
 		
 		// color modification
 		getContentPane().setBackground(Color.decode("#E2ECF6"));
@@ -161,7 +167,7 @@ public class ClientViewSharedDataView extends JFrame {
 		tblClients.getColumnModel().getColumn(5).setMaxWidth(35);;
 		
 		// scrollable pane
-		pane.setBounds(20, 150, 550, 280);
+		pane.setBounds(20, 90, 550, 280);
 		setResizable(false);
 		add(pane);
 		

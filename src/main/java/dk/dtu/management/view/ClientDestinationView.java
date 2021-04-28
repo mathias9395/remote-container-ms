@@ -15,7 +15,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JOptionPane;
 
-
+@SuppressWarnings("serial")
 public class ClientDestinationView extends JFrame{
 	
 	private ContainerController controller;

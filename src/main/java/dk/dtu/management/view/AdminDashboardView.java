@@ -19,7 +19,7 @@ import javax.swing.table.TableModel;
 
 import dk.dtu.management.controller.AdminDashboardController;
 import dk.dtu.management.model.LogisticCompany;
-
+@SuppressWarnings("serial")
 public class AdminDashboardView extends JFrame {
 	private AdminDashboardController controller;
 	private JTable tblClients;
@@ -107,7 +107,6 @@ public class AdminDashboardView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				for(int i = 0; i<tblClients.getRowCount(); i++) {
-					System.out.println(tblClients.getRowCount());
 					boolean selected = Boolean.valueOf(tblClients.getValueAt(i, 5).toString());
 				
 					if(selected) {
@@ -153,8 +152,6 @@ public class AdminDashboardView extends JFrame {
 		
 		
 		
-		
-		
 		setLayout(null);
 		
 		// distribution for a more distint looking page:
@@ -165,7 +162,7 @@ public class AdminDashboardView extends JFrame {
 		txtEmailSearch.setBounds(150, 100, 120, 40);
 		btnClientSearch.setBounds(320, 100, 120, 40);
 		btnNewClient.setBounds(20, 20, 120, 40);
-		btnNewContainer.setBounds(140, 20, 120, 40);
+		btnNewContainer.setBounds(150, 20, 120, 40);
 		btnDeleteClient.setBounds(450, 100, 120, 40);
 		
 		// adding buttons and text fields

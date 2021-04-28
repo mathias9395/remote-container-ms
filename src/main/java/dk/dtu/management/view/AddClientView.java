@@ -14,7 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.AddClientController;
-
+@SuppressWarnings("serial")
 public class AddClientView extends JFrame {
 	private AddClientController controller;
 	private JTextField nameField;

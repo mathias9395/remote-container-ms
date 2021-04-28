@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.AddJourneyController;
-
+@SuppressWarnings("serial")
 public class AddJourneyView extends JFrame {
 	private AddJourneyController controller;
 	JButton button;

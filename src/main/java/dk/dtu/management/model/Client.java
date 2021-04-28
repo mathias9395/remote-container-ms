@@ -3,7 +3,6 @@ import java.util.*;
 
 import dk.dtu.management.dao.ClientDao;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -236,10 +235,7 @@ public class Client extends User {
 	
 	public void delete() {
 		clientDao.delete(id);
-	}
-	
-	
-	
+	}	
 	
 	//SHARED DATA METHODS
 	public void addSharedWithClients(Client c) {
@@ -315,8 +311,15 @@ public class Client extends User {
 		}
 		return null;
 	}
-	
 
-	
+	public Set<Journey> getNewJourneys() {
+		Set<Journey> newJourneys = new HashSet<Journey>();
+		for (Journey j : journeySet) {
+			if (!j.isOnJourney()) {
+				newJourneys.add(j);
+			}
+		}
+		return newJourneys;
+	}
 
 }
