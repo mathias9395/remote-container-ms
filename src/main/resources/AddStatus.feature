@@ -17,22 +17,18 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Title of your feature
-  I want to use this template for my feature file
+Feature: Add container status
 
   @tag1
-  Scenario: Successful login
-    Given an email "email"
-    And a password "password"
-    When the accounts set contains a client with email "email" and password "password"
-    Then the log in is successfull
+  Scenario: Add container status
+    Given a container with a journey
+    And temperature 5.0
+    And pressure 5.0
+    And humidty 5.0
+    And location "London"
+    When add new status to container
+    Then container contains updated information
    
-  @tag2
-  Scenario: Incorrect credentials
-    Given an email "email"
-    And a password "password"
-    When accounts set does not contain a client with password "password" and email "email"
-    Then the log in is unsuccessful 
-   
-    
-    
+
+ 
+ 

@@ -265,6 +265,7 @@ public class Client extends User {
 	public Set<Client> getSharedData(){
 		return sharedData;
 	}
+	
 
 	public void removeJourney(Journey journey) {
 		if (journeySet.contains(journey)) {
@@ -320,6 +321,16 @@ public class Client extends User {
 			}
 		}
 		return newJourneys;
+	}
+
+	public Set<Journey> getCurrentJourneys() {
+		Set<Journey> currentJourneys = new HashSet<Journey>();
+		for (Journey j : journeySet) {
+			if (!j.isCompleted()) {
+				currentJourneys.add(j);
+			}
+		}
+		return currentJourneys;
 	}
 
 }

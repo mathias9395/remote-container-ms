@@ -7,7 +7,9 @@ import javax.swing.plaf.basic.BasicArrowButton;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
 
@@ -43,7 +45,7 @@ public class ClientViewStatusView extends JFrame{
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Client Destination");
-		setPreferredSize(new Dimension(1220,450));
+		setPreferredSize(new Dimension(1220,430));
 		
 		//labels
 		JLabel tempLabel = new JLabel("Temperature:");
@@ -73,6 +75,9 @@ public class ClientViewStatusView extends JFrame{
         JFreeChart chart = ChartFactory.createXYLineChart("Temperature",
                 "time", "K", dt , PlotOrientation.VERTICAL, true, true,
                 false);
+        XYPlot plot = (XYPlot) chart.getPlot();
+        ValueAxis range = plot.getDomainAxis();
+        range.setVisible(false);
         
         
         ChartPanel ct = new ChartPanel(chart);
@@ -96,10 +101,12 @@ public class ClientViewStatusView extends JFrame{
 		XYDataset dh = humidityDataSet();
         
         JFreeChart charthum = ChartFactory.createXYLineChart("Humidity",
-                "time", "humid", dh , PlotOrientation.VERTICAL, true, true,
+                "time", "%", dh , PlotOrientation.VERTICAL, true, true,
                 false);
         
-        
+        XYPlot plothum = (XYPlot) charthum.getPlot();
+        ValueAxis rangehum = plothum.getDomainAxis();
+        rangehum.setVisible(false);
         ChartPanel ch = new ChartPanel(charthum);
 
         ch.setChart(charthum);
@@ -123,10 +130,12 @@ public class ClientViewStatusView extends JFrame{
 		XYDataset dp = pressureDataSet();
         
         JFreeChart chartpress = ChartFactory.createXYLineChart("Pressure",
-                "time", "Bar", dp , PlotOrientation.VERTICAL, true, true,
+                "time", "hPa", dp , PlotOrientation.VERTICAL, true, true,
                 false);
         
-        
+        XYPlot plotpress = (XYPlot) chartpress.getPlot();
+        ValueAxis rangepress = plotpress.getDomainAxis();
+        rangepress.setVisible(false);
         ChartPanel cp = new ChartPanel(chartpress);
 
         cp.setChart(chartpress);
@@ -161,17 +170,17 @@ public class ClientViewStatusView extends JFrame{
 		add(pressureLabel);
 		pressureField.setBounds(170, 60, 140, 20);
 		add(pressureField);
-		timeLabel.setBounds(950, 20, 140, 20);
+		timeLabel.setBounds(900, 20, 140, 20);
 		add(timeLabel);
-		timeField.setBounds(1050, 20, 140, 20);
+		timeField.setBounds(1000, 20, 180, 20);
 		add(timeField);
-		locationLabel.setBounds(950, 40, 140, 20);
+		locationLabel.setBounds(900, 40, 140, 20);
 		add(locationLabel);
-		locationField.setBounds(1050, 40, 140, 20);
+		locationField.setBounds(1000, 40, 140, 20);
 		add(locationField);
-		statusLabel.setBounds(950, 60, 140, 20);
+		statusLabel.setBounds(900, 60, 140, 20);
 		add(statusLabel);
-		statusField.setBounds(1050, 60, 140, 20);
+		statusField.setBounds(1000, 60, 140, 20);
 		add(statusField);
 		
 		// BACK button
@@ -188,6 +197,7 @@ public class ClientViewStatusView extends JFrame{
 		
 		setVisible(true);
 		pack();
+		setResizable(false);
 		setLocationRelativeTo(null);
 	}
 	
@@ -217,7 +227,7 @@ public class ClientViewStatusView extends JFrame{
 		
 		DefaultXYDataset ds = new DefaultXYDataset();
 
-        double[][] data3 = {controller.timeList() , controller.pressureList()};
+        double[][] data3 = {controller.timeList() , controller.humidityList()};
         
         ds.addSeries("humidity evolution", data3);
 

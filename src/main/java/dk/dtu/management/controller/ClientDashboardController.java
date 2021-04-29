@@ -1,5 +1,6 @@
 package dk.dtu.management.controller;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import dk.dtu.management.model.Client;
@@ -16,7 +17,7 @@ public class ClientDashboardController {
 		this.application = application;
 		this.client = client;
 		this.view = new ClientDashboardView(this);
-		displayTable(client.getJourneySet());
+		displayTable(client.getCurrentJourneys());
 	}
 	
 	public void logout() {
@@ -25,13 +26,14 @@ public class ClientDashboardController {
 	}
 	
 
-	public void journeySearch() {
+	public Set<Journey> journeySearch() {
 		Set<Journey> filteredContent = client.filterJourneysContent(view.getEnterContent());
 		Set<Journey> filteredOrigin = client.filterJourneysOrigin(view.getEnterOrigin());
 		Set<Journey> filteredDestination = client.filterJourneyDestination(view.getEnterDestination());
 		filteredContent.retainAll(filteredOrigin);
 		filteredDestination.retainAll(filteredContent);
 		displayTable(filteredDestination);
+		return filteredDestination;
 	}
 	
 	public void display() {
@@ -87,5 +89,18 @@ public class ClientDashboardController {
 	public void clientShareData() {
 		view.setVisible(false);
 		application.clientShareData(client);
+	}
+
+	public void displayAllJourneys(boolean selected) {
+		Set<Journey> journeys = new HashSet<Journey>();
+		if (selected) {
+			journeys = journeySearch();
+		} else {
+			journeys = client.getCurrentJourneys();
+			journeys.retainAll(journeySearch());
+		}
+		
+		displayTable(journeys);
+		
 	}
 }

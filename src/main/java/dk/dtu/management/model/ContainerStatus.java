@@ -1,7 +1,8 @@
 package dk.dtu.management.model;
 
+import java.util.Calendar;
 import java.util.Date;
-
+import java.util.TimeZone;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +36,7 @@ public class ContainerStatus {
 	@Column(name = "pressure", nullable = false)
 	private double pressure;
 	@Column(name = "time", nullable = false)
-	private int time;
+	private Date time;
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "journey_fk", referencedColumnName = "journey_id", nullable = true)
 	private Journey journey;
@@ -46,7 +47,9 @@ public class ContainerStatus {
 		this.temperature = temperature;
 		this.humidity = humidity;
 		this.pressure = pressure;
-		this.time = 100; //FIGURE OUT HOW TO ADD TIME
+		Calendar c = Calendar.getInstance();
+		c.setTimeZone(TimeZone.getTimeZone("Europe/Copenhagen"));
+		this.time = c.getTime();
 		statusDao.save(this);
 	}
 	public double getTemperature() {
@@ -70,10 +73,10 @@ public class ContainerStatus {
 		this.pressure = pressure;
 		statusDao.update(this);
 	}
-	public int getTime() {
+	public Date getTime() {
 		return time;
 	}
-	public void setTime(int time) {
+	public void setTime(Date time) {
 		this.time = time;
 		statusDao.update(this);
 	}

@@ -100,20 +100,30 @@ public class AdminDashboardView extends JFrame {
 			}
 		});
 		
-
+		final JLabel sureLabel = new JLabel();
+		JFrame frame = null;
 		JButton btnDeleteClient = new JButton("Delete Marked");
 		btnDeleteClient.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				for(int i = 0; i<tblClients.getRowCount(); i++) {
-					boolean selected = Boolean.valueOf(tblClients.getValueAt(i, 5).toString());
-				
-					if(selected) {
-						controller.deleteClient(Integer.parseInt(tblClients.getValueAt(i, 0).toString()),tblClients.getValueAt(i, 2).toString());
-					}
-					
-				}
+	            int result = JOptionPane.showConfirmDialog(frame,"Sure? Are you sure you want to remove the Client(s) ?", "Swing Tester",
+			               JOptionPane.YES_NO_OPTION,
+			               JOptionPane.QUESTION_MESSAGE);
+			            if(result == JOptionPane.YES_OPTION){
+							for(int i = 0; i<tblClients.getRowCount(); i++) {
+								boolean selected = Boolean.valueOf(tblClients.getValueAt(i, 5).toString());
+							
+								if(selected) {
+									controller.deleteClient(Integer.parseInt(tblClients.getValueAt(i, 0).toString()),tblClients.getValueAt(i, 2).toString());
+								}
+								
+							}
+			            }else if (result == JOptionPane.NO_OPTION){
+			               
+			            }else {
+			               sureLabel.setText("None selected");
+			            }
+
 				controller.clientSearch();
 		}});
 		
@@ -154,7 +164,7 @@ public class AdminDashboardView extends JFrame {
 		
 		setLayout(null);
 		
-		// distribution for a more distint looking page:
+		// distribution for a more distinct looking page:
 		logoutButton.setBounds(450, 20, 120, 40);
 		lblNameSearch.setBounds(20, 70, 120, 40);
 		txtNameSearch.setBounds(20,100,120,40);

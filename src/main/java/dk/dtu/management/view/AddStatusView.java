@@ -42,9 +42,9 @@ public class AddStatusView extends JFrame{
 		
 		
 		// labels
-		JLabel tempLabel = new JLabel("Temperature:*");
-		JLabel humidityLabel= new JLabel("Humidity:*");
-		JLabel pressureLabel = new JLabel("Pressure:*");
+		JLabel tempLabel = new JLabel("Temperature (K):*");
+		JLabel humidityLabel= new JLabel("Humidity (%):*");
+		JLabel pressureLabel = new JLabel("Pressure (hPa):*");
 		JLabel locationLabel = new JLabel("Location:");
 		
 		// fields

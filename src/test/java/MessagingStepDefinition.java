@@ -1,3 +1,4 @@
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import dk.dtu.management.model.Client;
@@ -37,7 +38,7 @@ public class MessagingStepDefinition {
 	    client.addMessage(message);
 	}
 	@When("the message is sent as a company")
-	public void the_message_is_sent_a_vompany() {
+	public void the_message_is_sent_as_a_company() {
 		message = new Message(client,false,content);
 	    client.addMessage(message);
 	}
@@ -51,12 +52,13 @@ public class MessagingStepDefinition {
 	@Given("a client in the logistic company client set")
 	public void a_client_in_the_logistic_company_client_set() {
 	    client = new Client();
-	    company.addClient(client);
+	    assert
+	    company.addClient(client).booleanValue();
 	}
 
 	@Then("client received messages contains message")
 	public void client_received_messages_contains_message() {
 	    assertTrue(client.getMessages().contains(message));
-	    assertTrue(!message.getSender());
+	    assertFalse(message.getSender());
 	}
 }

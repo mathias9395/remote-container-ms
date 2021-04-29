@@ -43,7 +43,7 @@ public class AssignContainerView extends JFrame {
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Assign container");
-		setPreferredSize(new Dimension(600, 300));
+		setPreferredSize(new Dimension(300, 300));
 		
 		JLabel lblAvailable = new JLabel("Available Containers:");
 		lblAvailable.setBounds(20, 20, 140, 20);
@@ -56,7 +56,7 @@ public class AssignContainerView extends JFrame {
 				controller.back();
 			}
 		});
-		btnCancel.setBounds(500, 20, 80, 30);
+		btnCancel.setBounds(210, 20, 80, 30);
 		add(btnCancel);
 		
 		containerModel.addColumn("ID");
@@ -77,7 +77,7 @@ public class AssignContainerView extends JFrame {
 		});
 		
 		JScrollPane pane = new JScrollPane(tblContainers);
-		pane.setBounds(0, 50, 600, 200);
+		pane.setBounds(0, 50, 300, 200);
 		add(pane);
 		
 		//add(btnCancel);

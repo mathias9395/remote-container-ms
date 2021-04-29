@@ -68,10 +68,10 @@ public class JourneyStepDefinition {
 
 	@Then("journey contains updated information")
 	public void journey_contains_updated_information() {
-	    assertTrue(journey.getOrigin() == this.origin);
-	    assertTrue(journey.getDestination() == this.destination);
-	    assertTrue(journey.getContentType() == this.contentType);
-	    assertTrue(journey.getCompany() == this.company);
+	    assertTrue(journey.getOrigin().equals(this.origin));
+	    assertTrue(journey.getDestination().equals(this.destination));
+	    assertTrue(journey.getContentType().equals(this.contentType));
+	    assertTrue(journey.getCompany().equals(this.company));
 	}
 	
 	@Given("a journey with content {string}")

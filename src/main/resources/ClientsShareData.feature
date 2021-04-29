@@ -21,13 +21,7 @@ Feature: Displaying a client's data to other selected client
 
   @tag1
   Scenario: Data successfully shared with another client
-    Given a client to share
-    And a client2 that is in logistic company 
-    When client2 exists
-    Then show client2 the information of client1
+    Given a client
+    And a client2 that is selected
+    Then share data with client2
     
-  Scenario: Data not shared with another client
-    Given a client to share
-    And a client2 that is not in logistic company
-    When client2 does not exist
-    Then do not show client2 the information of client1

@@ -17,13 +17,12 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Updating the temperature, humidity, atmospheric pressure of the container over time
+Feature: Stop sharing data
 
-  @tag1
-  Scenario: Add container status entry
-    Given a container with client with location "Copenhagen"
-    And temperature 50.0
-    And humidity 80.0
-    And atmospheric pressure 50.0
-    When add new status entry to container
-    Then check if container contains new status
+	@tag1 
+	Scenario: Successfully stopped sharing data
+	  Given a client
+	  And a client2 that client has shared data with
+	  When client2 is removed
+	  Then stop sharing data of client to client2
+  

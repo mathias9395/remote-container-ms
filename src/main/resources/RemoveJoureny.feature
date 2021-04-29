@@ -17,22 +17,12 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Title of your feature
-  I want to use this template for my feature file
+Feature: deleting a journey
 
   @tag1
-  Scenario: Successful login
-    Given an email "email"
-    And a password "password"
-    When the accounts set contains a client with email "email" and password "password"
-    Then the log in is successfull
+  Scenario: journey deleted successfully
+    Given a journey in a client set
+    When jounrey is deleted 
+    Then journey list does not contain client
    
-  @tag2
-  Scenario: Incorrect credentials
-    Given an email "email"
-    And a password "password"
-    When accounts set does not contain a client with password "password" and email "email"
-    Then the log in is unsuccessful 
-   
-    
-    
+

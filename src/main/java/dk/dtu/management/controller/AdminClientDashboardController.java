@@ -32,13 +32,15 @@ public class AdminClientDashboardController {
 		view.setVisible(false);
 		application.adminDashboard();
 	}
-	public void journeySearch() {
+	
+	public Set<Journey> journeySearch() {
 		Set<Journey> filteredContent = client.filterJourneysContent(view.getEnterContent());
 		Set<Journey> filteredOrigin = client.filterJourneysOrigin(view.getEnterOrigin());
 		Set<Journey> filteredDestination = client.filterJourneyDestination(view.getEnterDestination());
 		filteredContent.retainAll(filteredOrigin);
 		filteredDestination.retainAll(filteredContent);
 		displayTable(filteredDestination);
+		return filteredDestination;
 	}
 	
 	public void display() {
@@ -101,21 +103,26 @@ public class AdminClientDashboardController {
 	public void selectJourney(int row) {
 		int id = view.getTableRow(row);
 		Journey j = client.getJourneyById(id);
-		view.setVisible(false);
-		if (j.isOnJourney()) {
+		if (j.isCompleted()) {
+			view.showCompleted();
+		} else if (j.isOnJourney()) {
+			view.setVisible(false);
 			application.addStatus(j);
 		} else {
+			view.setVisible(false);
 			application.assignContainer(j);
 		}
 		
 	}
 
-	public void newContiners(boolean selected) {
+
+	public void newContainers(boolean selected) {
 		Set<Journey> journeys = new HashSet<Journey>();
 		if (selected) {
 			journeys = client.getNewJourneys();
+			journeys.retainAll(journeySearch());
 		} else {
-			journeys = client.getJourneySet();
+			journeys = journeySearch();
 		}
 		displayTable(journeys);
 		

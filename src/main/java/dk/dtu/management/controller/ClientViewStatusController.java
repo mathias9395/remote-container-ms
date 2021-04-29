@@ -2,6 +2,7 @@ package dk.dtu.management.controller;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -96,7 +97,7 @@ public class ClientViewStatusController {
 			status = container.getStatusSet().get(container.getStatusSet().size()-1);
 			
 		}
-		int recentTime = status.getTime();
+		Date recentTime = status.getTime();
 		return String.valueOf(recentTime);
 	}
 
@@ -116,7 +117,11 @@ public class ClientViewStatusController {
 		double[] times = new double[statusList.size()];
 		int counter = 0;
 		for (ContainerStatus s : statusList) {
-			times[counter] = counter;
+			if (counter == 0) {
+				times[counter] = s.getTime().getTime();
+			} else {
+				times[counter] = s.getTime().getTime() - times[0];
+			}
 			counter++;
 		}
 		return times;
@@ -169,7 +174,7 @@ public class ClientViewStatusController {
 		double[] humidities = new double[statusList.size()];
 		int counter = 0;
 		for (ContainerStatus s : statusList) {
-			humidities[counter] = s.getPressure();
+			humidities[counter] = s.getHumidity();
 			counter++;
 		}
 		return humidities;

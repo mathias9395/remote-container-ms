@@ -26,7 +26,7 @@ public class AddContainerView extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Add Client");
+		setTitle("Add Container");
 		
 		
 		

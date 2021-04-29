@@ -115,36 +115,57 @@ public class AdminClientDashboardView extends JFrame{
 		
 		// ADDING CLIENT INFORMATION ON DISPLAY
 		
-		ID = new JLabel("ID is : " + controller.getId());
+		ID = new JLabel("ID: " + controller.getId());
 		name = new JLabel( controller.getName() +"'s information: ");
-		email = new JLabel("Email is: "+ controller.getEmail());
-		Ref = new JLabel("Reference person is : "+ controller.getReferencePerson());
-		Address = new JLabel("Address is: "+ controller.getAddress());
+		email = new JLabel("Email: "+ controller.getEmail());
+		Ref = new JLabel("Reference person: "+ controller.getReferencePerson());
+		Address = new JLabel("Address: "+ controller.getAddress());
 		
 		
-		
+		int choice = 0;
 		ID.setOpaque(true);
-		ID.setBackground(Color.lightGray);
+		ID.setBackground(Color.WHITE);
 		email.setOpaque(true);
-		email.setBackground(Color.LIGHT_GRAY);
+		email.setBackground(Color.WHITE);
 		Ref.setOpaque(true);
-		Ref.setBackground(Color.LIGHT_GRAY);
+		Ref.setBackground(Color.WHITE);
 		Address.setOpaque(true);
-		Address.setBackground(Color.LIGHT_GRAY);
+		Address.setBackground(Color.WHITE);
 		JCheckBox cbContainer = new JCheckBox("New journeys"); 
 		cbContainer.setBackground(Color.decode("#E2ECF6"));
+		JCheckBox cbAllJourneys = new JCheckBox("Include completed");
+		cbAllJourneys.setBackground(Color.decode("#E2ECF6"));
 		
 		name.setBounds(250,10,250,15);
 		ID.setBounds(20,30,250,15);
 		email.setBounds(20,55,250,15);
 		Ref.setBounds(315,30,250,15);
-		cbContainer.setBounds(20, 100, 200, 30);
+		cbContainer.setBounds(15, 85, 200, 30);
+		cbAllJourneys.setBounds(15, 105, 200, 30);
+		
+		
 		cbContainer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.newContiners(cbContainer.isSelected());
+				if (choice != 2) {
+					controller.newContainers(cbContainer.isSelected());
+					cbAllJourneys.setSelected(false);
+					choice = 2;
+				}
 			}
 		});
+		
+		cbAllJourneys.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (choice != 1) {
+					controller.allJourneys(cbAllJourneys.isSelected());
+					cbContainer.setSelected(false);
+					choice = 1;
+				}
+			}
+		});
+		
 		Address.setBounds(315,55,250,15);
 		
 		info.add(name);
@@ -152,6 +173,7 @@ public class AdminClientDashboardView extends JFrame{
 		info.add(email);
 		info.add(Ref);
 		info.add(Address);
+		info.setBackground(Color.decode("#E2ECF6"));
 		
 
 		// BACK BUTTON
@@ -169,6 +191,7 @@ public class AdminClientDashboardView extends JFrame{
 			
 		title = new JLabel(controller.getName() + "'s information");
 		panel.add(title);
+		panel.add(cbAllJourneys);
 		
 		origin = new JLabel("Origin");
 		panel.add(origin);
@@ -357,6 +380,11 @@ public class AdminClientDashboardView extends JFrame{
 	
 	public String getEnterDestination() {
 		return enterDestination.getText();
+	}
+
+
+	public void showCompleted() {
+		JOptionPane.showMessageDialog(this, "This journey has already been completed", "Journey completed", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	

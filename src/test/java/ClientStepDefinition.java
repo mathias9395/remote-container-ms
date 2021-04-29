@@ -18,7 +18,7 @@ public class ClientStepDefinition {
 	String referencePerson;
 	String address;
 	int id;
-	LogisticCompany company;
+	LogisticCompany company = new LogisticCompany("admin","admin");
 	Client client;
 	Boolean success;
 	
@@ -59,27 +59,6 @@ public class ClientStepDefinition {
 	@Given("a logistic company")
 	public void a_logistic_company() {
 	    company = new LogisticCompany("email","password");
-	}
-	
-	@Given("all user profiles containg a user with email {string} and password {string}")
-	public void all_user_profiles(String email, String password) {
-		client = new Client("name",email,"referencePerson",password,"Address");
-		users.addUser(client);
-	}
-
-	@When("I login")
-	public void i_login() {
-	    success = users.login(email, password);
-	}
-
-	@Then("login was successful")
-	public void login_was_successful() {
-	    assertTrue(success);
-	}
-	
-	@Then("login was unsuccessful")
-	public void login_was_unsuccessful() {
-	    assertFalse(success);
 	}
 
 	@When("add client")
@@ -143,7 +122,7 @@ public class ClientStepDefinition {
 
 	@Then("client list does not contain client")
 	public void client_list_does_not_contain_client() {
-	    assertTrue(!company.getClients().contains(client));
+	    assertFalse(company.getClients().contains(client));
 	}
 	
 	@Given("client with name {string} with {string} with {string} with {string} with {string}")
@@ -173,11 +152,7 @@ public class ClientStepDefinition {
 	}
 	
 	
-	
-	
-	
 	//SHARE DATA
-	
 	@Given("a client to share")
 	public void a_client_to_share() {
 		client = new Client("name","email","referencePerson","password","address");
@@ -201,11 +176,6 @@ public class ClientStepDefinition {
 //		assertTrue((client.toString()+"\n").equals(client2.getSharedData()));
 //	}
 	
-	@Given("a client2 that is not in logistic company")
-	public void a_client2_that_is_not_in_logistic_company() {
-	    client2 = new Client("Name", "email", "referencePerson", "password", "address");
-	    company = new LogisticCompany("email","password");
-	}
 
 	@When("client2 does not exist")
 	public void client2_does_not_exist() {
@@ -266,9 +236,5 @@ public class ClientStepDefinition {
 	public void the_equality_is_not_true() {
 	    assertFalse(success);
 	}
-	
-	
-
-	
 	
 }

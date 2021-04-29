@@ -9,8 +9,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -146,8 +148,14 @@ public class ClientDashboardView extends JFrame{
 		// MOUSE LISTENER for graph DISPLAY
 		
 		
-		
-		
+		JCheckBox cbAllJourneys = new JCheckBox("Include completed"); 
+		cbAllJourneys.setBackground(Color.decode("#E2ECF6"));
+		cbAllJourneys.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.displayAllJourneys(cbAllJourneys.isSelected());
+			}
+		});
 		
 		// SHARE DATA WITH ANOTHER CLIENT
 		
@@ -219,19 +227,29 @@ public class ClientDashboardView extends JFrame{
 		        }
 		    }
 		});
-	    
+	    final JLabel sureLabel = new JLabel();
 	    RemoveSelected.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				for(int i = 0; i<table.getRowCount(); i++) {
-					boolean selected = Boolean.valueOf(table.getValueAt(i, 4).toString());
-				
-					if(selected) {
-						controller.removeJourney(Integer.parseInt(table.getValueAt(i, 0).toString()));
-					}
-					
-				}
+				int result = JOptionPane.showConfirmDialog(frame,"Sure? Are you sure you want to remove the Journey(s) ?", "Swing Tester",
+			               JOptionPane.YES_NO_OPTION,
+			               JOptionPane.QUESTION_MESSAGE);
+			            if(result == JOptionPane.YES_OPTION){
+							for(int i = 0; i<table.getRowCount(); i++) {
+								boolean selected = Boolean.valueOf(table.getValueAt(i, 4).toString());
+							
+								if(selected) {
+									controller.removeJourney(Integer.parseInt(table.getValueAt(i, 0).toString()));
+
+								}
+								
+							}
+			            }else if (result == JOptionPane.NO_OPTION){
+			               
+			            }else {
+			               sureLabel.setText("None selected");
+			            }
+
 				controller.journeySearch();
 		}});
 		
@@ -250,21 +268,23 @@ public class ClientDashboardView extends JFrame{
 
 		// bounds
 	    
-		logout.setBounds(450,20,110,30);
-		enterOrigin.setBounds(20, 70, 110, 30);
+		logout.setBounds(450,14,110,30);
+		cbAllJourneys.setBounds(17, 45, 150, 30);
+		enterOrigin.setBounds(20, 90, 110, 30);
 		sharedata.setBounds(190, 240, 110, 30);
-		viewSharedData.setBounds(20, 20, 110, 30);
+		viewSharedData.setBounds(20, 14, 110, 30);
 		RemoveSelected.setBounds(450,240,110,30);
 		scrollable.setBounds(180, 70, 380, 150);
-		origin.setBounds(20,35,110,50);
+		origin.setBounds(20,55,110,50);
 		AddSelected.setBounds(320, 240, 110, 30);
-		enterContent.setBounds(20, 130, 110, 30);
-		content.setBounds(20,95,110,50);
-		destination.setBounds(20,155,110,50);
-		enterDestination.setBounds(20, 190, 110, 30);
+		enterContent.setBounds(20, 150, 110, 30);
+		content.setBounds(20,115,110,50);
+		destination.setBounds(20,175,110,50);
+		enterDestination.setBounds(20, 210, 110, 30);
+		
 		search.setBounds(20, 240, 110, 30);
-		update.setBounds(320, 20, 110, 30);
-		btnChat.setBounds(190, 20, 110, 30);
+		update.setBounds(320, 14, 110, 30);
+		btnChat.setBounds(190, 14, 110, 30);
 		// panel adds
 		
 		panel.add(AddSelected);
@@ -282,6 +302,7 @@ public class ClientDashboardView extends JFrame{
 		panel.add(btnChat);
 		panel.add(viewSharedData);
 		panel.add(sharedata);
+		panel.add(cbAllJourneys);
 		
 		
 		pack();

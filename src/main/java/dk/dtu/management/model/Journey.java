@@ -188,7 +188,7 @@ public class Journey {
 		journeyData = container.getStatusSet();
 		container.reset();
 		this.container = null;
-		journeyDao.save(this);
+		journeyDao.update(this);
 	}
 	
 	public boolean isCompleted() {
