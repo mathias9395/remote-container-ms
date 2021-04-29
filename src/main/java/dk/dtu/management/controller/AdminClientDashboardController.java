@@ -20,7 +20,7 @@ public class AdminClientDashboardController {
 		this.application = application;
 		this.client = client;
 		this.view = new AdminClientDashboardView(this);
-		displayTable(client.getJourneySet());
+		allJourneys(false);
 	}
 	
 	public void logout() {
@@ -126,6 +126,18 @@ public class AdminClientDashboardController {
 		}
 		displayTable(journeys);
 		
+	}
+
+	public void allJourneys(boolean selected) {
+		Set<Journey> journeys = new HashSet<Journey>();
+		if (selected) {
+			journeys = journeySearch();
+		} else {
+			journeys = client.getCurrentJourneys();
+			journeys.retainAll(journeySearch());
+		}
+		
+		displayTable(journeys);
 	}
 	
 }

@@ -49,6 +49,7 @@ public class AdminClientDashboardView extends JFrame{
 	private static JButton btnChat;
 	private static JTable table;
 	private static JButton AddSelected;
+	private static int choice;
 	//private static JButton RemoveSelected;
 	
 	// for the info display
@@ -122,7 +123,6 @@ public class AdminClientDashboardView extends JFrame{
 		Address = new JLabel("Address: "+ controller.getAddress());
 		
 		
-		int choice = 0;
 		ID.setOpaque(true);
 		ID.setBackground(Color.WHITE);
 		email.setOpaque(true);
@@ -140,7 +140,7 @@ public class AdminClientDashboardView extends JFrame{
 		ID.setBounds(20,30,250,15);
 		email.setBounds(20,55,250,15);
 		Ref.setBounds(315,30,250,15);
-		cbContainer.setBounds(15, 85, 200, 30);
+		cbContainer.setBounds(15, 80, 200, 30);
 		cbAllJourneys.setBounds(15, 105, 200, 30);
 		
 		
@@ -151,6 +151,9 @@ public class AdminClientDashboardView extends JFrame{
 					controller.newContainers(cbContainer.isSelected());
 					cbAllJourneys.setSelected(false);
 					choice = 2;
+				} else if (choice == 2 && !cbContainer.isSelected()) {
+					controller.allJourneys(false);
+					choice = 0;
 				}
 			}
 		});
@@ -162,6 +165,9 @@ public class AdminClientDashboardView extends JFrame{
 					controller.allJourneys(cbAllJourneys.isSelected());
 					cbContainer.setSelected(false);
 					choice = 1;
+				} else if (choice == 1 && !cbAllJourneys.isSelected()) {
+					controller.allJourneys(cbAllJourneys.isSelected());
+					choice = 0;
 				}
 			}
 		});

@@ -114,7 +114,7 @@ public class AdminDashboardView extends JFrame {
 								boolean selected = Boolean.valueOf(tblClients.getValueAt(i, 5).toString());
 							
 								if(selected) {
-									controller.deleteClient(Integer.parseInt(tblClients.getValueAt(i, 0).toString()),tblClients.getValueAt(i, 2).toString());
+									controller.deleteClient(Integer.parseInt(tblClients.getValueAt(i, 0).toString()));
 								}
 								
 							}

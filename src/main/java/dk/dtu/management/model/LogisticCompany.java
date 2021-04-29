@@ -117,7 +117,7 @@ public class LogisticCompany extends User {
 	
 	public Boolean removeClient(Client client) {
 		if (clients.contains(client)) {
-			//client.delete();
+			client.delete();
 			clients.remove(client);
 			companyDao.update(this);
 			return true;

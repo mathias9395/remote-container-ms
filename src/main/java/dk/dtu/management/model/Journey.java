@@ -179,7 +179,13 @@ public class Journey {
 		journeyDao.update(this);
 	}
 	public void delete() {
-		journeyDao.delete(id);
+		if (container != null) {
+			container.reset();
+		}
+		client = null;
+		container = null;
+		
+		journeyDao.update(this);
 		
 	}
 	

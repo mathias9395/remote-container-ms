@@ -125,11 +125,14 @@ public class Container {
 	}
 	
 	public void reset() {
-		client = null;
-		statusSet = new ArrayList<ContainerStatus>();
-		available = true;
-		containerDao.update(this);
-		journey = null;
+		this.client = null;
+		for (ContainerStatus s : statusSet) {
+			s.setContainer(null);
+		}
+		this.statusSet = new ArrayList<ContainerStatus>();
+		
+		this.available = true;
+		this.journey = null;
 		containerDao.update(this);
 	}
 }

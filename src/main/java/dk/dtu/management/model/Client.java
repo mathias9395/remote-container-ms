@@ -234,7 +234,11 @@ public class Client extends User {
 	}
 	
 	public void delete() {
-		clientDao.delete(id);
+		company = null;
+		for (Journey j : journeySet) {
+			j.delete();
+		}
+		clientDao.update(this);
 	}	
 	
 	//SHARED DATA METHODS
@@ -269,8 +273,8 @@ public class Client extends User {
 
 	public void removeJourney(Journey journey) {
 		if (journeySet.contains(journey)) {
-			journey.delete();
 			journeySet.remove(journey);
+			journey.delete();
 			clientDao.update(this);
 		}
 		

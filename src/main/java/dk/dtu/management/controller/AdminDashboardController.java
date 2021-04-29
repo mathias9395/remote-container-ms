@@ -59,11 +59,11 @@ public class AdminDashboardController {
 		}
 	}
 	
-	public void deleteClient(int id,String email) {
+	public void deleteClient(int id) {
 		
 		
 //		Object[] data = view.getTableRow(row);
-		Client c = new Client(id, email);
+		Client c = company.getClientById(id);
 		company.removeClient(c);
 	}
 	
