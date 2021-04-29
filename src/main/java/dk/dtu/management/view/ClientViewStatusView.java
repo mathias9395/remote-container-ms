@@ -149,29 +149,29 @@ public class ClientViewStatusView extends JFrame{
 		});
 		
 		setLayout(null);
-		tempLabel.setBounds(50, 20, 140, 20);
+		tempLabel.setBounds(70, 20, 140, 20);
 		add(tempLabel);
-		tempField.setBounds(150, 20, 140, 20);
+		tempField.setBounds(170, 20, 140, 20);
 		add(tempField);
-		humidityLabel.setBounds(250, 20, 140, 20);
+		humidityLabel.setBounds(70, 40, 140, 20);
 		add(humidityLabel);
-		humidityField.setBounds(350, 20, 140, 20);
+		humidityField.setBounds(170, 40, 140, 20);
 		add(humidityField);
-		pressureLabel.setBounds(450, 20, 140, 20);
+		pressureLabel.setBounds(70, 60, 140, 20);
 		add(pressureLabel);
-		pressureField.setBounds(550, 20, 140, 20);
+		pressureField.setBounds(170, 60, 140, 20);
 		add(pressureField);
-		timeLabel.setBounds(650, 20, 140, 20);
+		timeLabel.setBounds(950, 20, 140, 20);
 		add(timeLabel);
-		timeField.setBounds(750, 20, 140, 20);
+		timeField.setBounds(1050, 20, 140, 20);
 		add(timeField);
-		locationLabel.setBounds(850, 20, 140, 20);
+		locationLabel.setBounds(950, 40, 140, 20);
 		add(locationLabel);
-		locationField.setBounds(950, 20, 140, 20);
+		locationField.setBounds(1050, 40, 140, 20);
 		add(locationField);
-		statusLabel.setBounds(50, 35, 140, 20);
+		statusLabel.setBounds(950, 60, 140, 20);
 		add(statusLabel);
-		statusField.setBounds(150, 35, 140, 20);
+		statusField.setBounds(1050, 60, 140, 20);
 		add(statusField);
 		
 		// BACK button
