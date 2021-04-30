@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import dk.dtu.management.controller.ClientMessageController;
+import dk.dtu.management.util.JTextFieldLimit;
 @SuppressWarnings("serial")
 public class ClientMessageView extends JFrame {
 
@@ -32,12 +33,13 @@ public class ClientMessageView extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Message");
+		setTitle("Messages");
 		setPreferredSize(new Dimension(400, 400));
 		
 		txtNewMessage = new JTextArea(10,40);
 		txtNewMessage.setLineWrap(true);
 		txtNewMessage.setWrapStyleWord(true);
+		txtNewMessage.setDocument(new JTextFieldLimit(255));
 		
 		JScrollPane txtMessage = new JScrollPane(txtNewMessage);  
 		

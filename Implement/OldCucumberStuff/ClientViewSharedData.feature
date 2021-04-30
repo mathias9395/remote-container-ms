@@ -17,11 +17,10 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Displaying a client's data to other selected client
+Feature: Viewing shared data
 
   @tag1
-  Scenario: Data successfully shared with another client
-    Given a Shareclient
-    And a client2 that is selected
-    Then share data with client2
-    
+  Scenario: Successfully viewed shared data
+  	Given a client
+  	And a client2 that has shared data with client
+  	Then client can access data of client2

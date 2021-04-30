@@ -21,6 +21,6 @@ Feature: Viewing shared data
 
   @tag1
   Scenario: Successfully viewed shared data
-  	Given a client
+  	Given a Shareclient
   	And a client2 that has shared data with client
   	Then client can access data of client2

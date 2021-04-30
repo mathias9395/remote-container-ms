@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.AddStatusController;
+import dk.dtu.management.util.JTextFieldLimit;
 
 import java.awt.Dimension;
 import javax.swing.JLabel;
@@ -60,6 +61,7 @@ public class AddStatusView extends JFrame{
 		humidityField = new JFormattedTextField(format);
 		pressureField = new JFormattedTextField(format);
 		locationField = new JTextField(10);
+		locationField.setDocument(new JTextFieldLimit(60));
 		
 		// buttons
 		JButton btnAddStatus = new JButton("Add status");
@@ -82,9 +84,9 @@ public class AddStatusView extends JFrame{
 		add(tempLabel);
 		add(tempField);
 		add(pressureLabel);
-		add(humidityField);
-		add(humidityLabel);
 		add(pressureField);
+		add(humidityLabel);
+		add(humidityField);
 		add(locationLabel);
 		add(locationField);
 		add(btnAddStatus);

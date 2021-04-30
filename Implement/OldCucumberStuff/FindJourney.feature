@@ -24,7 +24,7 @@ Feature: Find an existing journey
     Given a journey with content "Bananas"
     And a client with journey set containing journey
     When search by content "Bananas"
-    Then filtered journey set that contains content "Bananas"
+    Then filtered journey set that contains content "bananas"
     
  	Scenario: Journey search by origin
     Given a journey with origin "Copenhagen"
@@ -36,7 +36,7 @@ Feature: Find an existing journey
     Given a journey with destination "London"
     And a client with journey set containing journey
     When search by destination "London"
-    Then filtered journey list that contains destination "London"
+    Then filtered journey list that contains origin "London"
 
     
     

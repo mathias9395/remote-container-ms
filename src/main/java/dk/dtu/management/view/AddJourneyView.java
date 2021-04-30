@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.AddJourneyController;
+import dk.dtu.management.util.JTextFieldLimit;
 @SuppressWarnings("serial")
 public class AddJourneyView extends JFrame {
 	private AddJourneyController controller;
@@ -59,9 +60,16 @@ public class AddJourneyView extends JFrame {
         
         
         origin = new JTextField(20);
+        origin.setDocument(new JTextFieldLimit(60));
+        
         destination = new JTextField(20);
+        destination.setDocument(new JTextFieldLimit(60));
+        
         content = new JTextField(20);
+        content.setDocument(new JTextFieldLimit(60));
+        
         company = new JTextField(20);
+        company.setDocument(new JTextFieldLimit(60));
 
         setPreferredSize(new Dimension(300, 200));
 		setLayout(new GridLayout(5,2));

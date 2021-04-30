@@ -18,6 +18,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.LoginController;
+import dk.dtu.management.util.JTextFieldLimit;
 
 
 
@@ -42,7 +43,9 @@ public class LoginView extends JFrame {
 		setLayout(new GridLayout(3,2,0,5));
 		
 		txtLogin = new JTextField(15);
+		txtLogin.setDocument(new JTextFieldLimit(60));
 		txtPass = new JPasswordField(15);
+		txtPass.setDocument(new JTextFieldLimit(60));
 		btnLogin = new JButton(" Login");
 		btnLogin.addActionListener(new ActionListener() {
 			@Override

@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import dk.dtu.management.controller.ClientViewSharedDataController;
+import dk.dtu.management.util.JTextFieldLimit;
 
 @SuppressWarnings("serial")
 public class ClientViewSharedDataView extends JFrame {
@@ -66,7 +67,7 @@ public class ClientViewSharedDataView extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("View Shared Data");
+		setTitle("Shared Data");
 		getContentPane().setBackground(Color.decode("#E2ECF6"));
 		setPreferredSize(new Dimension(600, 425));
 		
@@ -109,7 +110,9 @@ public class ClientViewSharedDataView extends JFrame {
 		
 		// text fields
 		txtNameSearch = new JTextField(10);
+		txtNameSearch.setDocument(new JTextFieldLimit(60));
 		txtEmailSearch = new JTextField(10);
+		txtEmailSearch.setDocument(new JTextFieldLimit(60));
 		
 		// table
 		clientModel.addColumn("ID");

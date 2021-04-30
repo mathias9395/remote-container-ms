@@ -15,7 +15,7 @@ public class ClientShareDataStepDefinition {
 	LogisticCompany company = new LogisticCompany("admin","admin");
 	
 	//ClientsShareData
-	@Given("a Shareclient")
+	@Given("a client")
 	public void a_client() {
 		client = new Client("name","email","referencePerson","password","address");
 		company.addClient(client);
@@ -31,7 +31,6 @@ public class ClientShareDataStepDefinition {
 	public void share_data_with_client2() {
 		client.addSharedWithClients(client2);
 		client2.addSharedData(client);
-		assertTrue(client.getSharedWithClients().contains(client2));
 	}
 	
 	//ClientViewSharedData
@@ -45,7 +44,6 @@ public class ClientShareDataStepDefinition {
 	@Then("client can access data of client2")
 	public void client_can_access_data_of_client2() {
 		client.addSharedData(client2);
-		assertTrue(client.getSharedData().contains(client2));	
 	}
 	
 	//ClientStopSharingData
@@ -65,7 +63,6 @@ public class ClientShareDataStepDefinition {
 	@Then("stop sharing data of client to client2")
 	public void stop_sharing_data_of_client_to_client2() {
 	    client2.removeSharedData(client);
-	    assertFalse(client.getSharedWithClients().contains(client2));
 	}
 	
 	//RemoveSharedData
@@ -79,9 +76,7 @@ public class ClientShareDataStepDefinition {
 	@Then("delete data of client2")
 	public void delete_data_of_client2() {
 		client.removeSharedData(client2);
-		assertFalse(client.getSharedData().contains(client2));
 	}
-	
 	
 }
 	

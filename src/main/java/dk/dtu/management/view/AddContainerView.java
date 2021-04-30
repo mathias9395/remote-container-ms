@@ -13,6 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.AddContainerController;
+import dk.dtu.management.util.JTextFieldLimit;
 @SuppressWarnings("serial")
 public class AddContainerView extends JFrame {
 	private AddContainerController controller;
@@ -36,6 +37,7 @@ public class AddContainerView extends JFrame {
 		
 		// fields
 		txtLocation = new JTextField(10);
+		txtLocation.setDocument(new JTextFieldLimit(60));
 		
 		// buttons
 		JButton btnAddClient = new JButton("Add container");

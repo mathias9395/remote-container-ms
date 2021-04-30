@@ -17,17 +17,12 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Displaying a client's data to a manager
+Feature: Stop sharing data
 
-  @tag1
-  Scenario: Successfully shown data
-    Given a client to share
-    And a logistic company
-    When client exists
-    Then show clients data to manager
-    
-  Scenario: Unsuccessfully shown data
-  	Given a client to share
-  	And a logistic company
-    When client doesnt exist
-    Then do not show clients data to manager
+	@tag1 
+	Scenario: Successfully stopped sharing data
+	  Given a client
+	  And a client2 that client has shared data with
+	  When client2 is removed
+	  Then stop sharing data of client to client2
+  

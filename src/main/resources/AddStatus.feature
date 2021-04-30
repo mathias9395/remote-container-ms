@@ -21,10 +21,10 @@ Feature: Add container status
 
   @tag1
   Scenario: Add container status
-    Given a container with a journey
-    And temperature 5.0
-    And pressure 5.0
-    And humidty 5.0
+    Given a container
+    And temperature 6.0
+    And pressure 9.0 
+    And humidity 9.0 
     And location "London"
     When add new status to container
     Then container contains updated information

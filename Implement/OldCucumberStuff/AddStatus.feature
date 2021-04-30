@@ -17,11 +17,18 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Displaying a client's data to other selected client
+Feature: Add container status
 
   @tag1
-  Scenario: Data successfully shared with another client
-    Given a Shareclient
-    And a client2 that is selected
-    Then share data with client2
-    
+  Scenario: Add container status
+    Given a container with a journey
+    And temperature 5.0
+    And pressure 5.0
+    And humidty 5.0
+    And location "London"
+    When add new status to container
+    Then container contains updated information
+   
+
+ 
+ 

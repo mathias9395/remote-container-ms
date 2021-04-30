@@ -17,12 +17,13 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: deleting a journey
+Feature: Title of your feature
+  I want to use this template for my feature file
 
   @tag1
-  Scenario: journey deleted successfully
-    Given a journey in a client set
-    When jounrey is deleted 
-    Then journey list does not contain client
-   
-
+  Scenario: Current journeys specified
+    Given a specific journey
+    And a client with a list of all current journeys
+    When a journey is current
+    Then the journey is in a set of current journeys
+    

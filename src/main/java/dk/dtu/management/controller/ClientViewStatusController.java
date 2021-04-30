@@ -116,11 +116,13 @@ public class ClientViewStatusController {
 		}
 		double[] times = new double[statusList.size()];
 		int counter = 0;
+		double startTime = 0;
 		for (ContainerStatus s : statusList) {
 			if (counter == 0) {
-				times[counter] = s.getTime().getTime();
+				startTime = s.getTime().getTime();
+				times[counter] = 0;
 			} else {
-				times[counter] = s.getTime().getTime() - times[0];
+				times[counter] = s.getTime().getTime() - startTime;
 			}
 			counter++;
 		}

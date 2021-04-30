@@ -44,10 +44,11 @@ public class ClientViewStatusView extends JFrame{
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Client Destination");
-		setPreferredSize(new Dimension(1220,430));
+		setTitle("Journey Status");
+		setPreferredSize(new Dimension(1200,450));
 		
 		//labels
+		
 		JLabel tempLabel = new JLabel("Temperature:");
 		JLabel humidityLabel= new JLabel("Humidity:");
 		JLabel pressureLabel = new JLabel("Pressure:");

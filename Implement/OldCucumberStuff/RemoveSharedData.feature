@@ -17,11 +17,11 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Displaying a client's data to other selected client
+Feature: Removing shared data
 
-  @tag1
-  Scenario: Data successfully shared with another client
-    Given a Shareclient
-    And a client2 that is selected
-    Then share data with client2
-    
+	@tag1 
+	Scenario: Successfully removed shared data
+	  Given a client
+	  And a client2 that has shared data with client that is deleted
+	  Then delete data of client2 
+  

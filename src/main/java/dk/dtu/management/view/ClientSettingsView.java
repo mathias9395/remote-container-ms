@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.ClientSettingsController;
+import dk.dtu.management.util.JTextFieldLimit;
 @SuppressWarnings("serial")
 public class ClientSettingsView extends JFrame {
 
@@ -35,10 +36,15 @@ public class ClientSettingsView extends JFrame {
 		
 		// text fields
 		JTextField txtName = new JTextField(10);
+		txtName.setDocument(new JTextFieldLimit(60));
 		txtName.setText(controller.getName());
+		
 		JTextField txtEmail = new JTextField(10);
+		txtEmail.setDocument(new JTextFieldLimit(60));
 		txtEmail.setText(controller.getEmail());
+		
 		JTextField txtReferencePerson = new JTextField(10);
+		txtReferencePerson.setDocument(new JTextFieldLimit(60));
 		txtReferencePerson.setText(controller.getReferencePerson());
 		JTextField txtAddress = new JTextField(10);
 		txtAddress.setText(controller.getAddress());

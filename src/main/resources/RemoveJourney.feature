@@ -17,11 +17,13 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Displaying a client's data to other selected client
+Feature: Title of your feature
+  I want to use this template for my feature file
 
   @tag1
-  Scenario: Data successfully shared with another client
-    Given a Shareclient
-    And a client2 that is selected
-    Then share data with client2
+  Scenario: Journey removed successfully
+    Given a client1
+    And a journey list of the client1
+    When a journey is deleted
+    Then journey is no longer in the journey list
     

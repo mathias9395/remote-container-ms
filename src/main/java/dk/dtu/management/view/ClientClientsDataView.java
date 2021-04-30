@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import dk.dtu.management.controller.ClientClientsDataController;
+import dk.dtu.management.util.JTextFieldLimit;
 
 @SuppressWarnings("serial")
 public class ClientClientsDataView extends JFrame {
@@ -74,7 +75,7 @@ private ClientClientsDataController controller;
 	private void initGUI() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Shared Data view");
+		setTitle("Shared Data");
 		setPreferredSize(new Dimension(600, 360));
 		
 		panel = new JPanel();
@@ -131,18 +132,21 @@ private ClientClientsDataController controller;
 		panel.add(origin);
 		
 		enterOrigin = new JTextField(20);
+		enterOrigin.setDocument(new JTextFieldLimit(60));
 		panel.add(enterOrigin);
 		
 		content = new JLabel("Content");
 		panel.add(content);
 		
 		enterContent = new JTextField(20);
+		enterContent.setDocument(new JTextFieldLimit(60));
 		panel.add(enterContent);
 		
 		destination = new JLabel("Destination");
 		panel.add(destination);
 		
 		enterDestination = new JTextField(20);
+		enterDestination.setDocument(new JTextFieldLimit(60));
 		panel.add(enterDestination);
 		
 		search = new JButton("Search");

@@ -17,11 +17,14 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Displaying a client's data to other selected client
+Feature: Adding a journey
 
   @tag1
-  Scenario: Data successfully shared with another client
-    Given a Shareclient
-    And a client2 that is selected
-    Then share data with client2
-    
+  Scenario: Journey added successfully
+  	Given a client
+    And an origin "Copenhagen"
+    And a destination "Hamburg"
+    And a content type "Apples"
+    And a company "company"
+    When add journey to client journey set
+    Then journey list has new journey

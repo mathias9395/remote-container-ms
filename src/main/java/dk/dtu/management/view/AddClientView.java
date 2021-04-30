@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import dk.dtu.management.controller.AddClientController;
+import dk.dtu.management.util.JTextFieldLimit;
 @SuppressWarnings("serial")
 public class AddClientView extends JFrame {
 	private AddClientController controller;
@@ -44,10 +45,19 @@ public class AddClientView extends JFrame {
 		
 		// fields
 		nameField = new JTextField(10);
+		nameField.setDocument(new JTextFieldLimit(60));
+		
 		emailField = new JTextField(10);
+		emailField.setDocument(new JTextFieldLimit(60));
+		
 		referencePersonField = new JTextField(10);
+		referencePersonField.setDocument(new JTextFieldLimit(60));
+		
 		passwordField = new JPasswordField(15);
+		passwordField.setDocument(new JTextFieldLimit(60));
+		
 		addressField = new JTextField(10);
+		addressField.setDocument(new JTextFieldLimit(60));
 		
 		// buttons
 		JButton btnAddClient = new JButton("Add client");

@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import dk.dtu.management.controller.AdminMessageController;
+import dk.dtu.management.util.JTextFieldLimit;
 @SuppressWarnings("serial")
 public class AdminMessageView extends JFrame {
 	private AdminMessageController controller;
@@ -29,12 +30,13 @@ public class AdminMessageView extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Message");
+		setTitle("Messages");
 		setPreferredSize(new Dimension(400, 400));
 		
 		txtNewMessage = new JTextArea();
 		txtNewMessage.setLineWrap(true);
 		txtNewMessage.setWrapStyleWord(true);
+		txtNewMessage.setDocument(new JTextFieldLimit(255));
 		JScrollPane txtMessage = new JScrollPane(txtNewMessage);  
 		
 		JButton btnSendMessage = new JButton("Send");

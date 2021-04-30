@@ -12,6 +12,7 @@ public class ClientDashboardController {
 	private ClientDashboardView view;
 	private ApplicationController application;
 	private Client client;
+	private boolean selected;
 	
 	public ClientDashboardController(ApplicationController application, Client client) {
 		this.application = application;
@@ -32,7 +33,12 @@ public class ClientDashboardController {
 		Set<Journey> filteredDestination = client.filterJourneyDestination(view.getEnterDestination());
 		filteredContent.retainAll(filteredOrigin);
 		filteredDestination.retainAll(filteredContent);
+		if (!selected) {
+			filteredDestination.removeAll(client.getCompletedJourneys());
+			
+		}
 		displayTable(filteredDestination);
+		
 		return filteredDestination;
 	}
 	
@@ -57,7 +63,10 @@ public class ClientDashboardController {
 	}
 
 	public void removeJourney(int id) {
-		Journey j = new Journey(id);
+		Journey j = client.getJourneyById(id);
+		if (j.isOnJourney()) {
+			j.getContainer().reset();
+		}
 		client.removeJourney(j);
 	}
 	
@@ -92,15 +101,7 @@ public class ClientDashboardController {
 	}
 
 	public void displayAllJourneys(boolean selected) {
-		Set<Journey> journeys = new HashSet<Journey>();
-		if (selected) {
-			journeys = journeySearch();
-		} else {
-			journeys = client.getCurrentJourneys();
-			journeys.retainAll(journeySearch());
-		}
-		
-		displayTable(journeys);
-		
+		this.selected = selected;
+		journeySearch();
 	}
 }

@@ -42,7 +42,7 @@ public class AssignContainerView extends JFrame {
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Assign container");
+		setTitle("Assign Container");
 		setPreferredSize(new Dimension(300, 300));
 		
 		JLabel lblAvailable = new JLabel("Available Containers:");

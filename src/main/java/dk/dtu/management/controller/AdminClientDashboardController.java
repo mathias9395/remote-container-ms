@@ -15,6 +15,8 @@ public class AdminClientDashboardController {
 	private ApplicationController application;
 	private Client client;
 	private Journey journey;
+	private boolean allSelected;
+	private boolean newSelected;
 	
 	public AdminClientDashboardController(ApplicationController application, Client client) {
 		this.application = application;
@@ -34,11 +36,20 @@ public class AdminClientDashboardController {
 	}
 	
 	public Set<Journey> journeySearch() {
+		
 		Set<Journey> filteredContent = client.filterJourneysContent(view.getEnterContent());
 		Set<Journey> filteredOrigin = client.filterJourneysOrigin(view.getEnterOrigin());
 		Set<Journey> filteredDestination = client.filterJourneyDestination(view.getEnterDestination());
 		filteredContent.retainAll(filteredOrigin);
 		filteredDestination.retainAll(filteredContent);
+		if(!allSelected) {
+			filteredDestination.removeAll(client.getCompletedJourneys());
+		}
+		if(newSelected) {
+			Set<Journey> newJourneys = client.getNewJourneys();
+			filteredDestination.retainAll(newJourneys);
+		}
+		
 		displayTable(filteredDestination);
 		return filteredDestination;
 	}
@@ -117,27 +128,37 @@ public class AdminClientDashboardController {
 
 
 	public void newContainers(boolean selected) {
-		Set<Journey> journeys = new HashSet<Journey>();
+		this.newSelected = selected;
 		if (selected) {
-			journeys = client.getNewJourneys();
-			journeys.retainAll(journeySearch());
-		} else {
-			journeys = journeySearch();
+			this.allSelected = false;
 		}
-		displayTable(journeys);
+		journeySearch();
+//		Set<Journey> journeys = new HashSet<Journey>();
+//		if (selected) {
+//			journeys = client.getNewJourneys();
+//			journeys.retainAll(journeySearch());
+//		} else {
+//			journeys = journeySearch();
+//		}
+//		displayTable(journeys);
 		
 	}
 
 	public void allJourneys(boolean selected) {
-		Set<Journey> journeys = new HashSet<Journey>();
+		this.allSelected = selected;
 		if (selected) {
-			journeys = journeySearch();
-		} else {
-			journeys = client.getCurrentJourneys();
-			journeys.retainAll(journeySearch());
+			this.newSelected = false;
 		}
-		
-		displayTable(journeys);
+		journeySearch();
+//		Set<Journey> journeys = new HashSet<Journey>();
+//		if (selected) {
+//			journeys = journeySearch();
+//		} else {
+//			journeys = client.getCurrentJourneys();
+//			journeys.retainAll(journeySearch());
+//		}
+//		
+//		displayTable(journeys);
 	}
 	
 }

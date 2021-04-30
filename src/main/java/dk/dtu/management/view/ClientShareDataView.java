@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import dk.dtu.management.controller.ClientShareDataController;
+import dk.dtu.management.util.JTextFieldLimit;
 @SuppressWarnings("serial")
 public class ClientShareDataView extends JFrame {
 	private ClientShareDataController controller;
@@ -138,7 +139,9 @@ public class ClientShareDataView extends JFrame {
 		
 		// text fields
 		txtNameSearch = new JTextField(10);
+		txtNameSearch.setDocument(new JTextFieldLimit(60));
 		txtEmailSearch = new JTextField(10);
+		txtEmailSearch.setDocument(new JTextFieldLimit(60));
 		
 		// table
 		clientAllModel.addColumn("ID");

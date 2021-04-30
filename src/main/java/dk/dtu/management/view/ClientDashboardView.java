@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import dk.dtu.management.controller.ClientDashboardController;
+import dk.dtu.management.util.JTextFieldLimit;
 
 @SuppressWarnings("serial")	
 public class ClientDashboardView extends JFrame{
@@ -102,10 +103,16 @@ public class ClientDashboardView extends JFrame{
 		
 		origin = new JLabel("Origin");
 		enterOrigin = new JTextField(20);
+		enterOrigin.setDocument(new JTextFieldLimit(60));
+		
 		content = new JLabel("Content");
 		enterContent = new JTextField(20);
+		enterContent.setDocument(new JTextFieldLimit(60));
+		
 		destination = new JLabel("Destination");
 		enterDestination = new JTextField(20);
+		enterDestination.setDocument(new JTextFieldLimit(60));
+		
 		search = new JButton("Search");
 		search.addActionListener(new ActionListener() {
 			@Override

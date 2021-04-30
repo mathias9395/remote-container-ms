@@ -34,7 +34,7 @@ public class HibernateUtil {
 				
 				
 				settings.put(Environment.DRIVER, "org.h2.Driver");
-				settings.put(Environment.URL, "jdbc:h2:~/management_system_db");
+				settings.put(Environment.URL, "jdbc:h2:~/management_db");
 				settings.put(Environment.USER, "sa");
 				settings.put(Environment.PASS, "");
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.H2Dialect");

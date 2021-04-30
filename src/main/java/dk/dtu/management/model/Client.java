@@ -64,10 +64,10 @@ public class Client extends User {
         joinColumns = { @JoinColumn(name = "shared") }, 
         inverseJoinColumns = { @JoinColumn(name = "received") }
     )
-	public Set<Client> sharedData = new HashSet<>(); //NOT SAVED IN DATABASE
+	public Set<Client> sharedData = new HashSet<>();
 	
 	@ManyToMany(mappedBy = "sharedData",fetch = FetchType.EAGER)
-	public Set<Client> sharedWithClients = new HashSet<>(); //NOT SAVED IN DATABASE
+	public Set<Client> sharedWithClients = new HashSet<>();
 	
 	
 	
@@ -263,6 +263,7 @@ public class Client extends User {
 	
 	public void removeSharedData(Client c) {
 		sharedData.remove(c);
+		c.removeSharedWithClients(this);
 		clientDao.update(this);
 	}
 	
@@ -335,6 +336,16 @@ public class Client extends User {
 			}
 		}
 		return currentJourneys;
+	}
+	
+	public Set<Journey> getCompletedJourneys() {
+		Set<Journey> completedJourneys = new HashSet<Journey>();
+		for (Journey j : journeySet) {
+			if (j.isCompleted()) {
+				completedJourneys.add(j);
+			}
+		}
+		return completedJourneys;
 	}
 
 }

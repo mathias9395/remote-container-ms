@@ -19,6 +19,7 @@ import javax.swing.table.TableModel;
 
 import dk.dtu.management.controller.AdminDashboardController;
 import dk.dtu.management.model.LogisticCompany;
+import dk.dtu.management.util.JTextFieldLimit;
 @SuppressWarnings("serial")
 public class AdminDashboardView extends JFrame {
 	private AdminDashboardController controller;
@@ -134,7 +135,10 @@ public class AdminDashboardView extends JFrame {
 		
 		// text fields
 		txtNameSearch = new JTextField(10);
+		txtNameSearch.setDocument(new JTextFieldLimit(60));
+		
 		txtEmailSearch = new JTextField(10);
+		txtEmailSearch.setDocument(new JTextFieldLimit(60));
 		
 		// table
 		clientModel.addColumn("ID");
