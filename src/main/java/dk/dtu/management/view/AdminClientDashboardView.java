@@ -51,6 +51,8 @@ public class AdminClientDashboardView extends JFrame{
 	private static JTable table;
 	private static JButton AddSelected;
 	private static int choice;
+	private JCheckBox cbAllJourneys;
+	private JCheckBox cbContainer;
 	//private static JButton RemoveSelected;
 	
 	// for the info display
@@ -132,9 +134,9 @@ public class AdminClientDashboardView extends JFrame{
 		Ref.setBackground(Color.WHITE);
 		Address.setOpaque(true);
 		Address.setBackground(Color.WHITE);
-		JCheckBox cbContainer = new JCheckBox("New journeys"); 
+		cbContainer = new JCheckBox("New journeys"); 
 		cbContainer.setBackground(Color.decode("#E2ECF6"));
-		JCheckBox cbAllJourneys = new JCheckBox("Include completed");
+		cbAllJourneys = new JCheckBox("Include completed");
 		cbAllJourneys.setBackground(Color.decode("#E2ECF6"));
 		
 		name.setBounds(250,10,250,15);
@@ -148,28 +150,30 @@ public class AdminClientDashboardView extends JFrame{
 		cbContainer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (choice != 2) {
-					controller.newContainers(cbContainer.isSelected());
-					cbAllJourneys.setSelected(false);
-					choice = 2;
-				} else if (choice == 2 && !cbContainer.isSelected()) {
-					controller.allJourneys(false);
-					choice = 0;
-				}
+//				if (choice != 2) {
+//					controller.newContainers(cbContainer.isSelected());
+//					cbAllJourneys.setSelected(false);
+//					choice = 2;
+//				} else if (choice == 2 && !cbContainer.isSelected()) {
+//					controller.allJourneys(false);
+//					choice = 0;
+//				}
+				controller.newContainers(cbContainer.isSelected());
 			}
 		});
 		
 		cbAllJourneys.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (choice != 1) {
-					controller.allJourneys(cbAllJourneys.isSelected());
-					cbContainer.setSelected(false);
-					choice = 1;
-				} else if (choice == 1 && !cbAllJourneys.isSelected()) {
-					controller.allJourneys(cbAllJourneys.isSelected());
-					choice = 0;
-				}
+//				if (choice != 1) {
+//					controller.allJourneys(cbAllJourneys.isSelected());
+//					cbContainer.setSelected(false);
+//					choice = 1;
+//				} else if (choice == 1 && !cbAllJourneys.isSelected()) {
+//					controller.allJourneys(cbAllJourneys.isSelected());
+//					choice = 0;
+//				}
+				controller.allJourneys(cbAllJourneys.isSelected());
 			}
 		});
 		
@@ -395,6 +399,14 @@ public class AdminClientDashboardView extends JFrame{
 
 	public void showCompleted() {
 		JOptionPane.showMessageDialog(this, "This journey has already been completed", "Journey completed", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void setAllSelected(boolean b) {
+		cbAllJourneys.setSelected(b);
+	}
+	
+	public void setNewSelected(boolean b) {
+		cbContainer.setSelected(b);
 	}
 	
 	

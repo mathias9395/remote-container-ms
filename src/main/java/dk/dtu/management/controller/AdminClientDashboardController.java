@@ -131,6 +131,8 @@ public class AdminClientDashboardController {
 		this.newSelected = selected;
 		if (selected) {
 			this.allSelected = false;
+			view.setAllSelected(false);
+			
 		}
 		journeySearch();
 //		Set<Journey> journeys = new HashSet<Journey>();
@@ -148,8 +150,10 @@ public class AdminClientDashboardController {
 		this.allSelected = selected;
 		if (selected) {
 			this.newSelected = false;
+			view.setNewSelected(false);
 		}
 		journeySearch();
+		
 //		Set<Journey> journeys = new HashSet<Journey>();
 //		if (selected) {
 //			journeys = journeySearch();
