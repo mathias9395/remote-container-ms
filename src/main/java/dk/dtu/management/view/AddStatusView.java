@@ -2,6 +2,7 @@ package dk.dtu.management.view;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.text.NumberFormatter;
 
 import dk.dtu.management.controller.AddStatusController;
 import dk.dtu.management.util.JTextFieldLimit;
@@ -57,9 +58,22 @@ public class AddStatusView extends JFrame{
 		format.setMaximumFractionDigits(3);
 		format.setMinimumFractionDigits(0);
 		format.setRoundingMode(RoundingMode.HALF_UP);
-		tempField = new JFormattedTextField(format);
-		humidityField = new JFormattedTextField(format);
-		pressureField = new JFormattedTextField(format);
+		
+		NumberFormatter formatterT = new NumberFormatter(format);
+		formatterT.setMinimum(0.0); // below zero K cannot be achieved
+		formatterT.setMaximum(5800.0); // no realistic container temperature can be higher
+
+		NumberFormatter formatterH = new NumberFormatter(format);
+		formatterH.setMinimum(0.0);
+		formatterH.setMaximum(100.0); // humidity can range from 0% to 100%
+		
+		NumberFormatter formatterP = new NumberFormatter(format);
+		formatterP.setMinimum(0.0);
+		formatterP.setMaximum(1080.0); // pressure range
+		
+		tempField = new JFormattedTextField(formatterT);
+		humidityField = new JFormattedTextField(formatterH);
+		pressureField = new JFormattedTextField(formatterP);
 		locationField = new JTextField(10);
 		locationField.setDocument(new JTextFieldLimit(60));
 		

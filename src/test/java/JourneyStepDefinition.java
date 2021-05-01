@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -15,22 +16,20 @@ import io.cucumber.java.en.When;
 public class JourneyStepDefinition {
 	
 	//CompleteJourney, GetCurrentJourney, RemoveJourney, UpdateJourney
-	Client client;
-	Client client1;
-	Journey journey;
-	Journey journey1;
-	ContainerStatus status;
+	private Client client;
+
+	private Journey journey;
+	private ContainerStatus status;
 	private Container container;
 	
-	private int ID;
 	private String origin;
-	private String origin1;
+
 	private String destination;
-	private String destination1;
+
 	private String content;
-	private String content1;
+
 	private String company;
-	private String company1;
+
 	
 	//ADD JOURNEY;
 	@Given("client")
@@ -63,70 +62,53 @@ public class JourneyStepDefinition {
 	    client.addJourney(journey);
 	}
 
-	@Then("journey list has new journey")
-	public void journey_list_has_new_journey() {
+	@Then("journey set has new journey")
+	public void journey_set_has_new_journey() {
 		assertTrue(client.getJourneySet().contains(journey));
 	}
 	
 	
 	//CompleteJourney
-	@Given("a client with a journey")
-	public void a_client_with_a_journey() {
-	    client = new Client("Name","Email","RefPerson","Password","Address");
-	    journey = new Journey("origin", "destination", "content", "company");
-	    container = new Container("Copenhagen");
-	    journey.setContainer(container);
-	    client.addJourney(journey);
-	}
 	
 	@When("journey is completed")
 	public void journey_is_completed() {
-	    journey.complete();
+
+		journey.complete();
 	}
 	
-	@Then("journey is removed from current Journey list and added in the completed journey list")
-	public void journey_is_in_the_completed_journey_list() {
+	@Then("journey is removed from current journey set and added in the completed journey set")
+	public void journey_is_removed_from_current_journey_set_and_added_in_the_completed_journey_set() {
 	    assertFalse(client.getCurrentJourneys().contains(journey));
 	    assertTrue(client.getCompletedJourneys().contains(journey));
 	}
 	
 	//GetCurrentJourney
-	
-	@Given("a journey and client")
-	public void a_journey_and_client() {
-		client = new Client();
-		journey = new Journey();
+	@Given("a client with a journey")
+	public void a_client_with_a_journey() {
+		client = new Client("name","email","referencePerson","password","address");
+		journey = new Journey("origin","destination","contentType","company");
+		client.addJourney(journey);
 	}
 	
 	@When("a journey is ongoing")
 	public void a_journey_is_ongoing() {
 		
-		journey = new Journey("origin", "destination", "content type", "company") ;
-		client.addJourney(journey);
+		journey.setOnJourney(true);
 	}
 	
 	@Then("the journey is in a set of current journeys")
 	public void the_journey_is_in_a_set_of_current_journeys() {  
-		assertFalse(client.getCurrentJourneys().isEmpty());
-	}
-
-	@Given("another journey and client")
-	public void another_journey_and_client() {
-		client1 = new Client();
-		journey1 = new Journey();	
+		assertTrue(client.getCurrentJourneys().contains(journey));
 	}
 	
     @When("a journey is not ongoing")
 	public void a_journey_is_not_ongoing() {
-    	journey1 = new Journey("origin", "destination", "content type", "company") ;
-	    journey1.setContainer(container);
-		journey1.complete();
-		client1.addJourney(journey1);
+    	journey.setCompleted(true);
 	}
 	
 	@Then("the journey is not in a set of current journeys")
 	public void the_journey_is_not_in_a_set_of_current_journeys() {  
-		assertTrue(client1.getCurrentJourneys().isEmpty());
+		assertFalse(client.getCurrentJourneys().contains(journey));
 	}
 
 	//RemoveJourney
@@ -137,16 +119,18 @@ public class JourneyStepDefinition {
 	    journey.delete();
 	}
 	
-	@Then("the journey is no longer in the journey list")
-	public void the_journey_is_no_longer_in_the_journey_list() {
+	@Then("the journey is no longer in the journey set")
+	public void the_journey_is_no_longer_in_the_journey_set() {
 	    assertFalse(client.getJourneySet().contains(journey));
 	}
+	
 	
 	@Given("the journey has a container")
 	public void the_journey_has_a_container() {
 		container = new Container("location");
 		journey.setContainer(container);
 	}
+	
 	@Given("the container has at least one status")
 	public void the_container_has_at_least_one_status() {
 		status = new ContainerStatus(10,10,10);

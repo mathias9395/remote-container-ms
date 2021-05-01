@@ -17,7 +17,6 @@ public class SendMeassageStepDefinition {
 	private LogisticCompany company;
 	private boolean sender;
 	private Message message;
-	private Message message1;
 	private String a_message;
 	private String content;
 	
@@ -72,33 +71,33 @@ public class SendMeassageStepDefinition {
 	@Given("a message {string} to send")
 	public void a_message_to_send(String a_message) {
 		
-		message1 = new Message();
+		message = new Message();
 		this.a_message = a_message;
-		message1 = new Message(client, false, a_message);
+		message = new Message(client, false, a_message);
 		// getters and setters have the same function as the initialization method above.
 		// they are showcased for coverage, but also for displaying their functionality
-		message1.setClient(client);
-		message1.setSender(false);
-		message1.setContent(a_message);
+		message.setClient(client);
+		message.setSender(false);
+		message.setContent(a_message);
 		
-		assertEquals(message1.getClient(),client);
-		assertEquals(message1.getContent(), a_message);
-		assertFalse(message1.getSender());
+		assertEquals(message.getClient(),client);
+		assertEquals(message.getContent(), a_message);
+		assertFalse(message.getSender());
 		
 		
 	}
 
 	@When("the message is sent to the client")
 	public void the_message_is_sent_to_the_client() {
-		assertFalse(message1.getSender());
-		client.addMessage(message1);
+		assertFalse(message.getSender());
+		client.addMessage(message);
 		assertFalse(client.getMessages().isEmpty());
 		
 	}
 
 	@Then("client recived message contains message")
 	public void client_recived_message_contains_message() {
-		assertTrue(message1.getClient().equals(client));
+		assertTrue(message.getClient().equals(client));
 
 	}
 

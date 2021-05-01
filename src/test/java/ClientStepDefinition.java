@@ -14,7 +14,7 @@ public class ClientStepDefinition {
 	
 	
 	// UpdateClient, ClientsShareData, ClientViewSharedData, ClientStopSharingData
-	// RemoveSharedData, FindJourney
+	// RemoveSharedData, FindJourney, GetNewJourneys
 	LogisticCompany company = new LogisticCompany("admin","admin");
 	Client client;
 	Client client2;
@@ -74,8 +74,8 @@ public class ClientStepDefinition {
 	}
 
 
-	@Given("client list containing client with email {string}")
-	public void client_list_containing_client_with_email(String email) {
+	@Given("client set containing client with email {string}")
+	public void client_set_containing_client_with_email(String email) {
 	    company.addClient(new Client("ugne", email, "Jonahtan", "password1", "321teerst"));
 	}
 
@@ -189,8 +189,8 @@ public class ClientStepDefinition {
 	   filteredSetJourney = client.filterJourneysOrigin(string);
 	}
 
-	@Then("filtered journey list that contains origin {string}")
-	public void filtered_journey_list_that_contains_origin(String string) {
+	@Then("filtered journey set that contains origin {string}")
+	public void filtered_journey_set_that_contains_origin(String string) {
 		 for(Journey j : filteredSetJourney ) {
 		    	assertTrue(j.getOrigin().equals(string));
 		    }
@@ -208,8 +208,8 @@ public class ClientStepDefinition {
 		filteredSetJourney = client.filterJourneyDestination(string);
 	}
 	
-	@Then("filtered journey list that contains destination {string}")
-	public void filtered_journey_list_that_contains_destination(String string) {
+	@Then("filtered journey set that contains destination {string}")
+	public void filtered_journey_set_that_contains_destination(String string) {
 		for(Journey j : filteredSetJourney ) {
 	    	assertTrue(j.getDestination().equals(string));
 	    }
@@ -226,11 +226,46 @@ public class ClientStepDefinition {
 	    filteredSetJourney = client.filterOnJourney();
 	}
 
-	@Then("filtered journey list that contains journey not on journey")
-	public void filtered_journey_list_that_contains_journey_not_on_journey() {
+	@Then("filtered journey set that contains journey not on journey")
+	public void filtered_journey_set_that_contains_journey_not_on_journey() {
 		for(Journey j : filteredSetJourney ) {
 	    	assertFalse(j.isOnJourney());
 	    }
 	}
+	
+	//GetNewJourneys
+	@Given("a client that has at least one journey")
+	public void a_client_that_has_at_least_one_journey() {
+	client = new Client();
+	journey = new Journey("origin", "destination", "content type", "company");
+	client.addJourney(journey);
+	}
+	
+	@When("there are existing new journeys")
+	public void there_are_existing_new_journeys() {
+	assertFalse(journey.isOnJourney());
+	}
+
+	@When("the the user chooses to search for a new journey")
+	public void the_the_user_chooses_to_search_for_a_new_journey() {
+    	client.getNewJourneys();
+	}
+
+	@Then("new journeys are found and located in the new journey set")
+	public void new_journeys_are_found_and_located_in_the_new_journey_set() {
+    	assertFalse(client.getNewJourneys().isEmpty());
+	}
+
+	@When("there are no existing new journeys")
+	public void there_are_no_existing_new_journeys() {
+		journey.setOnJourney(true);
+		assertTrue(journey.isOnJourney());
+	}
+
+	@Then("the new journey set is empty and no new journeys are found")
+	public void the_new_journey_set_is_empty_and_no_new_journeys_are_found() {
+		assertTrue(client.getNewJourneys().isEmpty());
+	}
+	
 	
 }

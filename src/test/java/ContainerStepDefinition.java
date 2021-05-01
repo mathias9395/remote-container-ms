@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import dk.dtu.management.model.Client;
@@ -17,9 +19,9 @@ public class ContainerStepDefinition {
 	//AddContainer, AssignContainer, AddStatus
 	private Container container;
 	private ContainerStatus status;
-	private Double temperature;
-	private Double humidity;
-	private Double pressure;
+	private double temperature;
+	private double humidity;
+	private double pressure;
 	private String location;
 	
 	private Client client;
@@ -57,6 +59,10 @@ public class ContainerStepDefinition {
 	    assertEquals(location,container.getLocation());
 	    
 	}
+	@Given("the container is available")
+	public void the_container_is_available() {
+		assertTrue(container.isAvailable());
+	}
 
 	@Given("the logistics company")
 	public void the_logistics_company() {
@@ -88,21 +94,21 @@ public class ContainerStepDefinition {
 	//Add Status
 	@Given("a container")
 	public void a_container() {		
-		container = new Container();
+		container = new Container("location");
 	}
 
-	@Given("a temperature {double}")
+	@Given("a temperature between zero and five thousand eight hundred kelvin {double}")
 	public void a_temperature(Double temperature) {
 		this.temperature = temperature;			
     }
 
 
-	@Given("a pressure {double}")
+	@Given("a pressure between zero and one thousand eighty hPa {double}")
 	public void a_pressure(Double pressure) {
 		this.pressure = pressure;
 	}
 
-	@Given("a humidity {double}")
+	@Given("a humidity between zero and one hundred % {double}")
 	public void a_humidity(Double humidity) {
 		this.humidity = humidity;
 	}
@@ -111,25 +117,67 @@ public class ContainerStepDefinition {
 	public void add_new_status_to_container() {
 		status = new ContainerStatus(temperature, humidity, pressure);
 		container.setLocation(location);
-		//container.addStatus(status);
-		status.setId(0);
-		status.setTemperature(0);
-		status.setHumidity(0);
-		status.setPressure(0);
+		status.setTemperature(temperature);
+		status.setHumidity(humidity);
+		status.setPressure(pressure);
 		status.setTime(null);
 	}
 
 	@Then("container contains updated information")	
 	public void container_contains_updated_information() {
-		status.getTemperature();
-		status.getHumidity();
-		status.getPressure();
+		assertTrue(status.getTemperature() == temperature);
+		assertTrue(status.getHumidity() == humidity);
+		assertTrue(status.getPressure() == pressure);
 		status.getTime();
-		status.getId();
+		container.addStatus(status);
 		status.getContainer();
-		container.addStatus(status);    
+		container.addStatus(status); 
 		assertTrue(container.getStatusSet().contains(status));
 	}
+	
+	@Given("a container1")
+	public void a_container1() {		
+		container = new Container();
+	}
+	
+
+	
+	@Given("a temperature not between zero and five thousand eight hundred kelvin {double}")
+	public void a_temperature_not_between_zero_and_five_thousand_eight_hundred_kelvin(Double temperature) {
+	    this.temperature = temperature;
+		
+	}
+
+	@Given("\\/or a pressure not between zero and one thousand eighty hPa {double}")
+	public void or_a_pressure_not_between_zero_and_one_thousand_eighty_hPa(Double pressure) {
+	    this.pressure = pressure;
+	}
+
+	@Given("\\/or a humidity not between zero and one hundred % {double}")
+	public void or_a_humidity_not_between_zero_and_one_hundred(Double humidity) {
+	    this.humidity = humidity;
+	}
+	
+	@When("add new status1 to container1")
+	public void add_new_status1_to_container1() {
+		
+		status = new ContainerStatus(temperature, humidity, pressure);
+		container.setLocation(location);
+		status.setTemperature(temperature);
+		status.setHumidity(humidity);
+		status.setPressure(pressure);
+		status.setTime(null);
+		container.addStatus(status);
+	}
+
+	@Then("container1 is not updated")
+	public void container_is_not_updated() {
+		
+		assertFalse(container.getStatusSet().contains(status));
+		
+	};
+	
+	// RESET CONTAINER
 
 	@Given("a specified journey")
 	public void a_specified_journey() {

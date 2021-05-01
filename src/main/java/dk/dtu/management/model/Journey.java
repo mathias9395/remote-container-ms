@@ -164,4 +164,9 @@ public class Journey {
 		return container;
 	}
 	
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
+		journeyDao.update(this);
+	}
+	
 }

@@ -23,6 +23,7 @@ Feature: Assign container
   Scenario: Container successfully assigned
   
     Given a specific container with location "location"
+    And the container is available
     And the logistics company
     And a client specified by email "email" with at least one journey
     When the user adds the container to a journey

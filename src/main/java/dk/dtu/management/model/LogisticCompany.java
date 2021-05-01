@@ -169,6 +169,10 @@ public class LogisticCompany extends User {
 		return null;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 	
 
 }

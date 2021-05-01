@@ -24,13 +24,13 @@ Feature: Add container status
     Given a client that has at least one journey
     When there are existing new journeys
     And the the user chooses to search for a new journey
-    Then new journeys are found and located in the new journey list
+    Then new journeys are found and located in the new journey set
    
   Scenario: No new journeys are found
-    Given a client that has at least one journey1
+    Given a client that has at least one journey
     When there are no existing new journeys
-    And the the user chooses to search for a new journey1
-    Then the new journey list is empty and no new journeys are found
+    And the the user chooses to search for a new journey
+    Then the new journey set is empty and no new journeys are found
   
    
 

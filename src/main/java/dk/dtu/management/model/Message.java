@@ -70,6 +70,9 @@ public class Message {
 		this.sender = sender;
 		messageDao.update(this);
 	}
+	public int getId() {
+		return id;
+	}
 	
 	
 	

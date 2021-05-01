@@ -22,15 +22,13 @@ Feature: Title of your feature
 
   @tag1
   Scenario: Current journeys are found
-    Given a journey and client
-    And a client with a journey
+    Given a client with a journey
     When a journey is ongoing
     Then the journey is in a set of current journeys
     
   @tag2
   Scenario: No current journeys are found
-    Given another journey and client
-    And a client with a journey
+    Given a client with a journey
     When a journey is not ongoing
     Then the journey is not in a set of current journeys
     

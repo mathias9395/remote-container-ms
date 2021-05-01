@@ -35,7 +35,7 @@ Feature: Updating client information
   	And a new email "Nima@gmail.com"
     And a new reference person "Nima"
     And a new address "123 Street"
-    And client list containing client with email "Nima@gmail.com"
+    And client set containing client with email "Nima@gmail.com"
     When client updated
     Then client information not updated
     

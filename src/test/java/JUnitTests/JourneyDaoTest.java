@@ -34,25 +34,16 @@ public class JourneyDaoTest {
 	@Test
 	public void testUpdate() {
 		Journey journey = new Journey("copenhagen","hamburg","apples","amazon");
+		journey.setOnJourney(false);
 		journeyDao.save(journey);
 		
-		String newOrigin = "san diego";
-		String newDestination = "new york";
-		String newContent = "bananas";
-		String newCompany = "fedex";
 		
-		journey.setOrigin(newOrigin);
-		journey.setDestination(newDestination);
-		journey.setContentType(newContent);
-		journey.setCompany(newCompany);
+		journey.setOnJourney(true);
 		
 		journeyDao.update(journey);
 		
 		Journey journey2 = journeyDao.getById(journey.getId());
-		assertEquals(newOrigin, journey2.getOrigin());
-		assertEquals(newDestination, journey2.getDestination());
-		assertEquals(newContent, journey2.getContentType());
-		assertEquals(newCompany, journey2.getCompany());
+		assertEquals(true,journey2.isOnJourney());
 	}
 	
 	@Test

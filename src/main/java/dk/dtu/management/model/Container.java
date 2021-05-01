@@ -84,10 +84,6 @@ public class Container {
 		return statusSet;
 	}
 
-	public Client getClient() {
-		return client;
-	}
-
 	public void setClient(Client client) {
 		this.client = client;
 		containerDao.update(this);
@@ -103,9 +99,14 @@ public class Container {
 	}
 	
 	public void addStatus(ContainerStatus status) {
-		status.setContainer(this);
-		statusSet.add(status);
-		containerDao.update(this);
+
+		if((status.getTemperature()>=0.0 && status.getTemperature()<=5800.0)
+				&&(status.getHumidity()>=0.0 && status.getHumidity()<=100.0)
+				&&(status.getPressure()>=0.0 && status.getPressure()<=1080.0)) {
+			status.setContainer(this);
+			statusSet.add(status);
+			containerDao.update(this);
+		}
 	}
 	
 	public void reset() {

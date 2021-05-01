@@ -28,7 +28,7 @@ Feature: Adding a new client
     And the address "123 Street"
     And a logistic company
     When add client
-    Then client list has new client
+    Then the new client is added to the company
  
  Scenario: Client with email already exists
    Given the name "Mathias"
@@ -38,4 +38,4 @@ Feature: Adding a new client
    And the address "123 Street"
    And a logistic company containing client with email "mathias@gmail.com"
    When add client
-   Then client not added
+   Then client is not added to the company

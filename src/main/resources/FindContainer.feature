@@ -17,12 +17,18 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Title of your feature
-  I want to use this template for my feature file
+Feature: Find an existing container
 
   @tag1
-  Scenario: Journey removed successfully
-    Given a client with a journey
-    When a journey is deleted
-    Then the journey is no longer in the journey set
+  Scenario: Find container by ID
+    Given a logistic company
+    And a container with ID 10
+    When the logistic company has the container
+    Then the logistic company gets container with ID 10
+    
+  Scenario: Unsuccessful find container by ID
+    Given a logistic company
+    And a container with ID 10
+    When the logistic company does not contain the container
+    Then the logistic company does not get container with ID 10
     

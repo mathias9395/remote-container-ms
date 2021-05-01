@@ -38,11 +38,11 @@ Feature: Find an existing client
     When the logistic company contains the client
     Then the logistic company gets client with ID 10
     
-  #Scenario: Find client by ID
-    #Given a logistic company
-    #And a client with ID 10
-    #When the logstic company does not contain the client
-    #Then the logistic company does not get client with ID 10
+  Scenario: Unsuccessful Find client by ID
+    Given a logistic company
+    And a client with ID 10
+    When the logstic company does not contain the client
+    Then the logistic company does not get client with ID 10
      
     
     

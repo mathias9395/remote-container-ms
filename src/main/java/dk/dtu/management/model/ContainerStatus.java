@@ -46,32 +46,33 @@ public class ContainerStatus {
 		super();
 		this.temperature = temperature;
 		this.humidity = humidity;
-		this.pressure = pressure;
+		this.pressure = pressure;	
 		Calendar c = Calendar.getInstance();
 		c.setTimeZone(TimeZone.getTimeZone("Europe/Copenhagen"));
 		this.time = c.getTime();
-		statusDao.save(this);
+		statusDao.save(this);	
+
 	}
 	public double getTemperature() {
 		return temperature;
 	}
 	public void setTemperature(double temperature) {
 		this.temperature = temperature;
-		statusDao.update(this);
+		statusDao.update(this);	
 	}
 	public double getHumidity() {
 		return humidity;
 	}
 	public void setHumidity(double humidity) {
 		this.humidity = humidity;
-		statusDao.update(this);
+		statusDao.update(this);	
 	}
 	public double getPressure() {
 		return pressure;
 	}
 	public void setPressure(double pressure) {
 		this.pressure = pressure;
-		statusDao.update(this);
+		statusDao.update(this);	
 	}
 	public Date getTime() {
 		return time;

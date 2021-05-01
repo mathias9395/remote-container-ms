@@ -25,6 +25,6 @@ Feature: Completing a journey
     And the journey has a container
     And the container has at least one status
     When journey is completed
-    Then journey is removed from current Journey list and added in the completed journey list
+    Then journey is removed from current journey set and added in the completed journey set
     And the journey contains completed container status
    

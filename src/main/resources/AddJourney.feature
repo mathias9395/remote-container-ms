@@ -27,4 +27,4 @@ Feature: Adding a journey
     And a content type "Apples"
     And a company "company"
     When add journey to client journey set
-    Then journey list has new journey
+    Then journey set has new journey

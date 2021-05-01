@@ -20,15 +20,24 @@
 Feature: Add container status
 
   @tag1
-  Scenario: Add container status
+  Scenario: Successfully added container status
     Given a container
-    And a temperature 6.0
-    And a pressure 9.0 
-    And a humidity 9.0 
+    And a temperature between zero and five thousand eight hundred kelvin 6.0
+    And a pressure between zero and one thousand eighty hPa 9.0 
+    And a humidity between zero and one hundred % 9.0 
     And a location "London"
     When add new status to container
     Then container contains updated information
-   
+    
+  @tag2
+  Scenario: Container not added (boundaries violated)
+    Given a container1
+    And a temperature not between zero and five thousand eight hundred kelvin 5900.0
+    And /or a pressure not between zero and one thousand eighty hPa 1100.0
+    And /or a humidity not between zero and one hundred % 200.0
+    And a location "London"
+    When add new status1 to container1
+    Then container1 is not updated
 
  
  

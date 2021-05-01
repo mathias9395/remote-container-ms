@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -17,6 +18,7 @@ public class LogisticCompanyStepDefinition {
 	//FindClient, RemoveClient
 	LogisticCompany company = new LogisticCompany("admin","admin");
 	Client client;
+	Container container;
 	String name;
 	String email;
 	String refPerson;
@@ -70,8 +72,8 @@ public class LogisticCompanyStepDefinition {
 	    assertTrue(company.removeClient(client));
 	}
 
-	@Then("client list does not contain client")
-	public void client_list_does_not_contain_client() {
+	@Then("client set does not contain client")
+	public void client_set_does_not_contain_client() {
 	    assertFalse(company.getClients().contains(client));
 	}
 	
@@ -117,7 +119,43 @@ public class LogisticCompanyStepDefinition {
 	    	assertTrue(containers.contains(c));
 	    }
 	}
-	    
+	
+	@When("the logstic company does not contain the client")
+	public void the_logstic_company_does_not_contain_the_client() {
+	    assertFalse(company.getClients().contains(client));
+	}
+
+	@Then("the logistic company does not get client with ID {int}")
+	public void the_logistic_company_does_not_get_client_with_ID(Integer id) {
+	    assertNull(company.getClientById(-1));
+	}
+	
+	@Given("a container with ID {int}")
+	public void a_container_with_ID(Integer int1) {
+	    container = new Container("location");
+	}
+
+	@When("the logistic company has the container")
+	public void the_logistic_company_has_the_container() {
+	    company.addContainer(container);
+	}
+
+	@Then("the logistic company gets container with ID {int}")
+	public void the_logistic_company_gets_container_with_ID(Integer int1) {
+	    assertEquals(company.getContainerById(container.getId()),container);
+	}
+	
+	@When("the logistic company does not contain the container")
+	public void the_logistic_company_does_not_contain_the_container() {
+		assertFalse(company.getContainers().contains(container));
+	}
+
+	@Then("the logistic company does not get container with ID {int}")
+	public void the_logistic_company_does_not_get_container_with_ID(Integer id) {
+		assertNull(company.getClientById(-1));
+	}
+
+	  
 	//Add client 
 	@Given("the name {string}")
 	public void the_name(String string) {
@@ -150,13 +188,26 @@ public class LogisticCompanyStepDefinition {
 		success = company.addClient(client);   
 	}
 
-	@Then("client list has new client")
-	public void client_list_has_new_client() {
+	@Then("the new client is added to the company")
+	public void the_new_client_is_added_to_the_company() {
 		assertTrue(success);
 		assertTrue(company.getClients().contains(client));
+		assertTrue(client.getCompany().equals(company));
 	}
 		
-	    
+	@Given("a logistic company containing client with email {string}")
+	public void a_logistic_company_containing_client_with_email(String string) {
+		company = new LogisticCompany("admin","admin");
+		company.addClient(new Client("default",string,"default","default","default"));
+	}
+
+	@Then("client is not added to the company")
+	public void client_not_added() {
+	    success = company.addClient(client);
+	    assertFalse(success);
+	    assertFalse(company.getClients().contains(client));
+	    assertNull(client.getCompany());
+	}
 	    
 }
 	

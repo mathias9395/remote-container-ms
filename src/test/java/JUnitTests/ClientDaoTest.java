@@ -36,17 +36,13 @@ public class ClientDaoTest {
 	public void testUpdate() {
 		Client client = new Client("Mathias","mathias@gmail.com","Nick","password","123 street");
 		clientDao.save(client);
-		
-		String newName = "Nima";
 		String newEmail = "Nima@gmail.com";
 		
-		client.setName(newName);
 		client.setEmail(newEmail);
 		
 		clientDao.update(client);
 		
 		Client client2 = clientDao.getById(client.getId());
-		assertEquals(newName, client2.getName());
 		assertEquals(newEmail, client2.getEmail());
 	}
 	

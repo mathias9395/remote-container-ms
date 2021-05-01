@@ -23,7 +23,7 @@ Feature: deleting a client
   Scenario: client deleted successfully
     Given a client in a logistic company client set
     When client is deleted
-    Then client list does not contain client
+    Then client set does not contain client
 
  
    
