@@ -55,14 +55,11 @@ public class AdminDashboardController {
 		view.resetTable();
 		for (Client c : clients) {
 			view.addTableRow(new Object[] {c.getId(),c.getName(),c.getEmail(),c.getReferencePerson(),c.getAddress(),false});
-			//view.addTableRow(new Object[] {c.getId(),c.getName(),c.getEmail(),c.getReferencePerson(),c.getAddress()});
 		}
 	}
 	
 	public void deleteClient(int id) {
 		
-		
-//		Object[] data = view.getTableRow(row);
 		Client c = company.getClientById(id);
 		company.removeClient(c);
 	}

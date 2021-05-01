@@ -85,16 +85,6 @@ public class AdminClientDashboardController {
 		view.setVisible(false);
 		application.addJourney(client);
 	}
-
-//	public void removeJourney(int row) {
-//		int id = view.getTableRow(row);
-//		Journey j = new Journey(id);
-//		client.removeJourney(j);
-//		journeySearch();
-//		
-//	
-//		
-//	}
 	
 	public void message() {
 		view.setVisible(false);
@@ -135,14 +125,6 @@ public class AdminClientDashboardController {
 			
 		}
 		journeySearch();
-//		Set<Journey> journeys = new HashSet<Journey>();
-//		if (selected) {
-//			journeys = client.getNewJourneys();
-//			journeys.retainAll(journeySearch());
-//		} else {
-//			journeys = journeySearch();
-//		}
-//		displayTable(journeys);
 		
 	}
 
@@ -154,15 +136,6 @@ public class AdminClientDashboardController {
 		}
 		journeySearch();
 		
-//		Set<Journey> journeys = new HashSet<Journey>();
-//		if (selected) {
-//			journeys = journeySearch();
-//		} else {
-//			journeys = client.getCurrentJourneys();
-//			journeys.retainAll(journeySearch());
-//		}
-//		
-//		displayTable(journeys);
 	}
 	
 }

@@ -65,27 +65,6 @@ public class ContainerDao {
 		return container;
 	}
 	
-//	@SuppressWarnings("unchecked")
-//	public List<Container> getAll() {
-//		Transaction transaction = null;
-//		List<Container> containers = null;
-//		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-//			// start the transaction
-//			transaction = session.beginTransaction();
-//			
-//			// get students
-//			containers = session.createQuery("from Container").list();
-//			
-//			// commit the transaction
-//			transaction.commit();
-//		} catch (Exception e) {
-//			if(transaction != null) {
-//				transaction.rollback();
-//			}
-//		}
-//		return containers;
-//	}
-	
 	public void delete(int id) {
 		Transaction transaction = null;
 		Container container = null;

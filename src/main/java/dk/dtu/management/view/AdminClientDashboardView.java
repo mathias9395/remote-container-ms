@@ -150,14 +150,6 @@ public class AdminClientDashboardView extends JFrame{
 		cbContainer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				if (choice != 2) {
-//					controller.newContainers(cbContainer.isSelected());
-//					cbAllJourneys.setSelected(false);
-//					choice = 2;
-//				} else if (choice == 2 && !cbContainer.isSelected()) {
-//					controller.allJourneys(false);
-//					choice = 0;
-//				}
 				controller.newContainers(cbContainer.isSelected());
 			}
 		});
@@ -165,14 +157,6 @@ public class AdminClientDashboardView extends JFrame{
 		cbAllJourneys.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				if (choice != 1) {
-//					controller.allJourneys(cbAllJourneys.isSelected());
-//					cbContainer.setSelected(false);
-//					choice = 1;
-//				} else if (choice == 1 && !cbAllJourneys.isSelected()) {
-//					controller.allJourneys(cbAllJourneys.isSelected());
-//					choice = 0;
-//				}
 				controller.allJourneys(cbAllJourneys.isSelected());
 			}
 		});
@@ -257,59 +241,10 @@ public class AdminClientDashboardView extends JFrame{
 		});
 		
 		panel.add(logout);
-		
-		
-		// ADD NEW STATUS ENTRY
-		//AddSelected = new JButton("Add status");
-//		AddSelected.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				controller.newStatus();
-//			}
-//		});
-		//panel.add(AddSelected);
-		//frame.add(AddSelected);
-		
-		
-		// REMOVE SELECTED
-//		final JLabel label = new JLabel();
-//		RemoveSelected = new JButton("Remove");
-//		RemoveSelected.setEnabled(false);
-//		RemoveSelected.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//
-//				for(int i = 0; i<table.getRowCount(); i++) {
-//					
-//				boolean selected = Boolean.valueOf(table.getValueAt(i, 4).toString());
-//					
-//				if(selected) {
-//
-//		            int result = JOptionPane.showConfirmDialog(frame,"Sure? Are you sure you want to remove this Journey ?", "Swing Tester",
-//		               JOptionPane.YES_NO_OPTION,
-//		               JOptionPane.QUESTION_MESSAGE);
-//		            if(result == JOptionPane.YES_OPTION){
-//		            	controller.removeJourney(table.getSelectedRow());
-//		            }else if (result == JOptionPane.NO_OPTION){
-//		               
-//		            }else {
-//		               label.setText("None selected");
-//		            }
-//					
-//				}
-//				
-//			}
-//		}
-//	});
-//		//panel.add(RemoveSelected);
-		
-		// TABLE
-		// data must come from the database!!
 
 		
-	      //COLUMN HEADERS
-	        String[] columnHeaders={"ID","Origin","Destination","Content","Company"};
+	    //COLUMN HEADERS
+	    String[] columnHeaders={"ID","Origin","Destination","Content","Company"};
 	    
 	    // modeling the table
 	        
