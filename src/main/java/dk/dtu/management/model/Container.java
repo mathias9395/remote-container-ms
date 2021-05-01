@@ -61,17 +61,9 @@ public class Container {
 		containerDao.save(this);
 	}
 	
-	
-	
-	public LogisticCompany getCompany() {
-		return company;
-	}
 	public void setCompany(LogisticCompany company) {
 		this.company = company;
 		containerDao.update(this);
-	}
-	public Journey getJourney() {
-		return journey;
 	}
 	public void setJourney(Journey journey) {
 		this.journey = journey;
@@ -90,14 +82,6 @@ public class Container {
 
 	public List<ContainerStatus> getStatusSet() {
 		return statusSet;
-	}
-	public void setStatusSet(List<ContainerStatus> statusSet) {
-		this.statusSet = statusSet;
-		containerDao.update(this);
-	}
-	public void setId(int id) {
-		this.id = id;
-		containerDao.update(this);
 	}
 
 	public Client getClient() {
@@ -134,5 +118,9 @@ public class Container {
 		this.available = true;
 		this.journey = null;
 		containerDao.update(this);
+	}
+	
+	public Journey getJourney() {
+		return journey;
 	}
 }

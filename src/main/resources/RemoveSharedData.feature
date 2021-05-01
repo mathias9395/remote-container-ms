@@ -21,7 +21,7 @@ Feature: Removing shared data
 
 	@tag1 
 	Scenario: Successfully removed shared data
-	  Given a Shareclient
+	  Given a client
 	  And a client2 that has shared data with client that is deleted
 	  Then delete data of client2 
 	

@@ -65,26 +65,26 @@ public class JourneyDao {
 		return journey;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Journey> getAll() {
-		Transaction transaction = null;
-		List<Journey> journeys = null;
-		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-			// start the transaction
-			transaction = session.beginTransaction();
-			
-			// get students
-			journeys = session.createQuery("from Journey").list();
-			
-			// commit the transaction
-			transaction.commit();
-		} catch (Exception e) {
-			if(transaction != null) {
-				transaction.rollback();
-			}
-		}
-		return journeys;
-	}
+//	@SuppressWarnings("unchecked")
+//	public List<Journey> getAll() {
+//		Transaction transaction = null;
+//		List<Journey> journeys = null;
+//		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+//			// start the transaction
+//			transaction = session.beginTransaction();
+//			
+//			// get students
+//			journeys = session.createQuery("from Journey").list();
+//			
+//			// commit the transaction
+//			transaction.commit();
+//		} catch (Exception e) {
+//			if(transaction != null) {
+//				transaction.rollback();
+//			}
+//		}
+//		return journeys;
+//	}
 	
 	public void delete(int id) {
 		Transaction transaction = null;

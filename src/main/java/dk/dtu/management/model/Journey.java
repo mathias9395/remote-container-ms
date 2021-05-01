@@ -61,9 +61,6 @@ public class Journey {
 	public Journey () {
 		
 	}
-	public Journey(int id) {
-		this.id = id;
-	}
 	
 	public Journey(String origin, String destination, String contentType, String company) {
 		this.origin = origin;
@@ -93,9 +90,7 @@ public class Journey {
 		journeyDao.update(this);
 	}
 	
-	public Container getContainer() {
-		return container;
-	}
+ 
 	
 	public Client getClient() {
 		return client;
@@ -107,36 +102,13 @@ public class Journey {
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
-		journeyDao.update(this);
-	}
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
-		journeyDao.update(this);
-	}
-	public void setCompany(String company) {
-		this.company = company;
-		journeyDao.update(this);
-	}
+	
 	public String getOrigin() {
 		return origin;
 	}
 
-	public void setOrigin(String origin) {
-		this.origin =origin;
-		journeyDao.update(this);
-	}
-
 	public String getDestination() {
 		return destination;
-	}
-
-	public void setDestination(String destination) {
-		this.destination = destination;
-		journeyDao.update(this);
-		
-		
 	}
 	
 	public String getContentType() {
@@ -145,14 +117,6 @@ public class Journey {
 
 	public String getCompany() {
 		return company;
-	}
-		
-
-	
-
-	
-	public String toString() {
-		return "Origin: "+ origin + ". Destination:" + destination;
 	}
 	
 	@Override
@@ -168,16 +132,7 @@ public class Journey {
 	public int hashCode() {
 		return new HashCodeBuilder(17,37).append(id).toHashCode();
 	}
-
-
-	public void update(String origin, String destination, String contentType, String company) {
-		this.origin = origin;
-		this.destination = destination;
-		this.contentType = contentType;
-		this.company = company;
-		
-		journeyDao.update(this);
-	}
+	
 	public void delete() {
 		if (container != null) {
 			container.reset();
@@ -191,6 +146,7 @@ public class Journey {
 	
 	public void complete() {
 		this.completed = true;
+		this.onJourney = false;
 		journeyData = container.getStatusSet();
 		container.reset();
 		this.container = null;
@@ -203,13 +159,9 @@ public class Journey {
 	public List<ContainerStatus> getJourneyData() {
 		return journeyData;
 	}
-	public void setJourneyData(List<ContainerStatus> journeyData) {
-		this.journeyData = journeyData;
+
+	public Container getContainer() {
+		return container;
 	}
 	
-	
-	
-	
-	
-
 }

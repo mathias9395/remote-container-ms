@@ -21,7 +21,7 @@ Feature: Stop sharing data
 
 	@tag1 
 	Scenario: Successfully stopped sharing data
-	  Given a Shareclient
+	  Given a client
 	  And a client2 that client has shared data with
 	  When client2 is removed
 	  Then stop sharing data of client to client2

@@ -22,7 +22,7 @@ public class UpdateClientStepDefinition {
 	
 	@Given("a client")
 	public void a_client3() {
-	    client = new Client("hi", "no", "lul", "password","lel");
+	    client = new Client("Nima", "n.gmail.com", "Nick", "password","street123");
 	    company = new LogisticCompany("Admin", "Admin");
 	    company.addClient(client);
 	}
@@ -66,7 +66,7 @@ public class UpdateClientStepDefinition {
 
 	@Given("client list containing client with email {string}")
 	public void client_list_containing_client_with_email3(String email) {
-	    company.addClient(new Client("a", email, "asd", "passwoasda", "leel"));
+	    company.addClient(new Client("ugne", email, "Jonahtan", "password1", "321teerst"));
 	}
 
 

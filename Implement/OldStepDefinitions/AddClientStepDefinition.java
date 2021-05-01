@@ -24,8 +24,7 @@ public class AddClientStepDefinition {
 	Set<Client> filteredClients;
 	Accounts users = new Accounts();
 	
-	//ADD client
-	
+	//ADD clients
 	@Given("a name {string}")
 	public void a_name(String string) {
 	    this.name = name;

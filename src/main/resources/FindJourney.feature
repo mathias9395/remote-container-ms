@@ -37,6 +37,12 @@ Feature: Find an existing journey
     And a client with journey set containing journey
     When search by destination "London"
     Then filtered journey list that contains destination "London"
+    
+   Scenario: Filter journey search by on journey
+    Given a journey that is not on journey
+    And a client with journey set containing journey
+    When filter by on journey
+    Then filtered journey list that contains journey not on journey
 
     
     

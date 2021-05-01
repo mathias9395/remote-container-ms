@@ -139,9 +139,9 @@ public class ClientShareDataView extends JFrame {
 		
 		// text fields
 		txtNameSearch = new JTextField(10);
-		txtNameSearch.setDocument(new JTextFieldLimit(60));
+		txtNameSearch.setDocument(new JTextFieldLimit(32));
 		txtEmailSearch = new JTextField(10);
-		txtEmailSearch.setDocument(new JTextFieldLimit(60));
+		txtEmailSearch.setDocument(new JTextFieldLimit(32));
 		
 		// table
 		clientAllModel.addColumn("ID");

@@ -47,7 +47,7 @@ public class ClientViewSharedDataController {
 	}
 	
 	public void deleteClient(int id,String email) {
-		Client c = new Client(id, email);
+		Client c = company.getClientById(id);
 		client.removeSharedData(c);
 	}
 	

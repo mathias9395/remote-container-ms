@@ -22,8 +22,7 @@ Feature: Title of your feature
 
   @tag1
   Scenario: Journey removed successfully
-    Given a client1
-    And a journey list of the client1
+    Given a client with a journey
     When a journey is deleted
-    Then journey is no longer in the journey list
+    Then the journey is no longer in the journey list
     

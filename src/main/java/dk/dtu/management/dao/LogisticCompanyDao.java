@@ -70,24 +70,40 @@ public class LogisticCompanyDao {
 		return company;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<LogisticCompany> getAll() {
+//	@SuppressWarnings("unchecked")
+//	public List<LogisticCompany> getAll() {
+////		Transaction transaction = null;
+////		List<LogisticCompany> companies = null;
+////		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+////			// start the transaction
+////			transaction = session.beginTransaction();
+////			
+////			// get students
+////			TypedQuery<LogisticCompany> tq = session.createQuery("SELECT c FROM Company c WHERE c.id IS NOT NULL", LogisticCompany.class);
+////			 try {
+////				 companies = tq.getResultList();
+////				 
+////			 }
+////			 catch (NoResultException ex) {
+////				 ex.printStackTrace();
+////			 }
+////			// commit the transaction
+////			transaction.commit();
+////		} catch (Exception e) {
+////			if(transaction != null) {
+////				transaction.rollback();
+////			}
+////		}
+////		return companies;
+//		
 //		Transaction transaction = null;
 //		List<LogisticCompany> companies = null;
 //		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-//			// start the transaction
+//			
 //			transaction = session.beginTransaction();
 //			
-//			// get students
-//			TypedQuery<LogisticCompany> tq = session.createQuery("SELECT c FROM Company c WHERE c.id IS NOT NULL", LogisticCompany.class);
-//			 try {
-//				 companies = tq.getResultList();
-//				 
-//			 }
-//			 catch (NoResultException ex) {
-//				 ex.printStackTrace();
-//			 }
-//			// commit the transaction
+//			companies = session.createQuery("from company").list();
+//			
 //			transaction.commit();
 //		} catch (Exception e) {
 //			if(transaction != null) {
@@ -95,23 +111,7 @@ public class LogisticCompanyDao {
 //			}
 //		}
 //		return companies;
-		
-		Transaction transaction = null;
-		List<LogisticCompany> companies = null;
-		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-			
-			transaction = session.beginTransaction();
-			
-			companies = session.createQuery("from company").list();
-			
-			transaction.commit();
-		} catch (Exception e) {
-			if(transaction != null) {
-				transaction.rollback();
-			}
-		}
-		return companies;
-	}
+//	}
 	
 	public void delete(int id) {
 		Transaction transaction = null;

@@ -21,7 +21,7 @@ Feature: Displaying a client's data to other selected client
 
   @tag1
   Scenario: Data successfully shared with another client
-    Given a Shareclient
+    Given a client
     And a client2 that is selected
     Then share data with client2
     

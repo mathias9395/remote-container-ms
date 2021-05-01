@@ -75,11 +75,6 @@ public class Client extends User {
 		super();
 	};
 	
-	public Client(int id, String email) {
-		this.id = id;
-		this.email = email;
-	}
-	
 	public Client(String name, String email, String referencePerson, String password, String address) {
 		this.name = name;
 		this.email = email;
@@ -100,11 +95,6 @@ public class Client extends User {
 	
 	public Set<Journey> getJourneySet() {
 		return journeySet;
-	}
-
-	public void setJourneySet(Set<Journey> journeySet) {
-		this.journeySet = journeySet;
-		clientDao.update(this);
 	}
 
 	public Boolean update(String name, String email, String referencePerson, String address) {
@@ -133,36 +123,13 @@ public class Client extends User {
 		this.company = company;
 		clientDao.update(this);
 	}
-
-	public void setAddress(String address) {
-		this.address = address;
-		clientDao.update(this);
-	}
-
+	
 	public String getReferencePerson() {
 		return referencePerson;
 	}
 
-	public void setReferencePerson(String referencePerson) {
-		this.referencePerson = referencePerson;
-		clientDao.update(this);
-	}
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-		clientDao.update(this);
-	}
-
 	public String getEmail() {
 		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-		clientDao.update(this);
 	}
 	
 	public String getName() {
@@ -170,19 +137,6 @@ public class Client extends User {
 	}
 	public int getId() {
 		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-		clientDao.update(this);
-	}
-
-	public void setName(String name) {
-		this.name = name;
-		clientDao.update(this);
-	}
-	
-	public String toString() {
-		return "Name: "+ name + ". Email:" + email;
 	}
 	
 	@Override
@@ -292,11 +246,6 @@ public class Client extends User {
 	public List<Message> getMessages() {
 		return messages;
 	}
-
-	public void setMessages(List<Message> messages) {
-		this.messages = messages;
-		clientDao.update(this);
-	}
 	
 	public Set<Journey> filterOnJourney() {
 		Set<Journey> filteredJourneys = new HashSet<>();
@@ -347,5 +296,11 @@ public class Client extends User {
 		}
 		return completedJourneys;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+	
+	
 
 }

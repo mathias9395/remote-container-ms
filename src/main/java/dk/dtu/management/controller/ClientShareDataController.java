@@ -52,7 +52,7 @@ public class ClientShareDataController {
 // Shared With table
 	
 	public void removeSharedClient(int id,String email) {
-		Client c = new Client(id, email);
+		Client c = company.getClientById(id);
 		client.removeSharedWithClients(c);
 		company.getClientById(id).removeSharedData(client);
 	}

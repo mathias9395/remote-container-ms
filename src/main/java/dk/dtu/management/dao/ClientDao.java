@@ -65,26 +65,26 @@ public class ClientDao {
 		return client;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Client> getAll() {
-		Transaction transaction = null;
-		List<Client> clients = null;
-		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-			// start the transaction
-			transaction = session.beginTransaction();
-			
-			// get students
-			clients = session.createQuery("from Client").list();
-			
-			// commit the transaction
-			transaction.commit();
-		} catch (Exception e) {
-			if(transaction != null) {
-				transaction.rollback();
-			}
-		}
-		return clients;
-	}
+//	@SuppressWarnings("unchecked")
+//	public List<Client> getAll() {
+//		Transaction transaction = null;
+//		List<Client> clients = null;
+//		try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+//			// start the transaction
+//			transaction = session.beginTransaction();
+//			
+//			// get students
+//			clients = session.createQuery("from Client").list();
+//			
+//			// commit the transaction
+//			transaction.commit();
+//		} catch (Exception e) {
+//			if(transaction != null) {
+//				transaction.rollback();
+//			}
+//		}
+//		return clients;
+//	}
 	
 	public void delete(int id) {
 		Transaction transaction = null;

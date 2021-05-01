@@ -10,14 +10,6 @@ public class Accounts {
 	public void addUser(User user) {
 		users.add(user);
 	}
-
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
 	
 	public Boolean login(String email, String password) {
 		for (User u : users) {

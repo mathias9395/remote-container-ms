@@ -71,4 +71,6 @@ public class Message {
 		messageDao.update(this);
 	}
 	
+	
+	
 }

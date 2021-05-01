@@ -50,15 +50,6 @@ public class LogisticCompany extends User {
 		this.password = password;
 		companyDao.save(this);
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-		companyDao.update(this);
-	}
 	
 	public void addContainer(Container container) {
 		container.setCompany(this);
@@ -76,35 +67,22 @@ public class LogisticCompany extends User {
 		this.containers = containers;
 		companyDao.update(this);
 	}
-
+	
+	// Not used
 	public String getEmail() {
 		return email;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
-		companyDao.update(this);
-	}
-
+	
+	// Not used
 	public String getPassword() {
 		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-		companyDao.update(this);
 	}
 
 	public Set<Client> getClients() {
 		return clients;
 	}
-
-	public void setClients(Set<Client> clients) {
-		this.clients = clients;
-		companyDao.update(this);
-	}
 	
-	public Boolean addClient(Client client) { 
+	public Boolean addClient(Client client) {
 		
 		if (clientWithEmail(client,client.getEmail())) {
 			return false;
@@ -161,20 +139,6 @@ public class LogisticCompany extends User {
 		}
 		return false;
 	}
-	
-	
-	
-	
-	
-	
-	//SHARED DATA METHODS
-//	public void shareData(Client client) {
-//		for (Client temp : client.getShareClient()) {
-//	        if(clients.contains(temp)) {
-//	        	temp.setSharedData(client.toString());
-//	        }
-//		}
-//	}
 
 	public static LogisticCompany getInstance() {
 		if (companyDao.getById(1) == null) {

@@ -43,9 +43,9 @@ public class LoginView extends JFrame {
 		setLayout(new GridLayout(3,2,0,5));
 		
 		txtLogin = new JTextField(15);
-		txtLogin.setDocument(new JTextFieldLimit(60));
+		txtLogin.setDocument(new JTextFieldLimit(32));
 		txtPass = new JPasswordField(15);
-		txtPass.setDocument(new JTextFieldLimit(60));
+		txtPass.setDocument(new JTextFieldLimit(32));
 		btnLogin = new JButton(" Login");
 		btnLogin.addActionListener(new ActionListener() {
 			@Override

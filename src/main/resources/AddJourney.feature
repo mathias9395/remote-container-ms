@@ -21,7 +21,7 @@ Feature: Adding a journey
 
   @tag1
   Scenario: Journey added successfully
-  	Given a client
+  	Given client
     And an origin "Copenhagen"
     And a destination "Hamburg"
     And a content type "Apples"
