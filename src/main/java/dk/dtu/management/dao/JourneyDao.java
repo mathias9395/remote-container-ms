@@ -65,6 +65,8 @@ public class JourneyDao {
 		return journey;
 	}
 	
+ 
+	
 	public void delete(int id) {
 		Transaction transaction = null;
 		Journey journey = null;

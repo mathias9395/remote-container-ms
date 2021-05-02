@@ -183,7 +183,7 @@ public class ClientShareDataView extends JFrame {
 		lblEmailSearch.setBounds(150, 30, 120, 40);
 		txtEmailSearch.setBounds(150, 60, 120, 40);
 		btnClientSearch.setBounds(297, 60, 120, 40);
-		btnRemoveClient.setBounds(727, 60, 120, 40);
+		btnRemoveClient.setBounds(687, 60, 160, 40);
 		
 		lblClientAll.setBounds(20, 100, 120,40);
 		lblClientShared.setBounds(450,100,190,40);

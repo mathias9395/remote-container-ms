@@ -115,6 +115,8 @@ public class AddStatusView extends JFrame{
 	
 	public String getTempField() {
 		return tempField.getText();
+		//Might have to get changed to this 
+		//setText(String.valueOf(controller.getTemperature()));
 	}
 	
 	public String getHumidityField() {

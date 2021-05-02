@@ -22,8 +22,9 @@ public class HibernateUtil {
 			try {
 				Configuration configuration = new Configuration();
 
-				Properties settings = new Properties();		
-				
+				// Hibernate settings equivalent to hibernate.cfg.xml's properties
+				Properties settings = new Properties();
+ 			
 				
 				
 				settings.put(Environment.DRIVER, "org.h2.Driver");

@@ -85,6 +85,8 @@ public class AdminClientDashboardController {
 		view.setVisible(false);
 		application.addJourney(client);
 	}
+
+
 	
 	public void message() {
 		view.setVisible(false);

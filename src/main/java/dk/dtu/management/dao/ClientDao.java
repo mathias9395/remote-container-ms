@@ -65,6 +65,8 @@ public class ClientDao {
 		return client;
 	}
 	
+
+	
 	public void delete(int id) {
 		Transaction transaction = null;
 		Client client = null;

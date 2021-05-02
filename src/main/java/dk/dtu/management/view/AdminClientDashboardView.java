@@ -143,8 +143,8 @@ public class AdminClientDashboardView extends JFrame{
 		ID.setBounds(20,30,250,15);
 		email.setBounds(20,55,250,15);
 		Ref.setBounds(315,30,250,15);
-		cbContainer.setBounds(15, 80, 200, 30);
-		cbAllJourneys.setBounds(15, 105, 200, 30);
+		cbContainer.setBounds(20, 80, 150, 30);
+		cbAllJourneys.setBounds(20, 105, 150, 30);
 		
 		
 		cbContainer.addActionListener(new ActionListener() {
@@ -241,10 +241,13 @@ public class AdminClientDashboardView extends JFrame{
 		});
 		
 		panel.add(logout);
+		
+		
+ 
 
 		
-	    //COLUMN HEADERS
-	    String[] columnHeaders={"ID","Origin","Destination","Content","Company"};
+	      //COLUMN HEADERS
+	        String[] columnHeaders={"ID","Origin","Destination","Content","Company"};
 	    
 	    // modeling the table
 	        
@@ -274,7 +277,7 @@ public class AdminClientDashboardView extends JFrame{
 		// scrollable form 
 		
 		JScrollPane scrollable = new JScrollPane(table);
-		scrollable.setBounds(200, 70, 360, 220);
+ 
 	    scrollable.setVisible(true);
 		panel.add(scrollable);
 		
@@ -282,17 +285,15 @@ public class AdminClientDashboardView extends JFrame{
 		
 		logout.setBounds(450,100,110,30);
 		enterOrigin.setBounds(20, 150, 110, 30);
-		//RemoveSelected.setBounds(450,320,110,30);
-		scrollable.setBounds(180, 150, 380, 150);
+		scrollable.setBounds(180, 150, 380, 200);
 		origin.setBounds(20,115,110,50);
-		//AddSelected.setBounds(320, 320, 110, 30);
 		enterContent.setBounds(20, 210, 110, 30);
 		content.setBounds(20,175,110,50);
 		destination.setBounds(20,235,110,50);
 		enterDestination.setBounds(20, 270, 110, 30);
 		back.setBounds(0,0,20,20);
 		search.setBounds(20, 320, 110, 30);
-		btnChat.setBounds(320, 100, 110, 30);
+		btnChat.setBounds(180, 100, 110, 30);
 		
 		
 		

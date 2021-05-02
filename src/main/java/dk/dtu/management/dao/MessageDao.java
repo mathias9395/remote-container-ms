@@ -65,6 +65,7 @@ public class MessageDao {
 		return message;
 	}
 	
+ 
 	public void delete(int id) {
 		Transaction transaction = null;
 		Message message = null;

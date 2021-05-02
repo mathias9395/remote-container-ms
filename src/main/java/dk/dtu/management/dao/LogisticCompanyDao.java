@@ -70,6 +70,8 @@ public class LogisticCompanyDao {
 		return company;
 	}
 	
+ 
+	
 	public void delete(int id) {
 		Transaction transaction = null;
 		LogisticCompany company = null;

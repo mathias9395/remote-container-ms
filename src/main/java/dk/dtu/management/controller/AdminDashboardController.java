@@ -12,7 +12,7 @@ public class AdminDashboardController {
 	
 	private LogisticCompany company;
 	private AdminDashboardView view;
-	//private AddClientController addClientController;
+
 	private ApplicationController application;
 	
 	public AdminDashboardController(ApplicationController application, LogisticCompany company) {
@@ -55,11 +55,14 @@ public class AdminDashboardController {
 		view.resetTable();
 		for (Client c : clients) {
 			view.addTableRow(new Object[] {c.getId(),c.getName(),c.getEmail(),c.getReferencePerson(),c.getAddress(),false});
+			
 		}
 	}
 	
 	public void deleteClient(int id) {
 		
+		
+
 		Client c = company.getClientById(id);
 		company.removeClient(c);
 	}

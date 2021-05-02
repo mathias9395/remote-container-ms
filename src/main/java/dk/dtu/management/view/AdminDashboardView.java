@@ -107,7 +107,7 @@ public class AdminDashboardView extends JFrame {
 		btnDeleteClient.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-	            int result = JOptionPane.showConfirmDialog(frame,"Sure? Are you sure you want to remove the Client(s) ?", "Swing Tester",
+	            int result = JOptionPane.showConfirmDialog(frame,"Are you sure you want to remove the Client(s) ?", "Sure",
 			               JOptionPane.YES_NO_OPTION,
 			               JOptionPane.QUESTION_MESSAGE);
 			            if(result == JOptionPane.YES_OPTION){

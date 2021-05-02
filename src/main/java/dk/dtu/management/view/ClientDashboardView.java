@@ -198,7 +198,7 @@ public class ClientDashboardView extends JFrame{
 		
 		RemoveSelected = new JButton("Remove");
 		
-		//frame.add(AddSelected);
+ 
 		
 		
 		
@@ -206,7 +206,7 @@ public class ClientDashboardView extends JFrame{
 		
 		
 		// TABLE
-		// data must come from the database!!
+ 
 
 		
 	      //COLUMN HEADERS
